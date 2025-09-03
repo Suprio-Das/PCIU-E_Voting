@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import ConnectDB from './Utils/db.js';
 import CommissionerRoutes from './Router/CommissionerRouter.js';
+import AuthRoutes from './Router/AuthRouter.js';
 dotenv.config();
 
 // Define PORT
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 })
 
 // ======================APP Routes========================\\
+app.use('/api/auth', AuthRoutes);
 app.use('/api/commissioner', CommissionerRoutes);
 // ======================APP Routes========================\\
 
