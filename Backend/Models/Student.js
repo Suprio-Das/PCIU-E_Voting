@@ -11,8 +11,12 @@ const StudentSchema = new mongoose.Schema({
     },
     voted: {
         type: Boolean,
-        default: false,
-        required: true
+        default: false
+    },
+    role: {
+        type: String,
+        enum: ['commissioner', 'student'],
+        default: 'student'
     }
 })
 
