@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import ConnectDB from './Utils/db.js';
+import CommissionerRoutes from './Router/CommissionerRouter.js';
 dotenv.config();
 
 // Define PORT
@@ -21,6 +22,10 @@ ConnectDB();
 app.get('/', (req, res) => {
     res.send('PCIU E-voting server is runnning.')
 })
+
+// ======================APP Routes========================\\
+app.use('/api/commissioner', CommissionerRoutes);
+// ======================APP Routes========================\\
 
 // Listen the Server
 app.listen(PORT);
