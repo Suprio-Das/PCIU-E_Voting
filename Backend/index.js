@@ -13,5 +13,10 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
+// Default Server route
+app.get('/', (req, res) => {
+    res.send('PCIU E-voting server is runnning.')
+})
+
 // Listen the Server
 app.listen(PORT);
