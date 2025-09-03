@@ -15,3 +15,6 @@ const CommissionerSchema = new mongoose.Schema({
         default: 'student'
     }
 })
+
+const CommissionerModel = mongoose.model('Commissioner', CommissionerSchema);
+export default CommissionerModel;
