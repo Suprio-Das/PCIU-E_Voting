@@ -8,6 +8,9 @@ export const Login = async (req, res) => {
         if (!commissioner) {
             res.status(404).json({ success: false, message: "Commissioner is not found" })
         }
+        if (commissioner.password !== password) {
+            res.status(401).json({ success: false, message: "Incorrect credentials." })
+        }
     } catch (error) {
         res.send(error);
     }
