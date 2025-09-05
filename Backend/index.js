@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import ConnectDB from './Utils/db.js';
 import CommissionerRoutes from './Router/CommissionerRouter.js';
 import AuthRoutes from './Router/AuthRouter.js';
+import cookieParser from 'cookie-parser';
 dotenv.config();
 
 // Define PORT
@@ -15,6 +16,7 @@ const app = express();
 // Middlewares
 app.use(express.json())
 app.use(cors())
+app.use(cookieParser())
 
 // Database Connection
 ConnectDB();

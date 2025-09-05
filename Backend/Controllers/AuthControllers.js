@@ -14,7 +14,12 @@ export const Login = async (req, res) => {
         }
 
         const token = jwt.sign({ userId: commissioner._id }, process.env.JWT_Secret)
-        console.log(token);
+
+        res.cookies('token', token, {
+            maxAge: 86400000,
+            secure: false,
+            httpOnly: true
+        })
     } catch (error) {
         res.send(error);
     }
