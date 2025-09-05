@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken'
 
 export const Login = async (req, res) => {
     try {
-        console.log(req.body);
         const { email, password } = req.body;
         const commissioner = await CommissionerModel.findOne({ email });
         if (!commissioner) {
@@ -15,11 +14,13 @@ export const Login = async (req, res) => {
 
         const token = jwt.sign({ userId: commissioner._id }, process.env.JWT_Secret)
 
-        res.cookies('token', token, {
+        res.cookie('token', token, {
             maxAge: 86400000,
             secure: false,
             httpOnly: true
         })
+
+        res.status(200).json({ success: true, message: "Commissioner Logged-in successfully", commissioner })
     } catch (error) {
         res.send(error);
     }
