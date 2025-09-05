@@ -17,6 +17,9 @@ export const isCommissioner = async (req, res, next) => {
             return res.status(401).json({ success: false, message: 'Unauthorized access denied.' })
         }
 
+        req.commssioner = commissioner;
+        next();
+
     } catch (error) {
         return res.send(error);
     }
