@@ -1,12 +1,26 @@
 import VotingStatusModel from "../Models/VotingStatus.js"
+import { ObjectId } from 'mongodb';
 
-const StartElection = async (req, res) => {
+export const StartElection = async (req, res) => {
     try {
-        const election = await VotingStatusModel.find({})
-        if (election) {
-            return res.status(405).json({ success: false, message: "Election is running. Can not operate another" })
+        const elections = await VotingStatusModel.find({})
+        const election = elections[0];
+        if (election.active === true) {
+            return res.status(405).json({ success: false, message: "Election is running. Wait till finished." })
         }
-    } catch (error) {
 
+        const query = { _id: new ObjectId(election._id) }
+
+        const updateElection = {
+            $set: {
+                active: true
+            }
+        }
+
+        const newUpdatedElection = await VotingStatusModel.updateOne(query, updateElection)
+
+        res.status(200).json({ success: true, message: "Election Started." }, newUpdatedElection)
+    } catch (error) {
+        return res.send(error)
     }
 }

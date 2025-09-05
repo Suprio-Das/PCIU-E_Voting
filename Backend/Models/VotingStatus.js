@@ -7,5 +7,5 @@ const VotingStatusSchema = new mongoose.Schema({
     }
 })
 
-const VotingStatusModel = mongoose.model('VotingStatus', VotingStatusSchema);
+const VotingStatusModel = mongoose.model('VotingStatus', VotingStatusSchema, 'VotingStatus');
 export default VotingStatusModel;
