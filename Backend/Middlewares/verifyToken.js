@@ -13,6 +13,10 @@ export const isCommissioner = async (req, res, next) => {
         if (!commissioner) {
             return res.status(404).json({ success: false, message: "Commissioner not found" })
         }
+        if (commissioner.role !== 'commissioner') {
+            return res.status(401).json({ success: false, message: 'Unauthorized access denied.' })
+        }
+
     } catch (error) {
         return res.send(error);
     }
