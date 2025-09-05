@@ -25,3 +25,12 @@ export const Login = async (req, res) => {
         res.send(error);
     }
 }
+
+export const logout = async (req, res) => {
+    try {
+        res.clearCookie('token')
+        res.status(200).json({ success: true, message: 'Commissioner logout successfully' })
+    } catch (error) {
+        res.send(error)
+    }
+}
