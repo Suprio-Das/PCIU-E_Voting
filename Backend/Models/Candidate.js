@@ -15,5 +15,5 @@ const CandidateSchema = new mongoose.Schema({
     }
 })
 
-const CandidateModel = mongoose.model('Candidates', CandidateSchema);
+const CandidateModel = mongoose.model('Candidates', CandidateSchema, 'Candidates');
 export default CandidateModel;

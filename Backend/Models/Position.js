@@ -7,5 +7,5 @@ const PositionSchema = new mongoose.Schema({
     }
 })
 
-const PositionModel = mongoose.model('Positions', PositionSchema);
+const PositionModel = mongoose.model('Positions', PositionSchema, 'Positions');
 export default PositionModel;

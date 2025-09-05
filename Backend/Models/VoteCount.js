@@ -10,5 +10,5 @@ const VotingCountSchema = new mongoose.Schema({
     }
 })
 
-const VotingCountModel = mongoose.model('VotingCounts', VotingCountSchema);
+const VotingCountModel = mongoose.model('VotingCounts', VotingCountSchema, 'VotingCounts');
 export default VotingCountModel;
