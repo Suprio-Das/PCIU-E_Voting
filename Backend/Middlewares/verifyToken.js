@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import CommissionerModel from '../Models/Commissioner';
+import CommissionerModel from '../Models/Commissioner.js';
 
 export const isCommissioner = async (req, res, next) => {
     try {
