@@ -1,4 +1,5 @@
 import CommissionerModel from "../Models/Commissioner.js";
+import jwt from 'jsonwebtoken'
 
 export const Login = async (req, res) => {
     try {
@@ -11,6 +12,9 @@ export const Login = async (req, res) => {
         if (commissioner.password !== password) {
             res.status(401).json({ success: false, message: "Incorrect credentials." })
         }
+
+        const token = jwt.sign({ userId: commissioner._id }, process.env.JWT_Secret)
+        console.log(token);
     } catch (error) {
         res.send(error);
     }
