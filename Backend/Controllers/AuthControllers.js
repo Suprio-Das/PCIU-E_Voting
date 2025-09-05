@@ -26,7 +26,7 @@ export const Login = async (req, res) => {
     }
 }
 
-export const logout = async (req, res) => {
+export const Logout = async (req, res) => {
     try {
         res.clearCookie('token')
         res.status(200).json({ success: true, message: 'Commissioner logout successfully' })
