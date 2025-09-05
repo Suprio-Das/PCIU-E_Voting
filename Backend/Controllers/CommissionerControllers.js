@@ -19,7 +19,7 @@ export const StartElection = async (req, res) => {
 
         const newUpdatedElection = await VotingStatusModel.updateOne(query, updateElection)
 
-        res.status(200).json({ success: true, message: "Election Started." }, newUpdatedElection)
+        res.status(200).json({ success: true, message: "Election has Started." }, newUpdatedElection)
     } catch (error) {
         return res.send(error)
     }
