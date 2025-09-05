@@ -16,5 +16,5 @@ const CommissionerSchema = new mongoose.Schema({
     }
 })
 
-const CommissionerModel = mongoose.model('Commissioner', CommissionerSchema);
+const CommissionerModel = mongoose.model('Commissioner', CommissionerSchema, 'Commissioner');
 export default CommissionerModel;
