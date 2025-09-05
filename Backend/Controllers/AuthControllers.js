@@ -6,10 +6,10 @@ export const Login = async (req, res) => {
         const { email, password } = req.body;
         const commissioner = await CommissionerModel.findOne({ email });
         if (!commissioner) {
-            res.status(404).json({ success: false, message: "Commissioner is not found" })
+            return res.status(404).json({ success: false, message: "Commissioner is not found" })
         }
         if (commissioner.password !== password) {
-            res.status(401).json({ success: false, message: "Incorrect credentials." })
+            return res.status(401).json({ success: false, message: "Incorrect credentials." })
         }
 
         const token = jwt.sign({ userId: commissioner._id }, process.env.JWT_Secret)
@@ -20,17 +20,17 @@ export const Login = async (req, res) => {
             httpOnly: true
         })
 
-        res.status(200).json({ success: true, message: "Commissioner Logged-in successfully", commissioner })
+        return res.status(200).json({ success: true, message: "Commissioner Logged-in successfully", commissioner })
     } catch (error) {
-        res.send(error);
+        return res.send(error);
     }
 }
 
 export const Logout = async (req, res) => {
     try {
         res.clearCookie('token')
-        res.status(200).json({ success: true, message: 'Commissioner logout successfully' })
+        return res.status(200).json({ success: true, message: 'Commissioner logout successfully' })
     } catch (error) {
-        res.send(error)
+        return res.send(error)
     }
 }
