@@ -62,21 +62,9 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 ---
 
 ## 🏛 System Architecture
-
-```mermaid
-flowchart LR
-    PC1[PC1: Commissioner Panel + Backend Server] -->|LAN API Calls| PC2[PC2: Student Voting Panel]
-
-    subgraph PC1
-        BE[Node.js/Express Backend] --> DB[(MongoDB Database)]
-        CP[Commissioner Panel] --> BE
-    end
-
-    subgraph PC2
-        FE[React Frontend (Vite + Tailwind)]
-        FE --> BE
-    end
-```
+<br>
+<img src="PCIU-Evoting Flowchart.png"/>
+<br>
 
 - **PC1**: Runs Node.js/Express backend + MongoDB. Hosts Commissioner Control Panel.  
 - **PC2**: React-based frontend for Students. Connects to PC1 backend APIs over LAN.  
