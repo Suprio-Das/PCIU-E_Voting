@@ -144,4 +144,4 @@ npm run dev
 
 ## ❤️ Footer
 
-**Made with ❤️ by:**
+**Made with ❤️ by: <a href="https://www.linkedin.com/in/supriodas03/" target="_blank">Suprio Das</a>**
