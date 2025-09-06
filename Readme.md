@@ -136,7 +136,8 @@ npm run dev
 
 **Developer:** Suprio Das  
 - 🎓 Batch: CSE 28-A-Day  
-- 🆔 ID: CSE 02807546  
+- 🆔 ID: CSE 02807546
+- 🌐 IT Secretary at PCIU Computer Club
 - 🏛 Department of Computer Science & Engineering  
 - 🌐 Port City International University  
 
