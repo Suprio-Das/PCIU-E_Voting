@@ -70,7 +70,7 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 
 ---
 
-## 🔄 Workflow
+## Workflow
 
 1. Commissioner logs in and configures election (**candidates + voters**).  
 2. Commissioner **starts election**.  
@@ -80,7 +80,7 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 
 ---
 
-## 🔐 Security
+## Security
 - **JWT authentication** for Commissioner.  
 - **One-vote-per-student** enforcement.  
 - Encrypted voter and vote data in **MongoDB**.  
@@ -90,7 +90,7 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 
 ## ⚙️ Deployment Instructions
 
-### 🔹 Backend Setup
+### Backend Setup
 ```bash
 # Clone repository
 git clone <repo-url>
@@ -106,21 +106,21 @@ mongod
 npm start
 ```
 
-### 🔹 Frontend Setup
+### Frontend Setup
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-### 🔹 LAN Configuration
+### LAN Configuration
 1. Connect **PC1 (server)** and **PC2 (client)** in the same LAN.  
 2. Assign **static IPs** to both PCs.  
 3. Update frontend `.env` file to point API base URL → `http://<PC1_IP>:<PORT>`.  
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 - ☁️ Cloud-based deployment for scalability.  
 - ⛓ Blockchain integration for **tamper-proof voting**.  
 - 🧑‍💻 Biometric authentication (fingerprint/face recognition).  
@@ -128,7 +128,7 @@ npm run dev
 
 ---
 
-## 👨‍💻 Contributors
+## Contributors
 <p align="left">
   <img src="My-Professional-Image.png" alt="Suprio Das" width="120" height="120" style="border-radius:50%" />
 </p>
