@@ -20,7 +20,7 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 
 1. [System Roles](#-system-roles)  
 2. [Key Features](#-key-features)  
@@ -33,23 +33,23 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 
 ---
 
-## 👥 System Roles
+## System Roles
 
-### 🧑‍⚖️ Commissioner
+### Commissioner
 - Log in securely with credentials.  
 - Add/manage **candidates** and **voters**.  
 - Start/stop elections.  
 - Monitor real-time voting status.  
 - Export election results.  
 
-### 🎓 Student
+### Student
 - Log in with **Student ID**.  
 - View candidate list.  
 - Cast a **single secure vote**.  
 
 ---
 
-## ✨ Key Features
+## Key Features
 - Commissioner-only election management.  
 - Add candidates and register voters.  
 - Start/stop elections with **real-time monitoring**.  
