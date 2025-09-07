@@ -88,8 +88,6 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 
 ---
 
-## ⚙️ Deployment Instructions
-
 ### Backend Setup
 ```bash
 # Clone repository
