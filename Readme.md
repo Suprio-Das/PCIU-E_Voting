@@ -27,7 +27,6 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 3. [System Architecture](#-system-architecture)  
 4. [Workflow](#-workflow)  
 5. [Security](#-security)  
-6. [Deployment Instructions](#-deployment-instructions)  
 7. [Future Improvements](#-future-improvements)  
 8. [Contributors](#-contributors)  
 9. [Footer](#-footer)  
