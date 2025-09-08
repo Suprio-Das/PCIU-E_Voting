@@ -119,7 +119,7 @@ npm run dev
 ---
 
 ## Future Improvements
-- ☁️ Cloud-based deployment for scalability.  
+- Cloud-based deployment for scalability.  
 - ⛓ Blockchain integration for **tamper-proof voting**.  
 - 🧑‍💻 Biometric authentication (fingerprint/face recognition).  
 - 📊 Real-time analytics dashboard for results.  
