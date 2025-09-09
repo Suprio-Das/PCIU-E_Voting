@@ -115,7 +115,7 @@ npm run dev
 1. Connect **PC1 (server)** and **PC2 (client)** in the same LAN.  
 2. Assign **static IPs** to both PCs.  
 3. Update frontend `.env` file to point API base URL → `http://<PC1_IP>:<PORT>`.
-
+---
 
 ## Contributors
 <p align="left">
