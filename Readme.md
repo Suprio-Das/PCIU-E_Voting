@@ -114,17 +114,8 @@ npm run dev
 ### LAN Configuration
 1. Connect **PC1 (server)** and **PC2 (client)** in the same LAN.  
 2. Assign **static IPs** to both PCs.  
-3. Update frontend `.env` file to point API base URL → `http://<PC1_IP>:<PORT>`.  
+3. Update frontend `.env` file to point API base URL → `http://<PC1_IP>:<PORT>`.
 
----
-
-## Future Improvements
-- Cloud-based deployment for scalability.  
-- ⛓ Blockchain integration for **tamper-proof voting**.  
-- 🧑‍💻 Biometric authentication (fingerprint/face recognition).  
-- 📊 Real-time analytics dashboard for results.  
-
----
 
 ## Contributors
 <p align="left">
