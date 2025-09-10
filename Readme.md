@@ -87,29 +87,6 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 
 ---
 
-### Backend Setup
-```bash
-# Clone repository
-git clone <repo-url>
-cd backend
-
-# Install dependencies
-npm install
-
-# Start MongoDB
-mongod
-
-# Run server
-npm start
-```
-
-### Frontend Setup
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
 ### LAN Configuration
 1. Connect **PC1 (server)** and **PC2 (client)** in the same LAN.  
 2. Assign **static IPs** to both PCs.  
