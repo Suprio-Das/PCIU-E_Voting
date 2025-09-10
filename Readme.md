@@ -42,7 +42,7 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 - Export election results.  
 
 ### Student
-- Log in with **Student ID**.  
+- Log in to voting panel with **Student ID**.  
 - View candidate list.  
 - Cast a **single secure vote**.  
 
