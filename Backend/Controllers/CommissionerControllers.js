@@ -69,7 +69,10 @@ export const AddCandidates = async (req, res) => {
 
 export const AddVoters = async (req, res) => {
     try {
-        console.log("Add Voters.")
+        const voters = req.body;
+        if (!voters) {
+            return res.status(404).json({ success: false, message: "No voters are found." })
+        }
     } catch (error) {
         return res.send(error);
     }
