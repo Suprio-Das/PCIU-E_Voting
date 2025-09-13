@@ -1,4 +1,5 @@
 import CandidateModel from "../Models/Candidate.js";
+import StudentModel from "../Models/Student.js";
 import VotingStatusModel from "../Models/VotingStatus.js"
 import { ObjectId } from 'mongodb';
 
@@ -73,6 +74,11 @@ export const AddVoters = async (req, res) => {
         if (!voters) {
             return res.status(404).json({ success: false, message: "No voters are found." })
         }
+        const newVoters = await StudentModel.insertMany(voters);
+        if (!newVoters) {
+            return res.status(400).json({ succes: false, message: "Error while adding new voters." });
+        }
+        return res.status(200).json({ success: true, message: "New voters are added." })
     } catch (error) {
         return res.send(error);
     }
