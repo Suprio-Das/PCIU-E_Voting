@@ -51,7 +51,8 @@ export const StopElection = async (req, res) => {
 
 export const AddCandidates = async (req, res) => {
     try {
-        console.log("Add Candidates.")
+        const { name, studentId, position } = req.body;
+        console.log(name, studentId, position);
     } catch (error) {
         res.send(error);
     }
