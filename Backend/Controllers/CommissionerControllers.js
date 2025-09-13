@@ -48,3 +48,11 @@ export const StopElection = async (req, res) => {
         return res.send(error)
     }
 }
+
+export const AddCandidates = async (req, res) => {
+    try {
+        console.log("Add Candidates.")
+    } catch (error) {
+        res.send(error);
+    }
+}
