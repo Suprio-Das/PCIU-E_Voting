@@ -66,3 +66,11 @@ export const AddCandidates = async (req, res) => {
         res.send(error);
     }
 }
+
+export const AddVoters = async (req, res) => {
+    try {
+        console.log("Add Voters.")
+    } catch (error) {
+        return res.send(error);
+    }
+}
