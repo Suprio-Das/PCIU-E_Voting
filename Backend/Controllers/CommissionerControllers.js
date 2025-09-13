@@ -63,7 +63,7 @@ export const AddCandidates = async (req, res) => {
             position
         }
 
-        const newCandidates = await CandidateModel.insertOne(CandidateModel);
+        const newCandidates = await CandidateModel.insertOne(Candidates);
 
         if (!newCandidates) {
             res.send(404).json({ success: false, message: "Unable to add candidate." })
