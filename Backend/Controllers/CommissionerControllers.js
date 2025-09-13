@@ -52,7 +52,9 @@ export const StopElection = async (req, res) => {
 export const AddCandidates = async (req, res) => {
     try {
         const { name, studentId, position } = req.body;
-        console.log(name, studentId, position);
+        if (name === '' || studentId === '' || position === '') {
+            res.send("All fields are required.");
+        }
     } catch (error) {
         res.send(error);
     }
