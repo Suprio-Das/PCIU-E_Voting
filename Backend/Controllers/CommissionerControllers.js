@@ -52,24 +52,16 @@ export const StopElection = async (req, res) => {
 
 export const AddCandidates = async (req, res) => {
     try {
-        const { name, studentId, position } = req.body;
-        if (name === '' || studentId === '' || position === '') {
-            res.send("All fields are required.");
-        }
+        const candidates = req.body;
 
-        const Candidates = {
-            name,
-            studentId,
-            position
-        }
-
-        const newCandidates = await CandidateModel.insertOne(Candidates);
+        const newCandidates = await CandidateModel.insertMany(candidates);
 
         if (!newCandidates) {
-            res.send(404).json({ success: false, message: "Unable to add candidate." })
+            return res.send(404).json({ success: false, message: "Unable to add candidate." })
         }
 
-        res.status(200).json({ success: true, message: "New Candidate Created." });
+        return res.status(200).json({ success: true, message: "New Candidate Created." });
+
     } catch (error) {
         res.send(error);
     }
