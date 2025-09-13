@@ -68,6 +68,8 @@ export const AddCandidates = async (req, res) => {
         if (!newCandidates) {
             res.send(404).json({ success: false, message: "Unable to add candidate." })
         }
+
+        res.status(200).json({ success: true, message: "New Candidate Created." });
     } catch (error) {
         res.send(error);
     }
