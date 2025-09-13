@@ -1,3 +1,4 @@
+import CandidateModel from "../Models/Candidate.js";
 import VotingStatusModel from "../Models/VotingStatus.js"
 import { ObjectId } from 'mongodb';
 
@@ -54,6 +55,18 @@ export const AddCandidates = async (req, res) => {
         const { name, studentId, position } = req.body;
         if (name === '' || studentId === '' || position === '') {
             res.send("All fields are required.");
+        }
+
+        const Candidates = {
+            name,
+            studentId,
+            position
+        }
+
+        const newCandidates = await CandidateModel.insertOne(CandidateModel);
+
+        if (!newCandidates) {
+            res.send(404).json({ success: false, message: "Unable to add candidate." })
         }
     } catch (error) {
         res.send(error);
