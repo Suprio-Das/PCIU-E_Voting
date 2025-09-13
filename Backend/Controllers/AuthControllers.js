@@ -11,6 +11,9 @@ export const Login = async (req, res) => {
         if (commissioner.password !== password) {
             return res.status(401).json({ success: false, message: "Incorrect credentials." })
         }
+        if (commissioner.role !== 'commissioner') {
+            return res.status(401).json({ success: false, message: "Unauthorized login failed." })
+        }
 
         const token = jwt.sign({ userId: commissioner._id }, process.env.JWT_Secret)
 
