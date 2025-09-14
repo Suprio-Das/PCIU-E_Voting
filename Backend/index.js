@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', AuthRoutes);
 app.use('/api/commissioner', CommissionerRoutes);
 app.use('/api/votestats', VotingStatusRoutes)
-app.use('/api/getcandidatewithposition', VotingRoutes);
+app.use('/api/vote', VotingRoutes);
 // ======================APP Routes========================\\
 
 // Listen the Server
