@@ -12,6 +12,14 @@ export const GetCandidateWithPosition = async (req, res) => {
     }
 }
 
+export const VerifyVoter = async (req, res) => {
+    try {
+        console.log("Verify voter")
+    } catch (error) {
+        return res.send(error);
+    }
+}
+
 export const SubmitVote = async (req, res) => {
     try {
         console.log("Vote submission.")
