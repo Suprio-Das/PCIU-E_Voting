@@ -6,6 +6,7 @@ import CommissionerRoutes from './Router/CommissionerRouter.js';
 import AuthRoutes from './Router/AuthRouter.js';
 import cookieParser from 'cookie-parser';
 import VotingStatusRoutes from './Router/VotingStatusRouter.js';
+import VotingRoutes from './Router/VotingRouter.js';
 dotenv.config();
 
 // Define PORT
@@ -31,6 +32,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', AuthRoutes);
 app.use('/api/commissioner', CommissionerRoutes);
 app.use('/api/votestats', VotingStatusRoutes)
+app.use('/api/getcandidatewithposition', VotingRoutes);
 // ======================APP Routes========================\\
 
 // Listen the Server
