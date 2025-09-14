@@ -16,11 +16,13 @@ export const GetCandidateWithPosition = async (req, res) => {
 export const VerifyVoter = async (req, res) => {
     try {
         const { studentId } = req.body;
-        console.log(studentId)
         const query = { studentId: studentId };
         const student = await StudentModel.findOne(query)
         if (!student) {
             return res.status(404).json({ success: false, message: "No information found." });
+        }
+        if (student.voted === true) {
+            return res.status(401).json({ success: false, message: "Already voted." })
         }
         return res.status(200).json({ success: true, message: "Voter logged-in successfully." })
     } catch (error) {

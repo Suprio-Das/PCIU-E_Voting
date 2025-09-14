@@ -1,5 +1,6 @@
 import express from 'express'
 import { GetCandidateWithPosition, SubmitVote, VerifyVoter } from '../Controllers/VotingController.js';
+import { isVoted } from '../Middlewares/verifyToken.js';
 
 const VotingRoutes = express.Router();
 
