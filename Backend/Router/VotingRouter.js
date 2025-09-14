@@ -4,7 +4,7 @@ import { GetCandidateWithPosition, SubmitVote, VerifyVoter } from '../Controller
 const VotingRoutes = express.Router();
 
 VotingRoutes.get('/getcandidatewithposition', GetCandidateWithPosition);
-VotingRoutes.get('/verifyvoter', VerifyVoter);
+VotingRoutes.post('/verifyvoter', VerifyVoter);
 VotingRoutes.post('/submitvote', SubmitVote);
 
 export default VotingRoutes;
