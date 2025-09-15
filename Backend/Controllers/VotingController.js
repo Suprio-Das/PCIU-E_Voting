@@ -40,10 +40,7 @@ export const SubmitVote = async (req, res) => {
         // Update student voting status to voted
         const updatedVoteStatus = {
             $set: {
-                name: student.name,
-                studentId: student.studentId,
-                voted: true,
-                role: student.role
+                voted: true
             }
         }
         const updateQuery = { _id: new ObjectId(student._id) }
@@ -51,7 +48,9 @@ export const SubmitVote = async (req, res) => {
         if (!updatedStudent) {
             return res.status(501).json({ success: false, message: "Issues while submitting vote." })
         }
-        return res.send(updatedStudent);
+
+        // Adding votes to the candidates
+
     } catch (error) {
         res.send(error);
     }
