@@ -33,8 +33,18 @@ export const VerifyVoter = async (req, res) => {
 export const SubmitVote = async (req, res) => {
     try {
         const { studentId, candidates } = req.body;
-        console.log("Voter: ", studentId);
-        console.log("Candidates: ", candidates);
+        const query = { studentId: studentId };
+        const student = await StudentModel.findOne(query);
+
+        // Update student voting status to voted
+        const updatedVoteStatus = {
+            $set: {
+                name: student.name,
+                studentId: student.studentId,
+                voted: true,
+                role: student.role
+            }
+        }
     } catch (error) {
         res.send(error);
     }
