@@ -1,5 +1,6 @@
 import CandidateModel from "../Models/Candidate.js";
 import StudentModel from "../Models/Student.js";
+import { ObjectId } from 'mongodb'
 
 export const GetCandidateWithPosition = async (req, res) => {
     try {
@@ -45,6 +46,12 @@ export const SubmitVote = async (req, res) => {
                 role: student.role
             }
         }
+        const updateQuery = { _id: new ObjectId(student._id) }
+        const updatedStudent = await StudentModel.findByIdAndUpdate(updateQuery, updatedVoteStatus)
+        if (!updatedStudent) {
+            return res.status(501).json({ success: false, message: "Issues while submitting vote." })
+        }
+        return res.send(updatedStudent);
     } catch (error) {
         res.send(error);
     }
