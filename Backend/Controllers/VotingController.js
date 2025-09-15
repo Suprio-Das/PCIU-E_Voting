@@ -32,7 +32,9 @@ export const VerifyVoter = async (req, res) => {
 
 export const SubmitVote = async (req, res) => {
     try {
-        console.log("Vote submission.")
+        const { studentId, candidates } = req.body;
+        console.log("Voter: ", studentId);
+        console.log("Candidates: ", candidates);
     } catch (error) {
         res.send(error);
     }
