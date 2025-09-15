@@ -28,7 +28,17 @@ export const isCommissioner = async (req, res, next) => {
 
 export const isVoter = async (req, res, next) => {
     try {
-        console.log("Is Voter middleware.")
+        const { studentId } = req.body;
+        const query = { studentId: studentId };
+        const student = await StudentModel.findOne(query)
+        if (!student) {
+            return res.status(404).json({ success: false, message: "No information found." });
+        }
+        if (student.voted === true) {
+            return res.status(401).json({ success: false, message: "Already voted." })
+        }
+        req.studentId = studentId;
+        next();
     } catch (error) {
         return res.send(error)
     }
