@@ -25,3 +25,11 @@ export const isCommissioner = async (req, res, next) => {
         return res.send(error);
     }
 }
+
+export const isVoter = async (req, res, next) => {
+    try {
+        console.log("Is Voter middleware.")
+    } catch (error) {
+        return res.send(error)
+    }
+}

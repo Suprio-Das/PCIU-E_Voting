@@ -1,11 +1,12 @@
 import express from 'express'
 import { GetCandidateWithPosition, SubmitVote, VerifyVoter } from '../Controllers/VotingController.js';
-import { isVoted } from '../Middlewares/verifyToken.js';
+import { isVoter } from '../Middlewares/verifyToken.js';
+// import { isVoted } from '../Middlewares/verifyToken.js';
 
 const VotingRoutes = express.Router();
 
 VotingRoutes.get('/getcandidatewithposition', GetCandidateWithPosition);
 VotingRoutes.post('/verifyvoter', VerifyVoter);
-VotingRoutes.post('/submitvote', SubmitVote);
+VotingRoutes.post('/submitvote', isVoter, SubmitVote);
 
 export default VotingRoutes;
