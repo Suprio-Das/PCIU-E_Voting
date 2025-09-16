@@ -1,6 +1,7 @@
 import CandidateModel from "../Models/Candidate.js";
 import StudentModel from "../Models/Student.js";
 import { ObjectId } from 'mongodb'
+import VotingCountModel from "../Models/VoteCount.js";
 
 export const GetCandidateWithPosition = async (req, res) => {
     try {
@@ -50,7 +51,35 @@ export const SubmitVote = async (req, res) => {
         }
 
         // Adding votes to the candidates
+        for (const candidate of candidates) {
+            const filter = { _id: new ObjectId(candidate) }
+            const currentVoteCount = await VotingCountModel.findOne(filter);
+            let update;
+            if (!currentVoteCount) {
+                update = {
+                    $set: {
+                        candidateId: candidate,
+                        totalVotes: 1
+                    }
+                }
+            } else {
+                update = {
+                    $set: {
+                        candidateId: candidate,
+                        totalVotes: currentVoteCount.totalVotes + 1
+                    }
+                }
+            }
 
+            const options = { upsert: true, new: true };
+            console.log(update);
+            await VotingCountModel.findOneAndUpdate(filter, update, options);
+            // if (!VotingCountForSingleCandidate) {
+            //     console.log("Not updated")
+            //     return res.status(501).json({ success: false, message: "Internal server error." })
+            // }
+        }
+        return res.status(200).json({ success: true, message: "Voted successfully." })
     } catch (error) {
         res.send(error);
     }
