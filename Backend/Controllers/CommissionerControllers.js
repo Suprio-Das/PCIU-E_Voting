@@ -83,3 +83,11 @@ export const AddVoters = async (req, res) => {
         return res.send(error);
     }
 }
+
+export const GetElectionResult = async (req, res) => {
+    try {
+        console.log("Get election Result")
+    } catch (error) {
+        return res.send(error);
+    }
+}

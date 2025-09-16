@@ -82,11 +82,3 @@ export const SubmitVote = async (req, res) => {
         res.send(error);
     }
 }
-
-export const GetElectionResult = async (req, res) => {
-    try {
-        console.log("Get election Result")
-    } catch (error) {
-        return res.send(error);
-    }
-}
