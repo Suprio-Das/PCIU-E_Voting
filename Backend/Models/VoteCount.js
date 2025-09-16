@@ -5,6 +5,10 @@ const VotingCountSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    position: {
+        type: String,
+        required: true
+    },
     totalVotes: {
         type: Number
     }
