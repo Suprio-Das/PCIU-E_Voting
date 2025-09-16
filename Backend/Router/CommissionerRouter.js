@@ -1,6 +1,7 @@
 import express from 'express'
 import { isCommissioner } from '../Middlewares/verifyToken.js';
 import { AddCandidates, AddVoters, StartElection, StopElection } from '../Controllers/CommissionerControllers.js';
+import { GetElectionResult } from '../Controllers/VotingController.js';
 
 const CommissionerRoutes = express.Router();
 
@@ -8,5 +9,6 @@ CommissionerRoutes.post('/createvote', isCommissioner, StartElection);
 CommissionerRoutes.post('/stopvote', isCommissioner, StopElection);
 CommissionerRoutes.post('/addcandidates', isCommissioner, AddCandidates);
 CommissionerRoutes.post('/addvoters', isCommissioner, AddVoters);
+CommissionerRoutes.get('/results', isCommissioner, GetElectionResult);
 
 export default CommissionerRoutes;

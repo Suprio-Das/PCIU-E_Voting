@@ -76,13 +76,17 @@ export const SubmitVote = async (req, res) => {
             const options = { upsert: true, new: true };
             console.log(update);
             await VotingCountModel.findOneAndUpdate(filter, update, options);
-            // if (!VotingCountForSingleCandidate) {
-            //     console.log("Not updated")
-            //     return res.status(501).json({ success: false, message: "Internal server error." })
-            // }
         }
         return res.status(200).json({ success: true, message: "Voted successfully." })
     } catch (error) {
         res.send(error);
+    }
+}
+
+export const GetElectionResult = async (req, res) => {
+    try {
+        console.log("Get election Result")
+    } catch (error) {
+        return res.send(error);
     }
 }
