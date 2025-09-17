@@ -1,5 +1,6 @@
 import CandidateModel from "../Models/Candidate.js";
 import StudentModel from "../Models/Student.js";
+import VotingCountModel from "../Models/VoteCount.js";
 import VotingStatusModel from "../Models/VotingStatus.js"
 import { ObjectId } from 'mongodb';
 
@@ -86,7 +87,38 @@ export const AddVoters = async (req, res) => {
 
 export const GetElectionResult = async (req, res) => {
     try {
-        console.log("Get election Result")
+        const ElectionResults = await VotingCountModel.aggregate([
+            // Step 1: find max votes per position
+            {
+                $group: {
+                    _id: "$position",
+                    maxVotes: { $max: "$totalVotes" },
+                    candidates: {
+                        $push: {
+                            candidateId: "$candidateId",
+                            totalVotes: "$totalVotes"
+                        }
+                    }
+                }
+            },
+
+            // Step 2: filter candidates who match the maxVotes (all tied winners)
+            {
+                $project: {
+                    _id: 0,
+                    position: "$_id",
+                    winners: {
+                        $filter: {
+                            input: "$candidates",
+                            as: "c",
+                            cond: { $eq: ["$$c.totalVotes", "$maxVotes"] }
+                        }
+                    }
+                }
+            }
+        ]);
+
+        return res.status(200).json({ success: true, ElectionResults });
     } catch (error) {
         return res.send(error);
     }

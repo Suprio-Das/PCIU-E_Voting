@@ -1,7 +1,7 @@
 import express from 'express'
 import { isCommissioner } from '../Middlewares/verifyToken.js';
-import { AddCandidates, AddVoters, StartElection, StopElection } from '../Controllers/CommissionerControllers.js';
-import { GetElectionResult } from '../Controllers/VotingController.js';
+import { AddCandidates, AddVoters, GetElectionResult, StartElection, StopElection } from '../Controllers/CommissionerControllers.js';
+
 
 const CommissionerRoutes = express.Router();
 
