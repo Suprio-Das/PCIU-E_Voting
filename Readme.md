@@ -98,7 +98,7 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
   <img src="My-Professional-Image.png" alt="Suprio Das" width="120" height="120" style="border-radius:50%" />
 </p>
 
-**Developer:** Suprio Das  
+Suprio Das  
 - 🎓 Batch: CSE 28-A-Day  
 - 🆔 ID: CSE 02807546
 - 🌐 IT Secretary at PCIU Computer Club
