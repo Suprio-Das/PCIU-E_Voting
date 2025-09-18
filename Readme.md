@@ -100,6 +100,7 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 
 **Suprio Das**
 <br>
+**Email:** suprio.cse@gmail.com <br>
 - 🎓 Batch: CSE 28-A-Day  <br>
 - 🆔 ID: CSE 02807546 <br>
 - 🌐 IT Secretary at PCIU Computer Club <br>
