@@ -98,12 +98,14 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
   <img src="My-Professional-Image.png" alt="Suprio Das" width="120" height="120" style="border-radius:50%" />
 </p>
 
-**Developer:** Suprio Das  
-- 🎓 Batch: CSE 28-A-Day  
-- 🆔 ID: CSE 02807546
-- 🌐 IT Secretary at PCIU Computer Club
-- 🏛 Department of Computer Science & Engineering  
-- 🌐 Port City International University  
+**Suprio Das**
+<br>
+**Email:** suprio.cse@gmail.com <br>
+- 🎓 Batch: CSE 28-A-Day  <br>
+- 🆔 ID: CSE 02807546 <br>
+- 🌐 IT Secretary at PCIU Computer Club <br>
+- 🏛 Department of Computer Science & Engineering  <br>
+- 🌐 Port City International University  <br>
 
 ---
 
