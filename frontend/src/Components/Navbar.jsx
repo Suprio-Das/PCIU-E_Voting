@@ -4,12 +4,12 @@ const Navbar = () => {
     return (
         <div>
             <div className="navbar bg-base-100 shadow-sm">
-                <div className="flex-1">
-                    <a>
+                <div className="flex-1 ms-5">
+                    <a className='flex items-center gap-2'>
                         <img src={Logo} alt="" className='w-14 h-18' />
                         <div>
-                            <h1 className='font-bold text-blue-600 text-xl'>PCIU E-Voting</h1>
-                            <p className='text-gray-500 font-bold'>Powered By CSE.</p>
+                            <h1 className='font-bold text-blue-600 text-xl -mb-2'>PCIU E-Voting</h1>
+                            <p className='text-gray-500 text-sm'>Powered By CSE.</p>
                         </div>
                     </a>
                 </div>
