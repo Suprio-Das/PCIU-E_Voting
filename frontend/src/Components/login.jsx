@@ -16,7 +16,7 @@ const Login = () => {
                 </fieldset>
                 <fieldset className="fieldset w-full">
                     <legend className="fieldset-legend text-lg">Password</legend>
-                    <input type="text" className="input w-full outline-0 border-1 border-[#2a3793] focus-visible:outline-0 focus-visible:border-2" placeholder="Type Password here" name="password" />
+                    <input type="password" className="input w-full outline-0 border-1 border-[#2a3793] focus-visible:outline-0 focus-visible:border-2" placeholder="Type Password here" name="password" />
                 </fieldset>
                 <button className="btn bg-[#2a3793] text-white w-full my-3">Login</button>
             </form>
