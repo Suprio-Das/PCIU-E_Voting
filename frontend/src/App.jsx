@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 import CommissionerLayout from './Layouts/CommissionerLayout'
 import StudentLayout from './Layouts/StudentLayout'
 import MainLayout from './Layouts/MainLayout'
+import Login from './Components/login'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path='/student' element={<StudentLayout></StudentLayout>}>
               <Route index element={<h1>Student Route.</h1>}></Route>
             </Route>
+            <Route path='/login' element={<Login></Login>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
