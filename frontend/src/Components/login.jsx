@@ -11,6 +11,7 @@ const Login = () => {
                     <legend className="fieldset-legend text-lg">Password:</legend>
                     <input type="text" className="input w-full" placeholder="Type here" />
                 </fieldset>
+                <button className="btn bg-blue-600 text-white w-full mt-3">Login</button>
             </form>
         </div>
     );
