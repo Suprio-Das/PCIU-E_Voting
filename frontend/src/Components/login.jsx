@@ -1,9 +1,21 @@
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthProvider";
+
 const Login = () => {
-    const handleLogin = (e) => {
+    const { login, setUser } = useContext(AuthContext);
+    const handleLogin = async (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
+        try {
+            const res = await login({ email, password })
+            if (res.data.commissioner) {
+                setUser(res.data.commissioner)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
     return (
         <div className="min-h-[calc(100vh-120px)] flex justify-center items-center">
