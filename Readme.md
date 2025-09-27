@@ -102,7 +102,7 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 <br>
 **Email:** suprio.cse@gmail.com <br>
 - 🎓 Batch: CSE 28-A-Day  <br>
-- 🆔 ID: CSE 02807546 <br>
+- 🆔 ID: CSE 028 07546 <br>
 - 🌐 IT Secretary at PCIU Computer Club <br>
 - 🏛 Department of Computer Science & Engineering  <br>
 - 🌐 Port City International University  <br>
