@@ -1,6 +1,9 @@
+import { useContext } from 'react';
 import Logo from '../../public/Logo.png'
+import { AuthContext } from '../Context/AuthProvider';
 
 const Navbar = () => {
+    const { user } = useContext(AuthContext)
     return (
         <div>
             <div className="navbar bg-base-100 shadow-sm">
@@ -14,7 +17,7 @@ const Navbar = () => {
                     </a>
                 </div>
                 <div className="flex-none">
-                    <button className="btn bg-[#2a3793] mr-5 text-white">Login</button>
+                    <button className="btn bg-[#2a3793] mr-5 text-white">{user ? 'Logout' : 'Login'}</button>
                 </div>
             </div>
         </div>
