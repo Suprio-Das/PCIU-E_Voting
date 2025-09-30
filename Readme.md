@@ -112,3 +112,4 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 ## ❤️ Footer
 
 **Made with ❤️ by: <a href="https://www.linkedin.com/in/supriodas03/" target="_blank">Suprio Das</a>**
+
