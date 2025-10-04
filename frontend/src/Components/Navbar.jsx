@@ -1,14 +1,20 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Logo from '../../public/Logo.png'
 import api from '../Services/api';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { Logout } from "../Redux/AuthSlice";
 
 const Navbar = () => {
-    const user = useSelector((state) => state.Auth.user)
+    const user = useSelector((state) => state.Auth.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     // Handling Logout
     const handleLogout = async () => {
         const res = await api.post('/api/auth/logout')
-        console.log(res)
+        if (res) {
+            dispatch(Logout())
+            navigate('/')
+        }
     }
     return (
         <div>
