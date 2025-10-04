@@ -1,7 +1,9 @@
+import Commissioner from "../Components/Commissioner";
+
 const CommissionerLayout = () => {
     return (
         <div>
-            <h1>Commissioner Layout</h1>
+            <Commissioner></Commissioner>
         </div>
     );
 };
