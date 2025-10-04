@@ -1,7 +1,9 @@
+import Login from "../Components/login";
+
 const PublicLayout = () => {
     return (
         <div>
-            <h1>Public Layout.</h1>
+            <Login></Login>
         </div>
     );
 };
