@@ -24,7 +24,7 @@ const Navbar = () => {
                 </div>
                 <div className="flex-none">
                     {/* <button className="btn bg-[#2a3793] mr-5 text-white">{user ? 'Logout' : 'Login'}</button> */}
-                    {user ? <Link to="/" className="btn bg-[#2a3793] mr-5 text-white">Login</Link> : <button onClick={handleLogout} className="btn bg-[#2a3793] mr-5 text-white">Logout</button>}
+                    {user ? <button onClick={handleLogout} className="btn bg-[#2a3793] mr-5 text-white">Logout</button> : <Link to="/" className="btn bg-[#2a3793] mr-5 text-white">Login</Link>}
                 </div>
             </div>
         </div>

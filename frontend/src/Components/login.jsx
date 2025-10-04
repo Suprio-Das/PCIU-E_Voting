@@ -18,8 +18,7 @@ const Login = () => {
             const response = request;
             if (response.status === 200) {
                 if (response.data.commissioner.role === 'commissioner') {
-                    // navigate('/admin')
-                    console.log("commissioner logged in")
+                    navigate('/commissioner')
                 } else if (response.data.user.role === 'user') {
                     // navigate('/')
                     console.log("unauthorized")
