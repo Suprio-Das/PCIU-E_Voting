@@ -1,20 +1,36 @@
-import { useContext } from "react";
-import { AuthContext } from "../Context/AuthProvider";
+import { Link, useNavigate } from "react-router";
+import { useDispatch } from 'react-redux'
+import api from "../Services/api";
+import { SetUser } from "../Redux/AuthSlice";
 
 const Login = () => {
-    const { login, setUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleLogin = async (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
+
         try {
-            const res = await login({ email, password })
-            if (res.data.commissioner) {
-                setUser(res.data.commissioner)
+            const request = await api.post('/api/auth/login', { email, password });
+            console.log(request);
+            const response = request;
+            if (response.status === 200) {
+                if (response.data.commissioner.role === 'commissioner') {
+                    // navigate('/admin')
+                    console.log("commissioner logged in")
+                } else if (response.data.user.role === 'user') {
+                    // navigate('/')
+                    console.log("unauthorized")
+                }
+                dispatch(SetUser(response.data.commissioner))
             }
         } catch (error) {
-            console.log(error)
+            const err = await error.response;
+            if (err) {
+                console.log(err)
+            }
         }
     }
     return (

@@ -1,9 +1,9 @@
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import Logo from '../../public/Logo.png'
-import { AuthContext } from '../Context/AuthProvider';
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext)
+    const user = useSelector((state) => state.Auth.user)
+    console.log(user)
     return (
         <div>
             <div className="navbar bg-base-100 shadow-sm">

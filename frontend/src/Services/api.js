@@ -5,7 +5,7 @@ const PC1_IP = 'localhost'
 
 
 const api = axios.create({
-    baseURL: `http://${PC1_IP}:3000/api`,
+    baseURL: `http://${PC1_IP}:3000`,
     withCredentials: true
 })
 
