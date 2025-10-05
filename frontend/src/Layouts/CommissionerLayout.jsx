@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import Commissioner from "../Components/Commissioner";
-import { Navigate } from "react-router";
+import { Navigate, Outlet } from "react-router";
 
 const CommissionerLayout = () => {
     const user = useSelector((state) => state.Auth.user);
@@ -11,9 +11,7 @@ const CommissionerLayout = () => {
         return <Navigate to='/'></Navigate>;
     }
     return (
-        <div>
-            <Commissioner></Commissioner>
-        </div>
+        <Outlet></Outlet>
     );
 };
 

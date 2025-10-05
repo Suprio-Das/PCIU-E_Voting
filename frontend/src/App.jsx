@@ -3,6 +3,7 @@ import CommissionerLayout from './Layouts/CommissionerLayout'
 import StudentLayout from './Layouts/StudentLayout'
 import MainLayout from './Layouts/MainLayout'
 import Login from './Components/login'
+import Commissioner from './Components/Commissioner'
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
           <Route path='/' element={<MainLayout></MainLayout>}>
             <Route path='/' element={<Login></Login>}></Route>
             <Route path='/commissioner' element={<CommissionerLayout></CommissionerLayout>}>
-              <Route index element={<h1>Admin Route.</h1>}></Route>
+              <Route index element={<Commissioner></Commissioner>}></Route>
             </Route>
             <Route path='/student' element={<StudentLayout></StudentLayout>}>
               <Route index element={<h1>Student Route.</h1>}></Route>
