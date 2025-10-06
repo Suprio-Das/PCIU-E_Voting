@@ -103,7 +103,7 @@ const Commissioner = () => {
                     </section>
                 )}
                 {activeSection === "candidates" && (
-                    <section className="text-center">
+                    <section className="w-4/5 border-1 p-3">
                         <AddCandidates></AddCandidates>
                     </section>
                 )}
