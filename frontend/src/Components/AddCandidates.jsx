@@ -1,6 +1,6 @@
 import api from "../Services/api";
 
-const AddCandidates = () => {
+const AddCandidates = ({ positions }) => {
 
     const handleAddCandidate = async (e) => {
         e.preventDefault();
@@ -85,9 +85,9 @@ const AddCandidates = () => {
                             name="position"
                         >
                             <option disabled={true}>Select a position</option>
-                            <option>President</option>
-                            <option>General Secretary</option>
-                            <option>IT Secretary</option>
+                            {
+                                positions.map((position) => <option key={position._id}>{position.name}</option>)
+                            }
                         </select>
                     </fieldset>
 
