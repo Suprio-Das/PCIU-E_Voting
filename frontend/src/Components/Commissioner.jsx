@@ -7,6 +7,17 @@ const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
     const [stats, setStats] = useState();
 
+    const handleStart = async () => {
+        try {
+            const res = await api.post("api/commissioner/createvote");
+            if (res) {
+                setStats(true)
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     useEffect(() => {
         const fetchStats = async () => {
             try {
@@ -19,7 +30,8 @@ const Commissioner = () => {
         };
 
         fetchStats();
-    }, []);
+    }, [stats]);
+
 
     return (
         <div className="flex min-h-[calc(100vh-100px)]">
@@ -57,7 +69,7 @@ const Commissioner = () => {
                             <span>Current Status: </span>
                             <span className="text-green-700 font-semibold flex items-center">Active <img src={Active} className="w-5"></img></span>
                         </p>
-                        {stats === true ? <button className="btn bg-[#2a3793] text-white my-3">Stop Election</button> : <button className="btn bg-[#2a3793] text-white my-3">Start Election</button>}
+                        {stats === true ? <button className="btn bg-[#2a3793] text-white my-3">Stop Election</button> : <button onClick={handleStart} className="btn bg-[#2a3793] text-white my-3">Start Election</button>}
                     </section>
                 )}
 
