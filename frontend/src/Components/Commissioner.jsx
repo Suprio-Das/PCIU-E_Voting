@@ -77,7 +77,8 @@ const Commissioner = () => {
                         <h1 className="text-3xl font-semibold mb-4">Start/Stop Election</h1>
                         <p className="text-base-content flex justify-center items-center gap-2">
                             <span>Current Status: </span>
-                            <span className="text-green-700 font-semibold flex items-center">Active <img src={Active} className="w-5"></img></span>
+                            {stats === true ? <span className="text-green-700 font-semibold flex items-center">Active <img src={Active} className="w-5"></img></span> :
+                                <span className="text-red-700 font-semibold flex items-center">Inactive <img src={Inactive} className="w-5"></img></span>}
                         </p>
                         {stats === true ? <button onClick={handleStop} className="btn bg-[#2a3793] text-white my-3">Stop Election</button> : <button onClick={handleStart} className="btn bg-[#2a3793] text-white my-3">Start Election</button>}
                     </section>
