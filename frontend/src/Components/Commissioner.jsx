@@ -17,6 +17,16 @@ const Commissioner = () => {
             console.log(error.message);
         }
     }
+    const handleStop = async () => {
+        try {
+            const res = await api.post("api/commissioner/stopvote");
+            if (res) {
+                setStats(false)
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -69,7 +79,7 @@ const Commissioner = () => {
                             <span>Current Status: </span>
                             <span className="text-green-700 font-semibold flex items-center">Active <img src={Active} className="w-5"></img></span>
                         </p>
-                        {stats === true ? <button className="btn bg-[#2a3793] text-white my-3">Stop Election</button> : <button onClick={handleStart} className="btn bg-[#2a3793] text-white my-3">Start Election</button>}
+                        {stats === true ? <button onClick={handleStop} className="btn bg-[#2a3793] text-white my-3">Stop Election</button> : <button onClick={handleStart} className="btn bg-[#2a3793] text-white my-3">Start Election</button>}
                     </section>
                 )}
 
