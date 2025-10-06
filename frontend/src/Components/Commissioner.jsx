@@ -104,7 +104,7 @@ const Commissioner = () => {
                 )}
                 {activeSection === "candidates" && (
                     <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
-                        <AddCandidates></AddCandidates>
+                        {stats === true ? <AddCandidates></AddCandidates> : <h1 className="text-center">No election is occuring. Please start election first.</h1>}
                     </section>
                 )}
             </div>
