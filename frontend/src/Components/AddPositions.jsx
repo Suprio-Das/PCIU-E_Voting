@@ -36,7 +36,7 @@ const AddPositions = () => {
             const res = await api.post("/api/commissioner/addpositions", filteredPositions);
             console.log("Positions added:", res.data);
             alert("Positions added successfully!");
-            setPositions([""]); // reset form
+            setPositions([""]);
         } catch (error) {
             console.error("Error adding positions:", error);
             alert("Error adding positions");
@@ -56,13 +56,13 @@ const AddPositions = () => {
                             placeholder="Enter position name"
                             value={pos}
                             onChange={(e) => handleChange(index, e.target.value)}
-                            className="input input-bordered w-full"
+                            className="input w-full outline-0 border-1 border-[#2a3793] focus-visible:outline-0 focus-visible:border-2"
                         />
                         {positions.length > 1 && (
                             <button
                                 type="button"
                                 onClick={() => removeField(index)}
-                                className="btn btn-sm btn-error"
+                                className="btn btn-sm bg-red-700 text-white"
                             >
                                 Remove
                             </button>
@@ -73,13 +73,13 @@ const AddPositions = () => {
                     <button
                         type="button"
                         onClick={addField}
-                        className="btn btn-outline btn-primary"
+                        className="btn bg-green-700 text-white"
                     >
                         Add More
                     </button>
                     <button
                         type="submit"
-                        className={`btn btn-primary ${loading ? "loading" : ""}`}
+                        className={`btn bg-[#2a3793] text-white ${loading ? "loading" : ""}`}
                     >
                         {loading ? "Saving..." : "Save Positions"}
                     </button>
