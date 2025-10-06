@@ -34,6 +34,7 @@ const AddCandidates = () => {
                         <legend className="fieldset-legend">Upload Candidate Symbol</legend>
                         <input type="file" className="file-input  w-full border-1 border-[#2a3793] rounded-md" />
                     </fieldset>
+                    <button className="btn w-full col-span-2 bg-[#2a3793] text-white rounded-md">Add Candidate</button>
                 </form>
             </div>
         </div>
