@@ -56,24 +56,25 @@ export const StopElection = async (req, res) => {
 export const AddPositions = async (req, res) => {
     try {
         const positions = req.body;
-        if (!positions) {
-            return res
-                .status(400)
-                .json({ success: false, message: "All fields are required." });
+
+        if (!positions || positions.length === 0) {
+            return res.status(400).json({ success: false, message: "All fields are required." });
         }
-        const newPositions = await PositionModel.insertMany(positions);
-        if (newPositions) {
-            res.status(200).json({
-                success: true,
-                message: "Positions added successfully.",
-                data: newPositions,
-            });
-        }
+
+        const positionObjects = positions.map((pos) => ({ name: pos }));
+
+        const newPositions = await PositionModel.insertMany(positionObjects);
+
+        res.status(200).json({
+            success: true,
+            message: "Positions added successfully.",
+            data: newPositions,
+        });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, message: "Server Error", error });
+        res.status(500).json({ success: false, message: "Server Error", error: error.message });
     }
-}
+};
 
 export const AddCandidates = async (req, res) => {
     try {
