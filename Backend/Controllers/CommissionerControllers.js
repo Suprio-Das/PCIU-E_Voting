@@ -54,20 +54,35 @@ export const StopElection = async (req, res) => {
 
 export const AddCandidates = async (req, res) => {
     try {
-        const candidate = req.body;
+        const { name, studentId, position } = req.body;
 
-        const newCandidate = await CandidateModel.insertOne(candidate);
+        const photo = req.files["photo"] ? req.files["photo"][0].path : null;
+        const symbol = req.files["symbol"] ? req.files["symbol"][0].path : null;
 
-        if (!newCandidate) {
-            return res.send(404).json({ success: false, message: "Unable to add candidate." })
+        if (!name || !studentId || !position || !photo || !symbol) {
+            return res
+                .status(400)
+                .json({ success: false, message: "All fields are required." });
         }
 
-        return res.status(200).json({ success: true, message: "New Candidate Created." });
+        const newCandidate = await CandidateModel.create({
+            name,
+            studentId,
+            position,
+            photo,
+            symbol,
+        });
 
+        res.status(200).json({
+            success: true,
+            message: "Candidate added successfully.",
+            data: newCandidate,
+        });
     } catch (error) {
-        res.send(error);
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error", error });
     }
-}
+};
 
 export const AddVoters = async (req, res) => {
     try {
