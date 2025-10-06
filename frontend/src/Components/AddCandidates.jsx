@@ -1,7 +1,7 @@
 const AddCandidates = () => {
     return (
         <div>
-            <h1 className="text-3xl font-semibold text-center">Add Candidates</h1>
+            <h1 className="text-3xl font-semibold text-center my-3">Add Candidates</h1>
             <div className="flex justify-center">
                 <form className="w-[90%] p-2 grid lg:grid-cols-2 grid-cols-1 gap-5">
                     {/* Candidate Name */}
