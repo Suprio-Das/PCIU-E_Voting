@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Active from '../assets/active.png'
 import Inactive from '../assets/inactive3.png'
 import api from "../Services/api";
+import AddCandidates from "./AddCandidates";
 
 const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
@@ -103,10 +104,7 @@ const Commissioner = () => {
                 )}
                 {activeSection === "candidates" && (
                     <section className="text-center">
-                        <h1 className="text-3xl font-semibold mb-4">Add Candidates</h1>
-                        <p className="text-base-content">
-                            This section contains the candidates registration UI.
-                        </p>
+                        <AddCandidates></AddCandidates>
                     </section>
                 )}
             </div>
