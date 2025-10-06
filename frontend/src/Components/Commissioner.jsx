@@ -5,11 +5,13 @@ import api from "../Services/api";
 
 const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
+    const [stats, setStats] = useState();
 
     useEffect(() => {
         const fetchStats = async () => {
             try {
                 const res = await api.get("api/votestats/stats");
+                setStats(res.data);
                 console.log("Vote stats:", res.data);
             } catch (error) {
                 console.error("Error fetching vote stats:", error);
@@ -55,7 +57,7 @@ const Commissioner = () => {
                             <span>Current Status: </span>
                             <span className="text-green-700 font-semibold flex items-center">Active <img src={Active} className="w-5"></img></span>
                         </p>
-                        <button className="btn bg-[#2a3793] text-white my-3">Start Election</button>
+                        {<button className="btn bg-[#2a3793] text-white my-3">Start Election</button> : <button className="btn bg-[#2a3793] text-white my-3">Stop Election</button>}
                     </section>
                 )}
 
