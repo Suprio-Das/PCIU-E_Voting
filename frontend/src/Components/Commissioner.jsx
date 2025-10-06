@@ -67,6 +67,15 @@ const Commissioner = () => {
                             👥 Add Voters
                         </button>
                     </li>
+                    <li>
+                        <button
+                            onClick={() => setActiveSection("candidates")}
+                            className={`hover:bg-base-300 rounded-lg ${activeSection === "candidates" ? "bg-base-300 font-semibold" : ""
+                                }`}
+                        >
+                            👥 Add Candidates
+                        </button>
+                    </li>
                 </ul>
             </div>
 
@@ -89,6 +98,14 @@ const Commissioner = () => {
                         <h1 className="text-3xl font-semibold mb-4">Add Voters</h1>
                         <p className="text-base-content">
                             This section contains the voter registration UI.
+                        </p>
+                    </section>
+                )}
+                {activeSection === "candidates" && (
+                    <section className="text-center">
+                        <h1 className="text-3xl font-semibold mb-4">Add Candidates</h1>
+                        <p className="text-base-content">
+                            This section contains the candidates registration UI.
                         </p>
                     </section>
                 )}
