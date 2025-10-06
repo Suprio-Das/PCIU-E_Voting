@@ -1,4 +1,5 @@
 import CandidateModel from "../Models/Candidate.js";
+import PositionModel from "../Models/Position.js";
 import StudentModel from "../Models/Student.js";
 import VotingCountModel from "../Models/VoteCount.js";
 import VotingStatusModel from "../Models/VotingStatus.js"
@@ -49,6 +50,28 @@ export const StopElection = async (req, res) => {
         res.status(200).json({ success: true, message: "Election has ended." }, newUpdatedElection)
     } catch (error) {
         return res.send(error)
+    }
+}
+
+export const AddPositions = async (req, res) => {
+    try {
+        const positions = req.body;
+        if (!positions) {
+            return res
+                .status(400)
+                .json({ success: false, message: "All fields are required." });
+        }
+        const newPositions = await PositionModel.insertMany(positions);
+        if (newPositions) {
+            res.status(200).json({
+                success: true,
+                message: "Positions added successfully.",
+                data: newPositions,
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error", error });
     }
 }
 

@@ -32,7 +32,10 @@ const AddCandidates = () => {
                     },
                 }
             );
-            console.log("Candidate added:", res.data);
+            if (res) {
+                alert('Candidate Added.')
+                form.reset();
+            }
         } catch (error) {
             console.error("Error adding candidate:", error);
         }
