@@ -1,9 +1,19 @@
 const AddCandidates = () => {
+    const handleAddCandidate = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const studentId = form.studentId.value;
+        const position = form.position.value;
+        const photo = form.photo.value;
+        const symbol = form.symbol.value;
+        console.log(name, studentId, position, photo, symbol);
+    }
     return (
         <div>
             <h1 className="text-3xl font-semibold text-center my-3">Add Candidates</h1>
             <div className="flex justify-center">
-                <form className="w-[90%] p-2 grid lg:grid-cols-2 grid-cols-1 gap-5">
+                <form onSubmit={handleAddCandidate} className="w-[90%] p-2 grid lg:grid-cols-2 grid-cols-1 gap-5">
                     {/* Candidate Name */}
                     <fieldset className="fieldset">
                         <legend className="fieldset-legend">Enter Candidate Name: </legend>
