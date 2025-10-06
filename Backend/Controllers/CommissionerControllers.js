@@ -54,11 +54,11 @@ export const StopElection = async (req, res) => {
 
 export const AddCandidates = async (req, res) => {
     try {
-        const candidates = req.body;
+        const candidate = req.body;
 
-        const newCandidates = await CandidateModel.insertMany(candidates);
+        const newCandidate = await CandidateModel.insertOne(candidate);
 
-        if (!newCandidates) {
+        if (!newCandidate) {
             return res.send(404).json({ success: false, message: "Unable to add candidate." })
         }
 
