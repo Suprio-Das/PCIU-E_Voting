@@ -47,7 +47,7 @@ const Commissioner = () => {
     return (
         <div className="flex min-h-[calc(100vh-100px)]">
             {/* Sidebar */}
-            <div className="w-64 bg-base-200 p-4 border-r-2">
+            <div className="w-64 bg-base-200 p-4 border-r-2 border-[#2a3793]">
                 <h2 className="text-2xl font-bold mb-6 text-center">Commissioner Panel</h2>
                 <ul className="menu">
                     <li>
