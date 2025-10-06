@@ -57,7 +57,7 @@ const Commissioner = () => {
                             <span>Current Status: </span>
                             <span className="text-green-700 font-semibold flex items-center">Active <img src={Active} className="w-5"></img></span>
                         </p>
-                        {<button className="btn bg-[#2a3793] text-white my-3">Start Election</button> : <button className="btn bg-[#2a3793] text-white my-3">Stop Election</button>}
+                        {stats === true ? <button className="btn bg-[#2a3793] text-white my-3">Stop Election</button> : <button className="btn bg-[#2a3793] text-white my-3">Start Election</button>}
                     </section>
                 )}
 
