@@ -53,7 +53,7 @@ const Commissioner = () => {
 
         fetchStats();
         fetchPositions();
-    }, [stats]);
+    }, [stats, positions]);
 
 
     return (
