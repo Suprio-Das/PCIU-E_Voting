@@ -1,6 +1,7 @@
 import api from "../Services/api";
 
 const AddCandidates = () => {
+
     const handleAddCandidate = async (e) => {
         e.preventDefault();
 

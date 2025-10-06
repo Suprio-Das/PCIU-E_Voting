@@ -8,6 +8,7 @@ import AddPositions from "./AddPositions";
 const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
     const [stats, setStats] = useState();
+    const [positions, setPositions] = useState();
 
     const handleStart = async () => {
         try {
@@ -40,8 +41,18 @@ const Commissioner = () => {
                 console.error("Error fetching vote stats:", error);
             }
         };
+        const fetchPositions = async () => {
+            try {
+                const res = await api.get("api/commissioner/positions");
+                setPositions(res.data.data);
+                console.log("Positions", res.data.data);
+            } catch (error) {
+                console.error("Error fetching positions:", error);
+            }
+        };
 
         fetchStats();
+        fetchPositions();
     }, [stats]);
 
 
