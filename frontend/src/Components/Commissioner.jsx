@@ -70,6 +70,15 @@ const Commissioner = () => {
                     </li>
                     <li>
                         <button
+                            onClick={() => setActiveSection("positions")}
+                            className={`hover:bg-base-300 rounded-lg ${activeSection === "positions" ? "bg-base-300 font-semibold" : ""
+                                }`}
+                        >
+                            📝 Add Positions
+                        </button>
+                    </li>
+                    <li>
+                        <button
                             onClick={() => setActiveSection("candidates")}
                             className={`hover:bg-base-300 rounded-lg ${activeSection === "candidates" ? "bg-base-300 font-semibold" : ""
                                 }`}
