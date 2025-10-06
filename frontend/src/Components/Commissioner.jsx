@@ -31,9 +31,9 @@ const Commissioner = () => {
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 p-6 bg-base-100">
+            <div className="flex-1 flex items-center justify-center bg-base-100 p-6">
                 {activeSection === "election" && (
-                    <section>
+                    <section className="text-center">
                         <h1 className="text-3xl font-semibold mb-4">Starting Election</h1>
                         <p className="text-base-content">
                             This section contains the election setup UI.
@@ -42,7 +42,7 @@ const Commissioner = () => {
                 )}
 
                 {activeSection === "voters" && (
-                    <section>
+                    <section className="text-center">
                         <h1 className="text-3xl font-semibold mb-4">Add Voters</h1>
                         <p className="text-base-content">
                             This section contains the voter registration UI.
