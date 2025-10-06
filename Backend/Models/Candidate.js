@@ -12,6 +12,14 @@ const CandidateSchema = new mongoose.Schema({
     position: {
         type: String,
         required: true
+    },
+    photo: {
+        type: String,
+        required: true
+    },
+    symbol: {
+        type: String,
+        required: true
     }
 })
 
