@@ -29,6 +29,11 @@ const AddCandidates = () => {
                         <legend className="fieldset-legend">Upload Candidate Profile</legend>
                         <input type="file" className="file-input  w-full border-1 border-[#2a3793] rounded-md" />
                     </fieldset>
+                    {/* Candidate Symbol */}
+                    <fieldset className="fieldset col-span-2">
+                        <legend className="fieldset-legend">Upload Candidate Symbol</legend>
+                        <input type="file" className="file-input  w-full border-1 border-[#2a3793] rounded-md" />
+                    </fieldset>
                 </form>
             </div>
         </div>
