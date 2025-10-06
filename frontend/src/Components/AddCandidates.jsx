@@ -24,6 +24,11 @@ const AddCandidates = () => {
                             <option>IT Secretary</option>
                         </select>
                     </fieldset>
+                    {/* Candidate Position */}
+                    <fieldset className="fieldset">
+                        <legend className="fieldset-legend">Upload Candidate Profile</legend>
+                        <input type="file" className="file-input  w-full border-1 border-[#2a3793] rounded-md" />
+                    </fieldset>
                 </form>
             </div>
         </div>
