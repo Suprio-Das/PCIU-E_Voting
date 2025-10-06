@@ -3,6 +3,7 @@ import Active from '../assets/active.png'
 import Inactive from '../assets/inactive3.png'
 import api from "../Services/api";
 import AddCandidates from "./AddCandidates";
+import AddPositions from "./AddPositions";
 
 const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
@@ -114,6 +115,11 @@ const Commissioner = () => {
                 {activeSection === "candidates" && (
                     <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
                         {stats === true ? <AddCandidates></AddCandidates> : <h1 className="text-center">No election is occuring. Please start election first.</h1>}
+                    </section>
+                )}
+                {activeSection === "positions" && (
+                    <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
+                        {stats === true ? <AddPositions></AddPositions> : <h1 className="text-center">No election is occuring. Please start election first.</h1>}
                     </section>
                 )}
             </div>
