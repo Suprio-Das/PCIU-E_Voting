@@ -76,6 +76,20 @@ export const AddPositions = async (req, res) => {
     }
 };
 
+export const GetAllPositions = async (req, res) => {
+    try {
+        const positions = await PositionModel.find();
+        res.status(200).json({
+            success: true,
+            message: "All Positions fetched.",
+            data: positions,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error", error: error.message });
+    }
+}
+
 export const AddCandidates = async (req, res) => {
     try {
         const { name, studentId, position } = req.body;
