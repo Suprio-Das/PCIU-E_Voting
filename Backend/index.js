@@ -31,6 +31,8 @@ app.get('/', (req, res) => {
     res.send('PCIU E-voting server is runnning.')
 })
 
+app.use("/uploads", express.static("uploads"));
+
 // ======================APP Routes========================\\
 app.use('/api/auth', AuthRoutes);
 app.use('/api/commissioner', CommissionerRoutes);
