@@ -103,7 +103,7 @@ const Commissioner = () => {
                     </section>
                 )}
                 {activeSection === "candidates" && (
-                    <section className="w-4/5 border-1 rounded-xl py-4">
+                    <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
                         <AddCandidates></AddCandidates>
                     </section>
                 )}
