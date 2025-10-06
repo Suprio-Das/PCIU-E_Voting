@@ -1,9 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Active from '../assets/active.png'
 import Inactive from '../assets/inactive3.png'
+import api from "../Services/api";
 
 const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const res = await api.get("api/votestats/stats");
+                console.log("Vote stats:", res.data);
+            } catch (error) {
+                console.error("Error fetching vote stats:", error);
+            }
+        };
+
+        fetchStats();
+    }, []);
 
     return (
         <div className="flex min-h-[calc(100vh-100px)]">
