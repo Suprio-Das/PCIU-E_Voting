@@ -7,6 +7,21 @@ const VoterLogin = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
+    const handleChange = (e) => {
+        let value = e.target.value.replace(/\D/g, "");
+
+        if (value.length > 8) {
+            value = value.slice(0, 8);
+        }
+        setStudentId(`CSE ${value}`);
+    };
+
+    const handleFocus = () => {
+        if (!studentId.startsWith("CSE ")) {
+            setStudentId("CSE ");
+        }
+    };
+
     const handleLogin = async (e) => {
         e.preventDefault();
         setError("");
@@ -37,7 +52,8 @@ const VoterLogin = () => {
                         placeholder="Enter your Student ID"
                         className="input input-bordered border-[#2a3793] focus:outline-none"
                         value={studentId}
-                        onChange={(e) => setStudentId(e.target.value)}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
                         required
                     />
                     {error && <p className="text-red-500 text-center">{error}</p>}
