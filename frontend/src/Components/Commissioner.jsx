@@ -101,18 +101,20 @@ const Commissioner = () => {
                     </li>
                     <li>
                         <button
+                            disabled={stats === true}
                             onClick={() => setActiveSection("voters")}
                             className={`hover:bg-base-300 rounded-lg ${activeSection === "voters" ? "bg-base-300 font-semibold" : ""
-                                }`}
+                                } ${stats === true ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             👥 Add Voters
                         </button>
                     </li>
                     <li>
                         <button
+                            disabled={stats === true}
                             onClick={() => setActiveSection("positions")}
                             className={`hover:bg-base-300 rounded-lg ${activeSection === "positions" ? "bg-base-300 font-semibold" : ""
-                                }`}
+                                } ${stats === true ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             📝 Add Positions
                         </button>
