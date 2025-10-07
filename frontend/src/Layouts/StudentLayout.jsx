@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router";
+import { Navigate, Outlet } from "react-router";
 
 const StudentLayout = () => {
     const user = useSelector((state) => state.Auth.user);
@@ -7,7 +7,9 @@ const StudentLayout = () => {
         return <Navigate to='/commissioner'></Navigate>;
     }
     return (
-        <Outlet></Outlet>
+        <>
+            <Outlet></Outlet>
+        </>
     );
 };
 
