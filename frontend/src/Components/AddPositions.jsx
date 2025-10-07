@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../Services/api";
 
-const AddPositions = () => {
+const AddPositions = ({ setRefresh }) => {
     const [positions, setPositions] = useState([""]); // initial empty position
     const [loading, setLoading] = useState(false);
 
@@ -34,6 +34,7 @@ const AddPositions = () => {
         try {
             setLoading(true);
             const res = await api.post("/api/commissioner/addpositions", filteredPositions);
+            setRefresh((prev) => !prev);
             console.log("Positions added:", res.data);
             alert("Positions added successfully!");
             setPositions([""]);

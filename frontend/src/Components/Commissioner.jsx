@@ -18,6 +18,7 @@ const Commissioner = () => {
             const res = await api.post("api/commissioner/createvote");
             if (res) {
                 setStats(true)
+                setRefresh((prev) => !prev)
             }
         } catch (error) {
             console.log(error.message);
@@ -28,6 +29,7 @@ const Commissioner = () => {
             const res = await api.post("api/commissioner/stopvote");
             if (res) {
                 setStats(false)
+                setRefresh((prev) => !prev)
             }
         } catch (error) {
             console.log(error.message);
@@ -132,7 +134,7 @@ const Commissioner = () => {
                 {activeSection === "election" && (
                     <section className="text-center">
                         {
-                            positions?.length !== 0 && candidates?.length !== 0 ?
+                            positions?.length !== 0 && candidates?.length !== 0 && voters?.length !== 0 ?
                                 <div>
                                     <h1 className="text-3xl font-semibold mb-4">Start/Stop Election</h1>
                                     <p className="text-base-content flex justify-center items-center gap-2">
@@ -141,7 +143,7 @@ const Commissioner = () => {
                                             <span className="text-red-700 font-semibold flex items-center">Inactive <img src={Inactive} className="w-5"></img></span>}
                                     </p>
                                     {stats === true ? <button onClick={handleStop} className="btn bg-[#2a3793] text-white my-3">Stop Election</button> : <button onClick={handleStart} className="btn bg-[#2a3793] text-white my-3">Start Election</button>}
-                                </div> : <h1 className="text-center shadow-lg border-1 border-[#2a3793] rounded-xl py-4 px-2">Please add Positions, Candidates first. </h1>
+                                </div> : <h1 className="text-center shadow-lg border-1 border-[#2a3793] rounded-xl py-4 px-2">Please add Positions, Voter and Candidates first. </h1>
                         }
                     </section>
                 )}
@@ -156,12 +158,12 @@ const Commissioner = () => {
                 )}
                 {activeSection === "candidates" && (
                     <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
-                        {stats === true && positions.length !== 0 ? <AddCandidates positions={positions}></AddCandidates> : <h1 className="text-center">No election is occuring. Please start election first. <span className="text-red-700 font-semibold">(You must add positions first).</span></h1>}
+                        {stats === true && positions.length !== 0 ? <AddCandidates setRefresh={setRefresh} positions={positions}></AddCandidates> : <h1 className="text-center">No election is occuring. Please start election first. <span className="text-red-700 font-semibold">(You must add positions first).</span></h1>}
                     </section>
                 )}
                 {activeSection === "positions" && (
                     <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
-                        {stats === true ? <AddPositions></AddPositions> : <h1 className="text-center">No election is occuring. Please start election first.</h1>}
+                        {stats === true ? <AddPositions setRefresh={setRefresh}></AddPositions> : <h1 className="text-center">No election is occuring. Please start election first.</h1>}
                     </section>
                 )}
             </div>

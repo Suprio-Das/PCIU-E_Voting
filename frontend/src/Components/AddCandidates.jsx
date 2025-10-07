@@ -1,6 +1,6 @@
 import api from "../Services/api";
 
-const AddCandidates = ({ positions }) => {
+const AddCandidates = ({ positions, setRefresh }) => {
 
     const handleAddCandidate = async (e) => {
         e.preventDefault();
@@ -35,6 +35,7 @@ const AddCandidates = ({ positions }) => {
             );
             if (res) {
                 alert('Candidate Added.')
+                setRefresh((prev) => !prev)
                 form.reset();
             }
         } catch (error) {
