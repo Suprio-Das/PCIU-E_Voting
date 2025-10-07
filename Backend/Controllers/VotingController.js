@@ -82,3 +82,12 @@ export const SubmitVote = async (req, res) => {
         res.send(error);
     }
 }
+
+export const GetVoters = async (req, res) => {
+    try {
+        const voters = await StudentModel.find();
+        return res.status(200).json({ success: true, data: voters });
+    } catch (error) {
+        return res.send(error);
+    }
+}

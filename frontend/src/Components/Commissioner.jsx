@@ -54,7 +54,7 @@ const Commissioner = () => {
         const fetchCandidates = async () => {
             try {
                 const res = await api.get("api/vote/getcandidatewithposition");
-                setPositions(res.data.data);
+                setCandidates(res.data.data);
                 console.log("Candidates", res.data.data);
             } catch (error) {
                 console.error("Error fetching candidates:", error);
@@ -64,7 +64,7 @@ const Commissioner = () => {
         fetchStats();
         fetchPositions();
         fetchCandidates();
-    }, [stats]);
+    }, [positions, candidates]);
 
 
     return (
@@ -116,13 +116,18 @@ const Commissioner = () => {
             <div className="flex-1 flex items-center justify-center bg-base-100 p-6">
                 {activeSection === "election" && (
                     <section className="text-center">
-                        <h1 className="text-3xl font-semibold mb-4">Start/Stop Election</h1>
-                        <p className="text-base-content flex justify-center items-center gap-2">
-                            <span>Current Status: </span>
-                            {stats === true ? <span className="text-green-700 font-semibold flex items-center">Active <img src={Active} className="w-5"></img></span> :
-                                <span className="text-red-700 font-semibold flex items-center">Inactive <img src={Inactive} className="w-5"></img></span>}
-                        </p>
-                        {stats === true ? <button onClick={handleStop} className="btn bg-[#2a3793] text-white my-3">Stop Election</button> : <button onClick={handleStart} className="btn bg-[#2a3793] text-white my-3">Start Election</button>}
+                        {
+                            positions?.length !== 0 && candidates?.length !== 0 ?
+                                <div>
+                                    <h1 className="text-3xl font-semibold mb-4">Start/Stop Election</h1>
+                                    <p className="text-base-content flex justify-center items-center gap-2">
+                                        <span>Current Status: </span>
+                                        {stats === true ? <span className="text-green-700 font-semibold flex items-center">Active <img src={Active} className="w-5"></img></span> :
+                                            <span className="text-red-700 font-semibold flex items-center">Inactive <img src={Inactive} className="w-5"></img></span>}
+                                    </p>
+                                    {stats === true ? <button onClick={handleStop} className="btn bg-[#2a3793] text-white my-3">Stop Election</button> : <button onClick={handleStart} className="btn bg-[#2a3793] text-white my-3">Start Election</button>}
+                                </div> : <h1 className="text-center shadow-lg border-1 border-[#2a3793] rounded-xl py-4 px-2">Please add Positions, Candidates first. </h1>
+                        }
                     </section>
                 )}
 
