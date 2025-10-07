@@ -10,6 +10,8 @@ const Commissioner = () => {
     const [stats, setStats] = useState();
     const [positions, setPositions] = useState();
     const [candidates, setCandidates] = useState();
+    const [voters, setVoters] = useState();
+    const [refresh, setRefresh] = useState(false);
 
     const handleStart = async () => {
         try {
@@ -61,10 +63,23 @@ const Commissioner = () => {
             }
         };
 
+        const fetchVoters = async () => {
+            try {
+                const res = await api.get('api/vote/getvoters');
+                if (res) {
+                    setVoters(res.data.data);
+                    console.log(res.data.data);
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
         fetchStats();
         fetchPositions();
         fetchCandidates();
-    }, [positions, candidates]);
+        fetchVoters();
+    }, [refresh]);
 
 
     return (
