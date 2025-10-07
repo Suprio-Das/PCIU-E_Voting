@@ -119,9 +119,10 @@ const Commissioner = () => {
                     </li>
                     <li>
                         <button
+                            disabled={stats === true}
                             onClick={() => setActiveSection("candidates")}
-                            className={`hover:bg-base-300 rounded-lg ${activeSection === "candidates" ? "bg-base-300 font-semibold" : ""
-                                }`}
+                            className={`hover:bg-base-300 rounded-lg  ${activeSection === "candidates" ? "bg-base-300 font-semibold" : ""
+                                } ${stats === true ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             👥 Add Candidates
                         </button>
@@ -163,7 +164,7 @@ const Commissioner = () => {
                 )}
                 {activeSection === "positions" && (
                     <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
-                        {stats === true ? <AddPositions setRefresh={setRefresh}></AddPositions> : <h1 className="text-center">No election is occuring. Please start election first.</h1>}
+                        <AddPositions setRefresh={setRefresh}></AddPositions>
                     </section>
                 )}
             </div>
