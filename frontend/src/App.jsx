@@ -5,6 +5,7 @@ import MainLayout from './Layouts/MainLayout'
 import Login from './Components/login'
 import Commissioner from './Components/Commissioner'
 import VoterLogin from './Components/VoterLogin'
+import VotingPage from './Components/VotingPage'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             </Route>
             <Route path='/student' element={<StudentLayout></StudentLayout>}>
               <Route index element={<VoterLogin></VoterLogin>}></Route>
+              <Route path='vote' element={<VotingPage></VotingPage>}></Route>
             </Route>
             {/* <Route path='/login' element={<Login></Login>}></Route> */}
           </Route>
