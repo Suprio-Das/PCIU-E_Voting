@@ -4,6 +4,7 @@ import Inactive from '../assets/inactive3.png'
 import api from "../Services/api";
 import AddCandidates from "./AddCandidates";
 import AddPositions from "./AddPositions";
+import AddVoters from "./AddVoters";
 
 const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
@@ -153,10 +154,11 @@ const Commissioner = () => {
 
                 {activeSection === "voters" && (
                     <section className="text-center">
-                        <h1 className="text-3xl font-semibold mb-4">Add Voters</h1>
+                        {/* <h1 className="text-3xl font-semibold mb-4">Add Voters</h1>
                         <p className="text-base-content">
                             This section contains the voter registration UI.
-                        </p>
+                        </p> */}
+                        <AddVoters></AddVoters>
                     </section>
                 )}
                 {activeSection === "candidates" && (
