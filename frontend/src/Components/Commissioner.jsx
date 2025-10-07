@@ -9,6 +9,7 @@ const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
     const [stats, setStats] = useState();
     const [positions, setPositions] = useState();
+    const [candidates, setCandidates] = useState();
 
     const handleStart = async () => {
         try {
@@ -50,10 +51,20 @@ const Commissioner = () => {
                 console.error("Error fetching positions:", error);
             }
         };
+        const fetchCandidates = async () => {
+            try {
+                const res = await api.get("api/vote/getcandidatewithposition");
+                setPositions(res.data.data);
+                console.log("Candidates", res.data.data);
+            } catch (error) {
+                console.error("Error fetching candidates:", error);
+            }
+        };
 
         fetchStats();
         fetchPositions();
-    }, [stats, positions]);
+        fetchCandidates();
+    }, [stats]);
 
 
     return (

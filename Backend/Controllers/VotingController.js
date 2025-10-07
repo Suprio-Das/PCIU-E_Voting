@@ -9,7 +9,7 @@ export const GetCandidateWithPosition = async (req, res) => {
         if (!candidates) {
             return res.status(404).json({ success: false, message: "Candidates are not found." })
         }
-        return res.status(200).json({ success: true, candidates });
+        return res.status(200).json({ success: true, data: candidates });
     } catch (error) {
         return res.send(error);
     }
