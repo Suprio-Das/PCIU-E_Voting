@@ -66,7 +66,7 @@ const VotingPage = () => {
             });
             if (res.data.success) {
                 alert("Your vote has been successfully submitted!");
-                navigate("/");
+                navigate("/student");
             }
         } catch (error) {
             console.error(error);
