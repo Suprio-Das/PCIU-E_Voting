@@ -94,21 +94,26 @@ export const AddCandidates = async (req, res) => {
     try {
         const { name, studentId, position } = req.body;
 
-        const photo = req.files["photo"] ? req.files["photo"][0].path : null;
-        const symbol = req.files["symbol"] ? req.files["symbol"][0].path : null;
+        const photoPath = req.files["photo"] ? req.files["photo"][0].path.replace(/\\/g, "/") : null;
+        const symbolPath = req.files["symbol"] ? req.files["symbol"][0].path.replace(/\\/g, "/") : null;
 
-        if (!name || !studentId || !position || !photo || !symbol) {
-            return res
-                .status(400)
-                .json({ success: false, message: "All fields are required." });
+        const fullPhotoUrl = `${req.protocol}://${req.get("host")}/${photoPath}`;
+        const fullSymbolUrl = `${req.protocol}://${req.get("host")}/${symbolPath}`;
+
+
+        if (!name || !studentId || !position || !photoPath || !symbolPath) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required.",
+            });
         }
 
         const newCandidate = await CandidateModel.create({
             name,
             studentId,
             position,
-            photo,
-            symbol,
+            photo: fullPhotoUrl,
+            symbol: fullSymbolUrl,
         });
 
         res.status(200).json({

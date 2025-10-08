@@ -31,14 +31,14 @@ app.get('/', (req, res) => {
     res.send('PCIU E-voting server is runnning.')
 })
 
-app.use("/uploads", express.static("uploads"));
-
 // ======================APP Routes========================\\
 app.use('/api/auth', AuthRoutes);
 app.use('/api/commissioner', CommissionerRoutes);
 app.use('/api/votestats', VotingStatusRoutes)
 app.use('/api/vote', VotingRoutes);
 // ======================APP Routes========================\\
+
+app.use("/uploads", express.static("uploads"));
 
 // Listen the Server
 app.listen(PORT);
