@@ -74,7 +74,6 @@ export const SubmitVote = async (req, res) => {
             }
 
             const options = { upsert: true, new: true };
-            console.log(update);
             await VotingCountModel.findOneAndUpdate(filter, update, options);
         }
         return res.status(200).json({ success: true, message: "Voted successfully." })

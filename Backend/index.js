@@ -41,4 +41,4 @@ app.use('/api/vote', VotingRoutes);
 app.use("/uploads", express.static("uploads"));
 
 // Listen the Server
-app.listen(PORT);
+app.listen(PORT, '0.0.0.0', () => console.log(`Server running`));
