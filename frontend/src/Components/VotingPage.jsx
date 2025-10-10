@@ -55,8 +55,16 @@ const VotingPage = () => {
     };
 
     const handleSubmitVotes = async () => {
+        const totalPositions = Object.keys(groupedCandidates).length;
+        const selectedCount = Object.keys(selectedVotes).length;
+
+        if (selectedCount < totalPositions) {
+            return alert("Please cast your vote for every position before submitting!");
+        }
+
         const candidateIds = Object.values(selectedVotes);
-        if (candidateIds.length === 0) return alert("Please select at least one candidate!");
+        if (candidateIds.length === 0)
+            return alert("Please select at least one candidate!");
 
         setLoading(true);
         try {
@@ -65,16 +73,17 @@ const VotingPage = () => {
                 candidates: candidateIds,
             });
             if (res.data.success) {
-                alert("Your vote has been successfully submitted!");
+                alert("✅ Your vote has been successfully submitted!");
                 navigate("/student");
             }
         } catch (error) {
             console.error(error);
-            alert("Failed to submit votes.");
+            alert("❌ Failed to submit votes.");
         } finally {
             setLoading(false);
         }
     };
+
 
     // Group candidates by position
     const groupedCandidates = candidates.reduce((acc, c) => {
@@ -85,7 +94,7 @@ const VotingPage = () => {
     console.log(candidates)
     return (
         <div className="min-h-screen bg-base-200 p-6">
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-6xl min-h-8xl mx-auto">
                 <h1 className="text-3xl font-bold text-center text-[#2a3793] mb-8">
                     Cast Your Vote
                 </h1>
@@ -100,7 +109,7 @@ const VotingPage = () => {
                                     className={`card bg-base-100 border border-[#2a3793] shadow-sm ${selectedVotes[position] === c._id ? "ring-2 ring-[#2a3793]" : ""
                                         }`}
                                 >
-                                    <div className="card-body text-center">
+                                    <div className="card-body items-center text-center">
                                         <div className="flex items-center gap-5">
                                             <img
                                                 src={c.photo}
@@ -110,7 +119,13 @@ const VotingPage = () => {
                                             <div>
                                                 <h3 className="font-bold text-lg">{c.name}</h3>
                                                 <p className="text-sm text-gray-600">{c.position}</p>
+                                                <p className="text-sm text-gray-600">{c.studentId}</p>
                                             </div>
+                                            <img
+                                                src={c.symbol}
+                                                alt={c.name}
+                                                className="w-20 h-20 object-contain border-1 rounded-xl"
+                                            />
                                         </div>
                                         <button
                                             onClick={() => handleVoteSelect(position, c._id)}
@@ -130,11 +145,21 @@ const VotingPage = () => {
 
                 <div className="text-center mt-8">
                     <button
-                        disabled={loading}
+                        disabled={
+                            loading ||
+                            Object.keys(selectedVotes).length < Object.keys(groupedCandidates).length
+                        }
                         onClick={handleSubmitVotes}
-                        className="btn bg-[#2a3793] text-white w-64"
+                        className={`btn w-64 ${Object.keys(selectedVotes).length < Object.keys(groupedCandidates).length
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-[#2a3793] text-white"
+                            }`}
                     >
-                        {loading ? "Submitting..." : "Submit Vote"}
+                        {loading
+                            ? "Submitting..."
+                            : Object.keys(selectedVotes).length < Object.keys(groupedCandidates).length
+                                ? "Please vote all positions"
+                                : "Submit Vote"}
                     </button>
                 </div>
             </div>
