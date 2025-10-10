@@ -2,27 +2,6 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import api from "../Services/api";
 
-const positionRanking = [
-    "President",
-    "General Secretary",
-    "Joint-General Secretary",
-    "Secretary of Competitive Programming",
-    "Joint-Secretary of Competitive Programming",
-    "Organising Secretary",
-    "Finance Secretary",
-    "IT Secretary",
-    "Office Secretary",
-    "Writing & Publishing Secretary",
-    "Publicity Editor",
-    "Research and Development Secretary",
-    "Sports Editor",
-    "Event Editor",
-    "Library Editor",
-    "Cultural Editor",
-    "Human Resource Secretary",
-    "Head of Disciplinary Commission",
-];
-
 const VotingPage = () => {
     const location = useLocation();
     const navigate = useNavigate();

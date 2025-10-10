@@ -87,7 +87,7 @@ const AddCandidates = ({ positions, setRefresh }) => {
                         >
                             <option disabled={true}>Select a position</option>
                             {
-                                positions.map((position) => <option key={position._id}>{position.name}</option>)
+                                positions?.map((position) => <option key={position._id}>{position.name}</option>)
                             }
                         </select>
                     </fieldset>

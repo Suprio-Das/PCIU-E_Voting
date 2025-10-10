@@ -5,6 +5,7 @@ import api from "../Services/api";
 import AddCandidates from "./AddCandidates";
 import AddPositions from "./AddPositions";
 import AddVoters from "./AddVoters";
+import ElectionResult from "./ElectionResults";
 
 const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
@@ -130,6 +131,16 @@ const Commissioner = () => {
                             👥 Add Candidates
                         </button>
                     </li>
+                    <li>
+                        <button
+                            disabled={stats === true}
+                            onClick={() => setActiveSection("results")}
+                            className={`hover:bg-base-300 rounded-lg  ${activeSection === "candidates" ? "bg-base-300 font-semibold" : ""
+                                } ${stats === true ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                            Export Results
+                        </button>
+                    </li>
                 </ul>
             </div>
 
@@ -163,12 +174,17 @@ const Commissioner = () => {
                 )}
                 {activeSection === "candidates" && (
                     <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
-                        {positions.length !== 0 ? <AddCandidates setRefresh={setRefresh} positions={positions}></AddCandidates> : <h1 className="text-center">No position found. <span className="text-red-700 font-semibold">(You must add positions first).</span></h1>}
+                        {positions?.length !== 0 ? <AddCandidates setRefresh={setRefresh} positions={positions}></AddCandidates> : <h1 className="text-center">No position found. <span className="text-red-700 font-semibold">(You must add positions first).</span></h1>}
                     </section>
                 )}
                 {activeSection === "positions" && (
                     <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
                         <AddPositions setRefresh={setRefresh}></AddPositions>
+                    </section>
+                )}
+                {activeSection === "results" && (
+                    <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl">
+                        <ElectionResult></ElectionResult>
                     </section>
                 )}
             </div>

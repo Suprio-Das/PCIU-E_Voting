@@ -31,7 +31,7 @@ const AddVoters = () => {
     };
 
     const handleUpload = async () => {
-        if (voters.length === 0) {
+        if (voters?.length === 0) {
             alert("Please upload a valid Excel file first.");
             return;
         }
