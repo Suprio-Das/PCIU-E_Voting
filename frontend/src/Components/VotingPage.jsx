@@ -2,6 +2,27 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import api from "../Services/api";
 
+const positionRanking = [
+    "President",
+    "General Secretary",
+    "Joint-General Secretary",
+    "Secretary of Competitive Programming",
+    "Joint-Secretary of Competitive Programming",
+    "Organising Secretary",
+    "Finance Secretary",
+    "IT Secretary",
+    "Office Secretary",
+    "Writing & Publishing Secretary",
+    "Publicity Editor",
+    "Research and Development Secretary",
+    "Sports Editor",
+    "Event Editor",
+    "Library Editor",
+    "Cultural Editor",
+    "Human Resource Secretary",
+    "Head of Disciplinary Commission",
+];
+
 const VotingPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -79,14 +100,18 @@ const VotingPage = () => {
                                     className={`card bg-base-100 border border-[#2a3793] shadow-sm ${selectedVotes[position] === c._id ? "ring-2 ring-[#2a3793]" : ""
                                         }`}
                                 >
-                                    <div className="card-body items-center text-center">
-                                        <img
-                                            src={c.photo}
-                                            alt={c.name}
-                                            className="w-20 h-20 object-contain mb-3"
-                                        />
-                                        <h3 className="font-bold text-lg">{c.name}</h3>
-                                        <p className="text-sm text-gray-600">{c.studentId}</p>
+                                    <div className="card-body text-center">
+                                        <div className="flex items-center gap-5">
+                                            <img
+                                                src={c.photo}
+                                                alt={c.name}
+                                                className="w-20 h-20 object-contain border-1 rounded-xl"
+                                            />
+                                            <div>
+                                                <h3 className="font-bold text-lg">{c.name}</h3>
+                                                <p className="text-sm text-gray-600">{c.position}</p>
+                                            </div>
+                                        </div>
                                         <button
                                             onClick={() => handleVoteSelect(position, c._id)}
                                             className={`btn w-full mt-3 ${selectedVotes[position] === c._id
