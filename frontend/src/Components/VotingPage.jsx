@@ -101,7 +101,7 @@ const VotingPage = () => {
 
                 {Object.keys(groupedCandidates).map((position) => (
                     <div key={position} className="mb-10">
-                        <h2 className="text-xl font-semibold mb-3 border-b pb-2">{position}</h2>
+                        <h2 className="text-xl font-semibold mb-5 border-b pb-2">{position}</h2>
                         <div className="grid md:grid-cols-3 gap-5">
                             {groupedCandidates[position].map((c) => (
                                 <div
