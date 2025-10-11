@@ -26,6 +26,9 @@ export const VerifyVoter = async (req, res) => {
         if (student.voted === true) {
             return res.status(401).json({ success: false, message: "Already voted." })
         }
+        if (student.isAllowed === false) {
+            return res.status(401).json({ success: false, message: "Not allowed to vote. Contact Commissioner Panel." })
+        }
         return res.status(200).json({ success: true, message: "Voter logged-in successfully." })
     } catch (error) {
         return res.send(error);
