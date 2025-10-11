@@ -94,7 +94,7 @@ const VotingPage = () => {
     console.log(candidates)
     return (
         <div className="min-h-screen bg-base-200 p-6">
-            <div className="max-w-6xl min-h-8xl mx-auto">
+            <div className="mx-auto">
                 <h1 className="text-3xl font-bold text-center text-[#2a3793] mb-8">
                     Cast Your Vote
                 </h1>
@@ -102,7 +102,7 @@ const VotingPage = () => {
                 {Object.keys(groupedCandidates).map((position) => (
                     <div key={position} className="mb-10">
                         <h2 className="text-xl font-semibold mb-5 border-b pb-2">{position}</h2>
-                        <div className="grid md:grid-cols-3 gap-5">
+                        <div className="grid md:grid-cols-4 gap-5">
                             {groupedCandidates[position].map((c) => (
                                 <div
                                     key={c._id}
@@ -111,21 +111,20 @@ const VotingPage = () => {
                                 >
                                     <div className="card-body items-center text-center">
                                         <div className="flex items-center gap-5">
-                                            <img
+                                            {/* <img
                                                 src={c.photo}
                                                 alt={c.name}
                                                 className="w-20 h-20 object-contain border-1 rounded-xl"
-                                            />
-                                            <div>
-                                                <h3 className="font-bold text-lg">{c.name}</h3>
-                                                <p className="text-sm text-gray-600">{c.position}</p>
-                                                <p className="text-sm text-gray-600">{c.studentId}</p>
-                                            </div>
+                                            /> */}
                                             <img
                                                 src={c.symbol}
                                                 alt={c.name}
-                                                className="w-20 h-20 object-contain border-1 rounded-xl"
+                                                className="w-14 h-14 object-contain border-1 rounded-xl"
                                             />
+                                            <div>
+                                                <h3 className="font-bold text-lg">{c.name}</h3>
+                                                <p className="text-sm text-gray-600">{c.studentId}</p>
+                                            </div>
                                         </div>
                                         <button
                                             onClick={() => handleVoteSelect(position, c._id)}
