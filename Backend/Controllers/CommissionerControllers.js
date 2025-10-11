@@ -55,7 +55,13 @@ export const StopElection = async (req, res) => {
 
 export const AllowVoter = async (req, res) => {
     try {
-        const studentId = req.body;
+        const request = req.body;
+        const studentId = request.studentId;
+        // Checking Student already voted
+        const Student = await StudentModel.findOne({ studentId: studentId })
+        if (Student.voted === true) {
+            return res.json({ success: false, message: "Student Already Voted." })
+        }
     } catch (error) {
         return res.send(error)
     }
