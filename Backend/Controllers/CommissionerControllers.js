@@ -53,6 +53,14 @@ export const StopElection = async (req, res) => {
     }
 }
 
+export const AllowVoter = async (req, res) => {
+    try {
+        const studentId = req.body;
+    } catch (error) {
+        return res.send(error)
+    }
+}
+
 export const AddPositions = async (req, res) => {
     try {
         const positions = req.body;
