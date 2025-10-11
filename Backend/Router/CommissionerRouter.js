@@ -10,12 +10,9 @@ CommissionerRoutes.post('/stopvote', isCommissioner, StopElection);
 CommissionerRoutes.post('/allowvoter', isCommissioner, AllowVoter);
 
 CommissionerRoutes.post(
-    '/addcandidates',
+    "/addcandidates",
     isCommissioner,
-    upload.fields([
-        { name: "photo", maxCount: 1 },
-        { name: "symbol", maxCount: 1 },
-    ]),
+    upload.single("symbol"),
     AddCandidates
 );
 

@@ -123,14 +123,14 @@ export const AddCandidates = async (req, res) => {
     try {
         const { name, studentId, position } = req.body;
 
-        const photoPath = req.files["photo"] ? req.files["photo"][0].path.replace(/\\/g, "/") : null;
+        // const photoPath = req.files["photo"] ? req.files["photo"][0].path.replace(/\\/g, "/") : null;
         const symbolPath = req.files["symbol"] ? req.files["symbol"][0].path.replace(/\\/g, "/") : null;
 
-        const fullPhotoUrl = `${req.protocol}://${req.get("host")}/${photoPath}`;
+        // const fullPhotoUrl = `${req.protocol}://${req.get("host")}/${photoPath}`;
         const fullSymbolUrl = `${req.protocol}://${req.get("host")}/${symbolPath}`;
 
 
-        if (!name || !studentId || !position || !photoPath || !symbolPath) {
+        if (!name || !studentId || !position || !symbolPath) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required.",
@@ -141,7 +141,6 @@ export const AddCandidates = async (req, res) => {
             name,
             studentId,
             position,
-            photo: fullPhotoUrl,
             symbol: fullSymbolUrl,
         });
 
