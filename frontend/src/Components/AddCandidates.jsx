@@ -16,9 +16,9 @@ const AddCandidates = ({ positions, setRefresh }) => {
         formData.append("position", position);
 
         // Append files
-        if (form.photo.files[0]) {
-            formData.append("photo", form.photo.files[0]);
-        }
+        // if (form.photo.files[0]) {
+        //     formData.append("photo", form.photo.files[0]);
+        // }
         if (form.symbol.files[0]) {
             formData.append("symbol", form.symbol.files[0]);
         }
@@ -93,17 +93,17 @@ const AddCandidates = ({ positions, setRefresh }) => {
                     </fieldset>
 
                     {/* Candidate Photo */}
-                    <fieldset className="fieldset">
+                    {/* <fieldset className="fieldset">
                         <legend className="fieldset-legend">Upload Candidate Profile</legend>
                         <input
                             type="file"
                             className="file-input w-full border-1 border-[#2a3793] rounded-md"
                             name="photo"
                         />
-                    </fieldset>
+                    </fieldset> */}
 
                     {/* Candidate Symbol */}
-                    <fieldset className="fieldset col-span-2">
+                    <fieldset className="fieldset">
                         <legend className="fieldset-legend">Upload Candidate Symbol</legend>
                         <input
                             type="file"

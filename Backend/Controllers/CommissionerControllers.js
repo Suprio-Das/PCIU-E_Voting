@@ -123,12 +123,10 @@ export const AddCandidates = async (req, res) => {
     try {
         const { name, studentId, position } = req.body;
 
-        // const photoPath = req.files["photo"] ? req.files["photo"][0].path.replace(/\\/g, "/") : null;
-        const symbolPath = req.files["symbol"] ? req.files["symbol"][0].path.replace(/\\/g, "/") : null;
-
-        // const fullPhotoUrl = `${req.protocol}://${req.get("host")}/${photoPath}`;
-        const fullSymbolUrl = `${req.protocol}://${req.get("host")}/${symbolPath}`;
-
+        const symbolPath = req.file ? req.file.path.replace(/\\/g, "/") : null;
+        const fullSymbolUrl = symbolPath
+            ? `${req.protocol}://${req.get("host")}/${symbolPath}`
+            : null;
 
         if (!name || !studentId || !position || !symbolPath) {
             return res.status(400).json({
@@ -144,14 +142,18 @@ export const AddCandidates = async (req, res) => {
             symbol: fullSymbolUrl,
         });
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Candidate added successfully.",
             data: newCandidate,
         });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Server Error", error });
+        console.error("Error in AddCandidates:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error: error.message,
+        });
     }
 };
 
