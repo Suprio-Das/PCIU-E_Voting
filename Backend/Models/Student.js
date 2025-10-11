@@ -9,6 +9,10 @@ const StudentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    isAllowed: {
+        type: String,
+        required: true
+    },
     voted: {
         type: Boolean,
         default: false
