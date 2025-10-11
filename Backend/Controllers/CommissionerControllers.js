@@ -62,6 +62,17 @@ export const AllowVoter = async (req, res) => {
         if (Student.voted === true) {
             return res.json({ success: false, message: "Student Already Voted." })
         }
+        // Update student record to allow voting
+        const updatedStudent = await StudentModel.findOneAndUpdate(
+            { studentId },
+            { $set: { isAllowed: true } },
+            { new: true }
+        );
+        return res.json({
+            success: true,
+            message: "Student allowed to vote successfully.",
+            data: updatedStudent
+        });
     } catch (error) {
         return res.send(error)
     }
