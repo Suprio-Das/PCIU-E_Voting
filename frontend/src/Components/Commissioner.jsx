@@ -103,6 +103,16 @@ const Commissioner = () => {
                     </li>
                     <li>
                         <button
+                            disabled={stats === false}
+                            onClick={() => setActiveSection("allowVoters")}
+                            className={`hover:bg-base-300 rounded-lg ${activeSection === "allowVoters" ? "bg-base-300 font-semibold" : ""
+                                } ${stats === false ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                            👥 Allow Voters
+                        </button>
+                    </li>
+                    <li>
+                        <button
                             disabled={stats === true}
                             onClick={() => setActiveSection("voters")}
                             className={`hover:bg-base-300 rounded-lg ${activeSection === "voters" ? "bg-base-300 font-semibold" : ""
@@ -163,6 +173,11 @@ const Commissioner = () => {
                     </section>
                 )}
 
+                {activeSection === "allowVoters" && (
+                    <section className="text-center">
+                        <h1>Allow Voters section.</h1>
+                    </section>
+                )}
                 {activeSection === "voters" && (
                     <section className="text-center">
                         {/* <h1 className="text-3xl font-semibold mb-4">Add Voters</h1>
