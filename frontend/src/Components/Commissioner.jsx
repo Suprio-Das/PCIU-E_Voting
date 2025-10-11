@@ -6,6 +6,7 @@ import AddCandidates from "./AddCandidates";
 import AddPositions from "./AddPositions";
 import AddVoters from "./AddVoters";
 import ElectionResult from "./ElectionResults";
+import AllowVoters from "./AllowVoters";
 
 const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
@@ -175,7 +176,7 @@ const Commissioner = () => {
 
                 {activeSection === "allowVoters" && (
                     <section className="text-center">
-                        <h1>Allow Voters section.</h1>
+                        <AllowVoters></AllowVoters>
                     </section>
                 )}
                 {activeSection === "voters" && (
