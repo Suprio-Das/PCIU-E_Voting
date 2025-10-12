@@ -16,6 +16,9 @@ const StudentLayout = () => {
             }
         }
         fetchStats();
+        // setInterval(() => {
+        //     fetchStats();
+        // }, 2000)
     }, []);
     const user = useSelector((state) => state.Auth.user);
     if (user && user?.role === 'commissioner') {

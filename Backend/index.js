@@ -7,6 +7,8 @@ import AuthRoutes from './Router/AuthRouter.js';
 import cookieParser from 'cookie-parser';
 import VotingStatusRoutes from './Router/VotingStatusRouter.js';
 import VotingRoutes from './Router/VotingRouter.js';
+import http from 'http';
+import { Server } from 'socket.io';
 // import path from 'path';
 // import { fileURLToPath } from 'url';
 // import { dirname } from 'path';
@@ -19,6 +21,27 @@ const PORT = process.env.PORT || 3000;
 
 // Create Express APP
 const app = express();
+
+// Create HTTP server for socket.io
+const server = http.createServer(app);
+
+// Socket configuration
+export const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST"],
+        credentials: true
+    }
+});
+
+// Handling socket connections
+io.on("connection", (socket) => {
+    console.log("🟢 A commissioner connected:", socket.id);
+
+    socket.on("disconnect", () => {
+        console.log("🔴 A commissioner disconnected:", socket.id);
+    });
+});
 
 // Middlewares
 app.use(express.json())
@@ -56,7 +79,6 @@ app.use('/api/vote', VotingRoutes);
 app.use("/uploads", express.static("uploads"));
 
 
-// listen on LAN
-app.listen(PORT, () =>
-    console.log(`Server running at http://localhost:${PORT}`)
-);
+server.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
