@@ -79,6 +79,9 @@ export const SubmitVote = async (req, res) => {
             const options = { upsert: true, new: true };
             await VotingCountModel.findOneAndUpdate(filter, update, options);
         }
+
+        io.emit("vote_submitted", { message: `StudentID: ${studentId} vote has been submitted!` });
+
         return res.status(200).json({ success: true, message: "Voted successfully." })
     } catch (error) {
         res.send(error);
