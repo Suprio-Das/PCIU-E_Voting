@@ -10,7 +10,7 @@ import AllowVoters from "./AllowVoters";
 import { io } from "socket.io-client";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Swal from 'sweetalert2';
 
 const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
@@ -31,17 +31,75 @@ const Commissioner = () => {
             console.log(error.message);
         }
     }
+    // const handleStop = async () => {
+    //     Swal.fire({
+    //         title: "Are you sure?",
+    //         text: "You won't be able to revert this!",
+    //         icon: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#3085d6",
+    //         cancelButtonColor: "#d33",
+    //         confirmButtonText: "Yes, delete it!"
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             Swal.fire({
+    //                 title: "Deleted!",
+    //                 text: "Your file has been deleted.",
+    //                 icon: "success"
+    //             });
+    //         }
+    //     });
+    //     try {
+    //         const res = await api.post("api/commissioner/stopvote");
+    //         if (res) {
+    //             setStats(false)
+    //             setRefresh((prev) => !prev)
+    //         }
+    //     } catch (error) {
+    //         console.log(error.message);
+    //     }
+    // }
     const handleStop = async () => {
-        try {
-            const res = await api.post("api/commissioner/stopvote");
-            if (res) {
-                setStats(false)
-                setRefresh((prev) => !prev)
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "This will stop the ongoing voting process!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, stop it!"
+        });
+
+        if (result.isConfirmed) {
+            try {
+                const res = await api.post("api/commissioner/stopvote");
+
+                if (res.status === 200) {
+                    await Swal.fire({
+                        title: "Voting Stopped!",
+                        text: "The voting process has been successfully stopped.",
+                        icon: "success"
+                    });
+                    setStats(false);
+                    setRefresh((prev) => !prev);
+                } else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Something went wrong while stopping the vote.",
+                        icon: "error"
+                    });
+                }
+            } catch (error) {
+                console.error(error.message);
+                Swal.fire({
+                    title: "Failed!",
+                    text: "Could not stop the voting process. Please try again later.",
+                    icon: "error"
+                });
             }
-        } catch (error) {
-            console.log(error.message);
         }
-    }
+    };
+
 
     useEffect(() => {
         // Connect to Socket.IO server
