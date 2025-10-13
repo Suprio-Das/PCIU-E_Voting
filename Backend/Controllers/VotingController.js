@@ -2,6 +2,7 @@ import CandidateModel from "../Models/Candidate.js";
 import StudentModel from "../Models/Student.js";
 import { ObjectId } from 'mongodb'
 import VotingCountModel from "../Models/VoteCount.js";
+import { io } from "../index.js";
 
 export const GetCandidateWithPosition = async (req, res) => {
     try {
@@ -79,9 +80,7 @@ export const SubmitVote = async (req, res) => {
             const options = { upsert: true, new: true };
             await VotingCountModel.findOneAndUpdate(filter, update, options);
         }
-
-        io.emit("vote_submitted", { message: `StudentID: ${studentId} vote has been submitted!` });
-
+        io.emit('vote_submitted', { studentId });
         return res.status(200).json({ success: true, message: "Voted successfully." })
     } catch (error) {
         res.send(error);

@@ -7,6 +7,10 @@ import AddPositions from "./AddPositions";
 import AddVoters from "./AddVoters";
 import ElectionResult from "./ElectionResults";
 import AllowVoters from "./AllowVoters";
+import { io } from "socket.io-client";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
@@ -38,6 +42,32 @@ const Commissioner = () => {
             console.log(error.message);
         }
     }
+
+    useEffect(() => {
+        // Connect to Socket.IO server
+        const socket = io(import.meta.env.VITE_API_URL || "http://localhost:3000", {
+            withCredentials: true,
+        });
+        socket.emit("join_commissioner");
+        socket.on("vote_submitted", (data) => {
+            toast.success(`Student:${data.studentId} has submitted vote!`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -204,6 +234,7 @@ const Commissioner = () => {
                     </section>
                 )}
             </div>
+            <ToastContainer />
         </div >
     );
 };
