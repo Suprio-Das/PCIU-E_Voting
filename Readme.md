@@ -56,7 +56,6 @@ It enables a **Commissioner** to organize and manage elections while allowing **
 - Start/stop elections with **real-time monitoring**.  
 - Enforce **one vote per student**.  
 - **Student ID authentication** with encrypted vote storage.  
-- Fully **offline LAN-based** system (no external threats).  
 - Exportable results after election completion.  
 
 ---
