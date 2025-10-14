@@ -1,8 +1,7 @@
 # 🗳️ PCIU E-Voting System
 
 A **secure LAN-based electronic voting system** designed for **Port City International University (PCIU)**.  
-It enables a **Commissioner** to organize and manage elections while allowing **Students** to securely cast votes.  
-The system is fully offline, deployed over a **Local Area Network (LAN)**, ensuring **transparency, reliability, and data security**.
+It enables a **Commissioner** to organize and manage elections while allowing **Students** to securely cast votes. 
 
 ---
 
