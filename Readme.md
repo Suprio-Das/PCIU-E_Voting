@@ -38,7 +38,8 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 
 ### Commissioner
 - Log in securely with credentials.  
-- Add/manage **candidates** and **voters**.  
+- Add/manage **candidates** and **voters**.
+- Allow Voters to vote 
 - Start/stop elections.  
 - Monitor real-time voting status.  
 - Export election results.  
