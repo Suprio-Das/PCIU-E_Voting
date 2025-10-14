@@ -1,6 +1,6 @@
 # 🗳️ PCIU E-Voting System
 
-A **secure LAN-based electronic voting system** designed for **Port City International University (PCIU)**.  
+A **secure MERN and Socket.io based voting system** designed for **Port City International University (PCIU)**.  
 It enables a **Commissioner** to organize and manage elections while allowing **Students** to securely cast votes. 
 
 ---
