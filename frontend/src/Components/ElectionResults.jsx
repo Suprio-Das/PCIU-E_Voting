@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import api from "../Services/api";
 import jsPDF from "jspdf";
-import autoTable from 'jspdf-autotable';
+import autoTable from "jspdf-autotable";
 
 const positionRanking = [
     "President",
@@ -28,6 +28,7 @@ const positionRanking = [
 const ElectionResult = () => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [selectedPosition, setSelectedPosition] = useState("All");
     const [isVotingActive, setIsVotingActive] = useState(true);
     const navigate = useNavigate();
 
@@ -52,53 +53,6 @@ const ElectionResult = () => {
         }
     };
 
-    // const fetchResults = async () => {
-    //     setLoading(true);
-    //     try {
-    //         const res = await api.get("api/commissioner/results");
-    //         if (res.data.success) {
-    //             setResults(res.data.ElectionResults);
-    //         }
-    //     } catch (error) {
-    //         console.error("Error fetching results:", error);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-
-    // const handleDownloadPDF = () => {
-    //     const doc = new jsPDF();
-    //     doc.setFontSize(18);
-    //     doc.text("Election Results Summary", 14, 15);
-    //     doc.setFontSize(12);
-    //     doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 25);
-
-    //     let y = 35;
-    //     results.forEach((res, index) => {
-    //         doc.setFont("helvetica", "bold");
-    //         doc.text(`${index + 1}. ${res.position}`, 14, y);
-    //         y += 6;
-
-    //         res.winners.forEach((winner, i) => {
-    //             doc.setFont("helvetica", "normal");
-    //             doc.text(
-    //                 `Name: ${winner.candidate.name} | Student ID: ${winner.candidate.studentId} | Votes: ${winner.totalVotes}`,
-    //                 20,
-    //                 y
-    //             );
-    //             y += 6;
-    //         });
-
-    //         y += 5;
-    //         if (y > 270) {
-    //             doc.addPage();
-    //             y = 20;
-    //         }
-    //     });
-
-    //     doc.save("Election_Results.pdf");
-    // };
-
     const fetchResults = async () => {
         setLoading(true);
         try {
@@ -118,148 +72,247 @@ const ElectionResult = () => {
         }
     };
 
+    // const handleDownloadPDF = () => {
+    //     if (!results.length) return alert("No results available.");
 
+    //     const filteredResults =
+    //         selectedPosition === "All"
+    //             ? results
+    //             : results.filter((res) => res.position === selectedPosition);
+
+    //     const doc = new jsPDF("p", "mm", "a4");
+    //     const pageWidth = doc.internal.pageSize.getWidth();
+    //     const marginX = 14;
+    //     let yPos = 25;
+
+    //     // === HEADER ===
+    //     doc.setFont("helvetica", "bold");
+    //     doc.setFontSize(18);
+    //     doc.text("PCIU E-Voting - Modernizing Campus Elections", pageWidth / 2, yPos, {
+    //         align: "center",
+    //     });
+    //     yPos += 8;
+    //     doc.setFontSize(16);
+    //     doc.text("3rd Executive Committee Election Results", pageWidth / 2, yPos, {
+    //         align: "center",
+    //     });
+
+    //     yPos += 10;
+    //     doc.setFontSize(12);
+    //     doc.setFont("helvetica", "normal");
+    //     doc.text(`Generated on: ${new Date().toLocaleString()}`, marginX, yPos);
+    //     yPos += 10;
+
+    //     filteredResults.forEach((res, index) => {
+    //         // Sort candidates by votes descending
+    //         const sortedCandidates = res.candidates.sort(
+    //             (a, b) => b.totalVotes - a.totalVotes
+    //         );
+
+    //         const maxVotes = Math.max(...sortedCandidates.map((c) => c.totalVotes));
+
+    //         doc.setFont("helvetica", "bold");
+    //         doc.setFontSize(14);
+    //         doc.text(`${index + 1}. ${res.position}`, marginX, yPos);
+    //         yPos += 5;
+
+    //         const tableData = sortedCandidates.map((c, i) => [
+    //             i + 1,
+    //             c.name,
+    //             c.studentId,
+    //             c.totalVotes,
+    //             c.totalVotes === maxVotes ? "🏆 Winner" : "",
+    //         ]);
+
+    //         autoTable(doc, {
+    //             startY: yPos,
+    //             head: [["#", "Candidate Name", "Student ID", "Total Votes", "Status"]],
+    //             body: tableData,
+    //             theme: "grid",
+    //             headStyles: { fillColor: [42, 55, 147], halign: "center" },
+    //             bodyStyles: {
+    //                 halign: "center",
+    //             },
+    //             didParseCell: (data) => {
+    //                 // Highlight winner row
+    //                 if (data.row.raw[4] === "🏆 Winner") {
+    //                     data.cell.styles.fillColor = [200, 230, 255];
+    //                     data.cell.styles.fontStyle = "bold";
+    //                 }
+    //             },
+    //             margin: { left: marginX, right: marginX },
+    //             didDrawPage: (data) => {
+    //                 yPos = data.cursor.y + 10;
+    //             },
+    //         });
+
+    //         yPos = doc.lastAutoTable.finalY + 10;
+    //         if (yPos > doc.internal.pageSize.height - 30) {
+    //             doc.addPage();
+    //             yPos = 25;
+    //         }
+    //     });
+
+    //     // Footer
+    //     const footerText =
+    //         "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University";
+    //     doc.setFontSize(10);
+    //     doc.setFont("helvetica", "italic");
+    //     const pageHeight = doc.internal.pageSize.getHeight();
+    //     doc.text(footerText, pageWidth / 2, pageHeight - 10, { align: "center" });
+
+    //     const filename =
+    //         selectedPosition === "All"
+    //             ? "Election_Results_All_Positions.pdf"
+    //             : `Election_Result_${selectedPosition.replace(/\s+/g, "_")}.pdf`;
+
+    //     doc.save(filename);
+    // };
     const handleDownloadPDF = () => {
+        if (!results.length) return alert("No results available.");
+
+        const filteredResults =
+            selectedPosition === "All"
+                ? results
+                : results.filter((res) => res.position === selectedPosition);
+
         const doc = new jsPDF("p", "mm", "a4");
         const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
         const marginX = 14;
-        let yPos = 25;
+        const topMargin = 50; // reserved space for header
+        const bottomMargin = 20; // reserved space for footer
+        let yPos = topMargin + 5;
 
-        // === HEADER ===
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(18);
-        doc.text("PCIU E-Voting - Modernizing Campus Elections", pageWidth / 2, yPos, { align: "center" });
-        yPos += 8;
-        doc.setFontSize(16);
-        doc.text("3rd Executive Committee Election Results", pageWidth / 2, yPos, { align: "center" });
-
-        yPos += 10;
-        doc.setFontSize(12);
-        doc.setFont("helvetica", "normal");
-        doc.text(`Generated on: ${new Date().toLocaleString()}`, marginX, yPos);
-
-        yPos += 10;
-
-        results.forEach((res, index) => {
+        // header renderer (drawn later on each page)
+        const renderHeader = (doc) => {
             doc.setFont("helvetica", "bold");
-            doc.setFontSize(14);
-            doc.text(`${index + 1}. ${res.position}`, marginX, yPos);
-            yPos += 5;
+            doc.setFontSize(18);
+            doc.text("PCIU E-Voting - PCIU Computer Club 1st Election", pageWidth / 2, 18, { align: "center" });
+            doc.setFontSize(16);
+            doc.text("3rd Executive Committee Election Results", pageWidth / 2, 26, { align: "center" });
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10.5);
+            doc.text(`Generated on: ${new Date().toLocaleString()}`, marginX, 34);
+        };
 
-            const tableData = res.winners.map((winner, i) => [
+        // footer renderer (drawn later on each page)
+        const renderFooter = (doc, pageNumber, totalPages) => {
+            const footerY = pageHeight - 10;
+            doc.setFontSize(8.5);
+            doc.setFont("helvetica", "italic");
+            doc.text(
+                "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University",
+                marginX,
+                footerY,
+                { align: "left" }
+            );
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(9);
+            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth - marginX, footerY, { align: "right" });
+        };
+
+        filteredResults.forEach((res, index) => {
+            const sortedCandidates = res.candidates.sort((a, b) => b.totalVotes - a.totalVotes);
+            const maxVotes = Math.max(...sortedCandidates.map((c) => c.totalVotes));
+
+            const tableData = sortedCandidates.map((c, i) => [
                 i + 1,
-                winner.candidate.name,
-                winner.candidate.studentId,
-                winner.totalVotes
+                c.name,
+                c.studentId,
+                c.totalVotes,
+                c.totalVotes === maxVotes ? "Winner" : "",
             ]);
+
+            // Add a title before the table (start below reserved header area)
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(13.5);
+            doc.text(`${index + 1}. ${res.position}`, marginX, yPos);
+            yPos += 6;
 
             autoTable(doc, {
                 startY: yPos,
-                head: [["#", "Candidate Name", "Student ID", "Total Votes"]],
+                head: [["#", "Candidate Name", "Student ID", "Total Votes", "Status"]],
                 body: tableData,
-                theme: "striped",
-                headStyles: { fillColor: [42, 55, 147], halign: "center" },
-                bodyStyles: { halign: "center" },
-                margin: { left: marginX, right: marginX },
-                didDrawPage: (data) => {
-                    yPos = data.cursor.y + 10;
+                theme: "grid",
+                headStyles: { fillColor: [42, 55, 147], halign: "center", textColor: 255 },
+                bodyStyles: {
+                    halign: "center",
+                    font: "helvetica",
+                    fontSize: 10.5,
+                },
+                margin: { top: topMargin + 5, bottom: bottomMargin, left: marginX, right: marginX },
+                didParseCell: (data) => {
+                    if (data.row.raw[4] === "Winner") {
+                        data.cell.styles.fillColor = [217, 240, 255];
+                        data.cell.styles.textColor = [0, 64, 128];
+                        data.cell.styles.fontStyle = "bold";
+                    }
+                },
+                didDrawPage: () => {
+                    yPos = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : topMargin + 10;
                 },
             });
 
-            yPos = doc.lastAutoTable.finalY + 10;
-            if (yPos > doc.internal.pageSize.height - 30) {
-                doc.addPage();
-                yPos = 25;
-            }
+            yPos = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : topMargin + 10;
         });
 
-        const footerText =
-            "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University";
-        doc.setFontSize(10);
-        doc.setFont("helvetica", "italic");
-        const pageHeight = doc.internal.pageSize.getHeight();
-        doc.text(footerText, pageWidth / 2, pageHeight - 10, { align: "center" });
-        doc.save("Election_Results.pdf");
+        const totalPages = doc.internal.getNumberOfPages();
+        for (let p = 1; p <= totalPages; p++) {
+            doc.setPage(p);
+            renderHeader(doc);
+            renderFooter(doc, p, totalPages);
+        }
+
+        const filename =
+            selectedPosition === "All"
+                ? "Election_Results_All_Positions.pdf"
+                : `Election_Result_${selectedPosition.replace(/\s+/g, "_")}.pdf`;
+
+        doc.save(filename);
     };
 
 
-    if (loading) {
+    if (loading)
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <p className="text-gray-600">Loading results...</p>
             </div>
         );
-    }
 
-    if (isVotingActive) {
-        return null;
-    }
+    if (isVotingActive) return null;
 
     return (
-        <div className="min-h-screen bg-base-200 p-6">
-            <div className="max-w-6xl mx-auto">
-                <h1 className="text-3xl font-bold text-center text-[#2a3793] mb-8">
-                    🗳️ Election Results
+        <div className="min-h-screen bg-base-200 flex flex-col items-center justify-center p-6">
+            <div className="bg-white shadow-md border border-[#2a3793] rounded-lg p-8 w-full max-w-lg text-center">
+                <h1 className="text-2xl font-bold text-[#2a3793] mb-6">
+                    🗳️ Election Results Report Generator
                 </h1>
 
-                {results.length === 0 ? (
-                    <p className="text-center text-gray-500">
-                        No results available yet.
-                    </p>
-                ) : (
-                    <>
-                        <div className="grid gap-8">
-                            {results.map((res, idx) => (
-                                <div
-                                    key={idx}
-                                    className="bg-white border border-[#2a3793] rounded-lg shadow-md p-5"
-                                >
-                                    <h2 className="text-xl font-semibold text-[#2a3793] mb-4 border-b pb-2">
-                                        {res.position}
-                                    </h2>
+                <div className="mb-6">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Select Position
+                    </label>
+                    <select
+                        className="select select-bordered w-full"
+                        value={selectedPosition}
+                        onChange={(e) => setSelectedPosition(e.target.value)}
+                    >
+                        <option value="All">All Positions</option>
+                        {positionRanking.map((pos, idx) => (
+                            <option key={idx} value={pos}>
+                                {pos}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
-                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                        {res.winners.map((winner, i) => (
-                                            <div
-                                                key={i}
-                                                className="border rounded-lg p-4 flex flex-col items-center text-center hover:shadow-md"
-                                            >
-                                                <img
-                                                    src={winner.candidate.photo}
-                                                    alt={winner.candidate.name}
-                                                    className="w-24 h-24 object-cover rounded-full border mb-3"
-                                                />
-                                                <img
-                                                    src={winner.candidate.symbol}
-                                                    alt="Symbol"
-                                                    className="w-16 h-16 object-contain mb-2"
-                                                />
-                                                <h3 className="font-bold text-lg">
-                                                    {winner.candidate.name}
-                                                </h3>
-                                                <p className="text-sm text-gray-600">
-                                                    {winner.candidate.studentId}
-                                                </p>
-                                                <p className="font-semibold mt-2 text-[#2a3793]">
-                                                    🗳️ Votes: {winner.totalVotes}
-                                                </p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        <div className="text-center mt-8">
-                            <button
-                                onClick={handleDownloadPDF}
-                                className="btn bg-[#2a3793] text-white rounded-md w-64"
-                            >
-                                Download PDF
-                            </button>
-                        </div>
-                    </>
-                )}
+                <button
+                    onClick={handleDownloadPDF}
+                    className="btn bg-[#2a3793] text-white w-full rounded-md"
+                >
+                    Download PDF
+                </button>
             </div>
         </div>
     );
