@@ -188,33 +188,50 @@ export const AddVoters = async (req, res) => {
 
 export const GetElectionResult = async (req, res) => {
     try {
-
         const ElectionResults = await VotingCountModel.aggregate([
-            // Step 0: ensure candidateId is ObjectId
+            // Convert candidateId to ObjectId (just in case)
             {
                 $addFields: {
                     candidateId: { $toObjectId: "$candidateId" }
                 }
             },
 
-            // Step 1: group by position
+            // Lookup candidate details
+            {
+                $lookup: {
+                    from: "Candidates", // ✅ confirmed collection name
+                    localField: "candidateId",
+                    foreignField: "_id",
+                    as: "candidateInfo"
+                }
+            },
+            { $unwind: "$candidateInfo" },
+
+            // Group all candidates by position
             {
                 $group: {
                     _id: "$position",
-                    maxVotes: { $max: "$totalVotes" },
                     candidates: {
                         $push: {
                             candidateId: "$candidateId",
+                            name: "$candidateInfo.name",
+                            studentId: "$candidateInfo.studentId",
+                            symbol: "$candidateInfo.symbol",
                             totalVotes: "$totalVotes"
                         }
-                    }
+                    },
+                    maxVotes: { $max: "$totalVotes" } // track top vote count
                 }
             },
 
-            // Step 2: keep only max vote winners
+            // Project: sort candidates and mark winners
             {
                 $project: {
+                    _id: 0,
                     position: "$_id",
+                    candidates: {
+                        $sortArray: { input: "$candidates", sortBy: { totalVotes: -1 } }
+                    },
                     winners: {
                         $filter: {
                             input: "$candidates",
@@ -223,54 +240,20 @@ export const GetElectionResult = async (req, res) => {
                         }
                     }
                 }
-            },
-
-            // Step 3: unwind winners for lookup
-            { $unwind: "$winners" },
-
-            // Step 4: lookup candidate details
-            {
-                $lookup: {
-                    from: "Candidates",
-                    localField: "winners.candidateId",
-                    foreignField: "_id",
-                    as: "candidateInfo"
-                }
-            },
-            { $unwind: "$candidateInfo" },
-
-            // Step 5: merge
-            {
-                $project: {
-                    _id: 0,
-                    position: 1,
-                    winner: {
-                        totalVotes: "$winners.totalVotes",
-                        candidate: "$candidateInfo"
-                    }
-                }
-            },
-
-            // Step 6: regroup winners in case of tie
-            {
-                $group: {
-                    _id: "$position",
-                    winners: { $push: "$winner" }
-                }
-            },
-
-            {
-                $project: {
-                    _id: 0,
-                    position: "$_id",
-                    winners: 1
-                }
             }
         ]);
 
+        return res.status(200).json({
+            success: true,
+            ElectionResults
+        });
 
-        return res.status(200).json({ success: true, ElectionResults });
     } catch (error) {
-        return res.send(error);
+        console.error("Error in GetElectionResult:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error: error.message
+        });
     }
-}
+};
