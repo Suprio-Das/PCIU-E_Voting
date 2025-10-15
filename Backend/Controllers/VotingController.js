@@ -56,7 +56,7 @@ export const SubmitVote = async (req, res) => {
 
         // Adding votes to the candidates
         for (const candidate of candidates) {
-            const filter = { _id: new ObjectId(candidate) }
+            const filter = { candidateId: new ObjectId(candidate) }
             // Finding the candidate position
             const currentCandidatePosition = await CandidateModel.findById(candidate);
             const currentVoteCount = await VotingCountModel.findOne(filter);
