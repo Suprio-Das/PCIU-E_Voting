@@ -187,7 +187,7 @@ const Commissioner = () => {
                             className={`hover:bg-base-300 rounded-lg ${activeSection === "election" ? "bg-base-300 font-semibold" : ""
                                 }`}
                         >
-                            🗳️ Start Election
+                            ▶ Start Election
                         </button>
                     </li>
                     <li>
@@ -197,7 +197,7 @@ const Commissioner = () => {
                             className={`hover:bg-base-300 rounded-lg ${activeSection === "allowVoters" ? "bg-base-300 font-semibold" : ""
                                 } ${stats === false ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            👥 Allow Voters
+                            ✔ Allow Voters
                         </button>
                     </li>
                     <li>
@@ -227,7 +227,7 @@ const Commissioner = () => {
                             className={`hover:bg-base-300 rounded-lg  ${activeSection === "candidates" ? "bg-base-300 font-semibold" : ""
                                 } ${stats === true ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            👥 Add Candidates
+                            👨‍💼 Add Candidates
                         </button>
                     </li>
                     <li>
@@ -237,7 +237,7 @@ const Commissioner = () => {
                             className={`hover:bg-base-300 rounded-lg  ${activeSection === "candidates" ? "bg-base-300 font-semibold" : ""
                                 } ${stats === true ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            Export Results
+                            🏆 Export Results
                         </button>
                     </li>
                 </ul>
