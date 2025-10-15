@@ -1,8 +1,7 @@
 # 🗳️ PCIU E-Voting System
 
-A **secure LAN-based electronic voting system** designed for **Port City International University (PCIU)**.  
-It enables a **Commissioner** to organize and manage elections while allowing **Students** to securely cast votes.  
-The system is fully offline, deployed over a **Local Area Network (LAN)**, ensuring **transparency, reliability, and data security**.
+A **secure MERN and Socket.io based voting system** designed for **Port City International University (PCIU)**.  
+It enables a **Commissioner** to organize and manage elections while allowing **Students** to securely cast votes. 
 
 ---
 
@@ -13,10 +12,12 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Mongoose](https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Socket.io-20232A?style=for-the-badge&logo=socket.io&logoColor=61DAFB)
+![Socket.io](https://img.shields.io/badge/react-toastify-20232A?style=for-the-badge&logo=reacttoastify&logoColor=61DAFB)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=json-web-tokens&logoColor=white)
 ![Dotenv](https://img.shields.io/badge/Dotenv-ECD53F?style=for-the-badge&logo=dotenv&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 
 ---
 
@@ -36,7 +37,8 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 
 ### Commissioner
 - Log in securely with credentials.  
-- Add/manage **candidates** and **voters**.  
+- Add/manage **candidates** and **voters**.
+- Allow Voters to vote 
 - Start/stop elections.  
 - Monitor real-time voting status.  
 - Export election results.  
@@ -54,7 +56,6 @@ The system is fully offline, deployed over a **Local Area Network (LAN)**, ensur
 - Start/stop elections with **real-time monitoring**.  
 - Enforce **one vote per student**.  
 - **Student ID authentication** with encrypted vote storage.  
-- Fully **offline LAN-based** system (no external threats).  
 - Exportable results after election completion.  
 
 ---
