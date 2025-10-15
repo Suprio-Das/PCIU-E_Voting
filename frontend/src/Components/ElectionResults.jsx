@@ -244,8 +244,8 @@ const ElectionResult = () => {
                 margin: { top: topMargin + 5, bottom: bottomMargin, left: marginX, right: marginX },
                 didParseCell: (data) => {
                     if (data.row.raw[4] === "Winner") {
-                        data.cell.styles.fillColor = [217, 240, 255];
-                        data.cell.styles.textColor = [0, 64, 128];
+                        data.cell.styles.fillColor = [180, 255, 180]; // light green highlight
+                        data.cell.styles.textColor = [0, 64, 0];
                         data.cell.styles.fontStyle = "bold";
                     }
                 },
