@@ -142,6 +142,14 @@ export const AddCandidates = async (req, res) => {
             symbol: fullSymbolUrl,
         });
 
+        const newVotingCounts = await VotingCountModel.create({
+            candidateId: newCandidate._id,
+            position: position,
+            totalVotes: 0
+        })
+
+        console.log(newVotingCounts)
+
         return res.status(200).json({
             success: true,
             message: "Candidate added successfully.",
