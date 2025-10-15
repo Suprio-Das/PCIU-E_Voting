@@ -284,9 +284,9 @@ const ElectionResult = () => {
 
     return (
         <div className="min-h-screen bg-base-200 flex flex-col items-center justify-center p-6">
-            <div className="bg-white shadow-md border border-[#2a3793] rounded-lg p-8 w-full max-w-lg text-center">
+            <div className="bg-white shadow-md border border-[#2a3793] rounded-lg p-8 w-full max-w-md text-center">
                 <h1 className="text-2xl font-bold text-[#2a3793] mb-6">
-                    🗳️ Election Results Report Generator
+                    Generate Election Reports
                 </h1>
 
                 <div className="mb-6">
