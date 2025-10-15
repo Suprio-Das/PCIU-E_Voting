@@ -189,7 +189,6 @@ export const AddVoters = async (req, res) => {
 export const GetElectionResult = async (req, res) => {
     try {
         const ElectionResults = await VotingCountModel.aggregate([
-            // Convert candidateId to ObjectId (just in case)
             {
                 $addFields: {
                     candidateId: { $toObjectId: "$candidateId" }
@@ -199,7 +198,7 @@ export const GetElectionResult = async (req, res) => {
             // Lookup candidate details
             {
                 $lookup: {
-                    from: "Candidates", // ✅ confirmed collection name
+                    from: "Candidates",
                     localField: "candidateId",
                     foreignField: "_id",
                     as: "candidateInfo"
