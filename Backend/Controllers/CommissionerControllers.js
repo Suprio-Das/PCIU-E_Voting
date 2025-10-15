@@ -139,7 +139,6 @@ export const AddCandidates = async (req, res) => {
         if (isCandidateExist) {
             return res.status(401).json({ success: false, message: "Candidate already added." })
         }
-        console.log("not exist")
 
         const newCandidate = await CandidateModel.create({
             name,
