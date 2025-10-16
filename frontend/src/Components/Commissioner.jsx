@@ -240,6 +240,16 @@ const Commissioner = () => {
                             🏆 Export Results
                         </button>
                     </li>
+                    <li>
+                        <button
+                            disabled={stats === true}
+                            onClick={() => setActiveSection("reset")}
+                            className={`hover:bg-base-300 rounded-lg  ${activeSection === "reset" ? "bg-base-300 font-semibold" : ""
+                                } ${stats === true ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                            ♻ Reset Election Info.
+                        </button>
+                    </li>
                 </ul>
             </div>
 
