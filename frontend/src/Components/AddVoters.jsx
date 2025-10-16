@@ -54,6 +54,32 @@ const AddVoters = () => {
     return (
         <div className="p-6 rounded-lg border border-base-300 bg-base-200">
             <h2 className="text-xl font-semibold mb-4">📥 Upload Voters Excel File</h2>
+            <h1>The Excel file should contain the below columns:</h1>
+            <div className="overflow-x-auto mb-3">
+                <table className="table table-zebra table-xs text-center">
+                    {/* head */}
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>name</th>
+                            <th>studentId</th>
+                            <th>voted</th>
+                            <th>role</th>
+                            <th>isAllowed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr className="">
+                            <th>1</th>
+                            <td>Suprio Das</td>
+                            <td>CSE 02807546</td>
+                            <td>false</td>
+                            <td>student</td>
+                            <td>false</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <input
                 type="file"
