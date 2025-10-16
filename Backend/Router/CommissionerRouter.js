@@ -1,6 +1,6 @@
 import express from 'express';
 import { isCommissioner } from '../Middlewares/verifyToken.js';
-import { AddCandidates, AddPositions, AddVoters, AllowVoter, GetAllPositions, GetElectionResult, StartElection, StopElection } from '../Controllers/CommissionerControllers.js';
+import { AddCandidates, AddPositions, AddVoters, AllowVoter, GetAllPositions, GetElectionResult, ResetElectionInfo, StartElection, StopElection } from '../Controllers/CommissionerControllers.js';
 import upload from '../Utils/uploadConfig.js';
 
 const CommissionerRoutes = express.Router();
@@ -20,5 +20,6 @@ CommissionerRoutes.post('/addvoters', isCommissioner, AddVoters);
 CommissionerRoutes.post('/addpositions', isCommissioner, AddPositions);
 CommissionerRoutes.get('/positions', isCommissioner, GetAllPositions);
 CommissionerRoutes.get('/results', isCommissioner, GetElectionResult);
+CommissionerRoutes.post('/resetdb', isCommissioner, ResetElectionInfo);
 
 export default CommissionerRoutes;
