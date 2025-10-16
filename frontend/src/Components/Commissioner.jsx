@@ -301,6 +301,13 @@ const Commissioner = () => {
                         <ElectionResult></ElectionResult>
                     </section>
                 )}
+                {activeSection === "reset" && (
+                    <section className="w-3/5 shadow-lg border-2 border-red-500 rounded-xl py-4 text-center">
+                        <h1 className="text-3xl font-semibold primary-color my-5">Reset Election Information.</h1>
+                        <p className="text-red-500 fonts bg-black font-semibold p-2 my-4">Note: Reseting election will delete all the informations of the election like Candidates, Students, Election Results etc. This can't be undone. </p>
+                        <button className="btn bg-red-500 text-white w-1/5 my-3">⊘ Reset</button>
+                    </section>
+                )}
             </div>
             <ToastContainer />
         </div >
