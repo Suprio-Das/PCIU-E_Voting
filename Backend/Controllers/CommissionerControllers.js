@@ -256,3 +256,19 @@ export const GetElectionResult = async (req, res) => {
         });
     }
 };
+
+export const ResetElectionInfo = async (req, res) => {
+    try {
+        const Candidates = await CandidateModel.deleteMany({})
+        const Positions = await PositionModel.deleteMany({});
+        const Students = await StudentModel.deleteMany({});
+        const VotingCounts = await VotingCountModel.deleteMany({});
+
+        if (!Candidates || !Positions || !Students || !VotingCounts) {
+            return res.status(201).json({ success: false, message: 'Error clearing Database.' })
+        }
+        return res.status(200).json({ success: true, message: 'Database cleared successfully.' })
+    } catch (error) {
+        return res.json({ message: 'Server error' })
+    }
+}
