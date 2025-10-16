@@ -288,31 +288,35 @@ const ElectionResult = () => {
                 <h1 className="text-2xl font-bold text-[#2a3793] mb-6">
                     Generate Election Reports
                 </h1>
+                {
+                    results.length === 0 ? 'No result is found!' :
+                        <div>
+                            <div className="mb-6">
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Select Position
+                                </label>
+                                <select
+                                    className="select select-bordered w-full"
+                                    value={selectedPosition}
+                                    onChange={(e) => setSelectedPosition(e.target.value)}
+                                >
+                                    <option value="All">All Positions</option>
+                                    {positionRanking.map((pos, idx) => (
+                                        <option key={idx} value={pos}>
+                                            {pos}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
 
-                <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Select Position
-                    </label>
-                    <select
-                        className="select select-bordered w-full"
-                        value={selectedPosition}
-                        onChange={(e) => setSelectedPosition(e.target.value)}
-                    >
-                        <option value="All">All Positions</option>
-                        {positionRanking.map((pos, idx) => (
-                            <option key={idx} value={pos}>
-                                {pos}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <button
-                    onClick={handleDownloadPDF}
-                    className="btn bg-[#2a3793] text-white w-full rounded-md"
-                >
-                    Download PDF
-                </button>
+                            <button
+                                onClick={handleDownloadPDF}
+                                className="btn bg-[#2a3793] text-white w-full rounded-md"
+                            >
+                                Download PDF
+                            </button>
+                        </div>
+                }
             </div>
         </div>
     );

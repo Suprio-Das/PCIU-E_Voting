@@ -276,7 +276,7 @@ const Commissioner = () => {
                         <button
                             disabled={stats === true}
                             onClick={() => setActiveSection("results")}
-                            className={`hover:bg-base-300 rounded-lg  ${activeSection === "candidates" ? "bg-base-300 font-semibold" : ""
+                            className={`hover:bg-base-300 rounded-lg  ${activeSection === "results" ? "bg-base-300 font-semibold" : ""
                                 } ${stats === true ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             🏆 Export Results
