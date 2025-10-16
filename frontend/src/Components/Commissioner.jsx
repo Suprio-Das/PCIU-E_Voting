@@ -100,6 +100,48 @@ const Commissioner = () => {
         }
     };
 
+    // Reset Election
+    const handleResetElection = async () => {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "This will reset all the informations!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, reset it!"
+        });
+
+        if (result.isConfirmed) {
+            try {
+                const res = await api.post("api/commissioner/resetdb");
+
+                if (res.status === 200) {
+                    await Swal.fire({
+                        title: "Reset Done!",
+                        text: "All the election information has been successfully reset.",
+                        icon: "success"
+                    });
+                    setStats(false);
+                    setRefresh((prev) => !prev);
+                } else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Something went wrong while reseting the election.",
+                        icon: "error"
+                    });
+                }
+            } catch (error) {
+                console.error(error.message);
+                Swal.fire({
+                    title: "Failed!",
+                    text: "Could not reset the reset process. Please try again later.",
+                    icon: "error"
+                });
+            }
+        }
+    };
+
 
     useEffect(() => {
         // Connect to Socket.IO server
@@ -305,7 +347,7 @@ const Commissioner = () => {
                     <section className="w-3/5 shadow-lg border-2 border-red-500 rounded-xl py-4 text-center">
                         <h1 className="text-3xl font-semibold primary-color my-5">Reset Election Information.</h1>
                         <p className="text-red-500 fonts bg-black font-semibold p-2 my-4">Note: Reseting election will delete all the informations of the election like Candidates, Students, Election Results etc. This can't be undone. </p>
-                        <button className="btn bg-red-500 text-white w-1/5 my-3">⊘ Reset</button>
+                        <button className="btn bg-red-500 text-white w-1/5 my-3" onClick={handleResetElection}>⊘ Reset</button>
                     </section>
                 )}
             </div>
