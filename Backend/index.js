@@ -23,7 +23,7 @@ const server = http.createServer(app);
 // Initialize Socket.IO
 const io = new Server(server, {
     cors: {
-        origin: 'https://pciu-evoting.vercel.app/',
+        origin: 'https://pciu-evoting.vercel.app',
         credentials: true,
     },
 });
