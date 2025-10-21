@@ -77,7 +77,6 @@ It enables a **Commissioner** to organize and manage elections while allowing **
 - **JWT authentication** for Commissioner.  
 - **One-vote-per-student** enforcement.  
 - Encrypted voter and vote data in **MongoDB**.  
-- **LAN-only deployment** prevents external cyber attacks.  
 
 ---
 
