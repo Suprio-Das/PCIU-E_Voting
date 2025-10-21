@@ -23,9 +23,7 @@ const server = http.createServer(app);
 // Initialize Socket.IO
 const io = new Server(server, {
     cors: {
-        origin: [
-            'https://pciu-evoting.vercel.app/'
-        ],
+        origin: 'https://pciu-evoting.vercel.app/',
         credentials: true,
     },
 });
@@ -48,9 +46,7 @@ io.on('connection', (socket) => {
 // Middlewares
 app.use(express.json())
 app.use(cors({
-    origin: [
-        'https://pciu-evoting.vercel.app/'
-    ],
+    origin: 'https://pciu-evoting.vercel.app/',
     credentials: true
 }));
 app.use(cookieParser())
