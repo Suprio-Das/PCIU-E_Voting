@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
 // Middlewares
 app.use(express.json())
 app.use(cors({
-    origin: 'https://pciu-evoting.vercel.app/',
+    origin: 'https://pciu-evoting.vercel.app',
     credentials: true
 }));
 app.use(cookieParser())
