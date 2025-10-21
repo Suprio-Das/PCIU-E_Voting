@@ -61,14 +61,7 @@ It enables a **Commissioner** to organize and manage elections while allowing **
 ---
 
 ## 🏛 System Architecture
-<br>
-<img src="PCIU-Evoting Flowchart.png"/>
-<br>
 
-- **PC1**: Runs Node.js/Express backend + MongoDB. Hosts Commissioner Control Panel.  
-- **PC2**: React-based frontend for Students. Connects to PC1 backend APIs over LAN.  
-
----
 
 ## Workflow
 
