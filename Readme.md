@@ -61,14 +61,7 @@ It enables a **Commissioner** to organize and manage elections while allowing **
 ---
 
 ## 🏛 System Architecture
-<br>
-<img src="PCIU-Evoting Flowchart.png"/>
-<br>
 
-- **PC1**: Runs Node.js/Express backend + MongoDB. Hosts Commissioner Control Panel.  
-- **PC2**: React-based frontend for Students. Connects to PC1 backend APIs over LAN.  
-
----
 
 ## Workflow
 
@@ -84,14 +77,7 @@ It enables a **Commissioner** to organize and manage elections while allowing **
 - **JWT authentication** for Commissioner.  
 - **One-vote-per-student** enforcement.  
 - Encrypted voter and vote data in **MongoDB**.  
-- **LAN-only deployment** prevents external cyber attacks.  
 
----
-
-### LAN Configuration
-1. Connect **PC1 (server)** and **PC2 (client)** in the same LAN.  
-2. Assign **static IPs** to both PCs.  
-3. Update frontend `.env` file to point API base URL → `http://<PC1_IP>:<PORT>`.
 ---
 
 ## Contributors
