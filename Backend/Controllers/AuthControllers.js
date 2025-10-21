@@ -20,7 +20,8 @@ export const Login = async (req, res) => {
         res.cookie('token', token, {
             maxAge: 86400000,
             secure: false,
-            httpOnly: true
+            httpOnly: true,
+            sameSite: 'none'
         })
 
         return res.status(200).json({ success: true, message: "Commissioner Logged-in successfully", commissioner })
