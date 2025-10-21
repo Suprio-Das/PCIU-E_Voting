@@ -123,10 +123,12 @@ export const AddCandidates = async (req, res) => {
     try {
         const { name, studentId, position } = req.body;
 
-        const symbolPath = req.file ? req.file.path.replace(/\\/g, "/") : null;
-        const fullSymbolUrl = symbolPath
-            ? `${req.protocol}://${req.get("host")}/${symbolPath}`
-            : null;
+        // const symbolPath = req.file ? req.file.path.replace(/\\/g, "/") : null;
+        // const fullSymbolUrl = symbolPath
+        //     ? `${req.protocol}://${req.get("host")}/${symbolPath}`
+        //     : null;
+
+        const fullSymbolUrl = req.file ? req.file.path : null;
 
         if (!name || !studentId || !position || !symbolPath) {
             return res.status(400).json({

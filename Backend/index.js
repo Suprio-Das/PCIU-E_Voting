@@ -66,7 +66,7 @@ app.use('/api/votestats', VotingStatusRoutes)
 app.use('/api/vote', VotingRoutes);
 // ======================APP Routes========================\\
 
-app.use("/uploads", express.static("uploads"));
+// app.use("/uploads", express.static("uploads"));
 
 export { io };
 

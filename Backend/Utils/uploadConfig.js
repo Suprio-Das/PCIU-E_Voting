@@ -1,20 +1,24 @@
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 import multer from "multer";
-import path from "path";
-import fs from "fs";
 
-const uploadDir = "uploads/";
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir);
-}
+// Cloudinary configuration
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+});
 
-// Configure storage
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, uploadDir);
-    },
-    filename: (req, file, cb) => {
-        const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        cb(null, uniqueName + path.extname(file.originalname)); // e.g. 17283109232.jpg
+// Configure Cloudinary storage for Multer
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: "evoting-uploads", // Folder name in your Cloudinary
+        allowed_formats: ["jpg", "jpeg", "png"],
+        public_id: (req, file) => {
+            const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
+            return uniqueName; // cloudinary file name
+        },
     },
 });
 
