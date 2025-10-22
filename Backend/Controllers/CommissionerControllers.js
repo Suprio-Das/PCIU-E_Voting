@@ -279,7 +279,13 @@ export const GetVoteSummary = async (req, res) => {
         const totalPercentage = percentageInDecimal * 100;
         const totalPercentageFormatted = totalPercentage.toFixed(2);
 
-        const voteSummary = [totalVoters, totalCastedVotes, totalPercentageFormatted];
+        const voteSummary = [
+            {
+                totalVoters: totalVoters,
+                totalCastedVotes: totalCastedVotes,
+                totalPercentageFormatted: totalPercentageFormatted
+            }
+        ];
 
         // Return the values
         res.status(200).json({ success: true, voteSummary })

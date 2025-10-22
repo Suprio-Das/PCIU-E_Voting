@@ -28,6 +28,7 @@ const positionRanking = [
 const ElectionResult = () => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [summary, setSummary] = useState(null);
     const [selectedPosition, setSelectedPosition] = useState("All");
     const [isVotingActive, setIsVotingActive] = useState(true);
     const navigate = useNavigate();
@@ -47,6 +48,7 @@ const ElectionResult = () => {
                 navigate("/");
             } else {
                 fetchResults();
+                fetchSummary();
             }
         } catch (error) {
             console.error("Error checking voting status:", error);
@@ -69,6 +71,18 @@ const ElectionResult = () => {
             console.error("Error fetching results:", error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const fetchSummary = async () => {
+        try {
+            const res = await api.get("api/commissioner/getvotesummary");
+            if (res.data.success && res.data.voteSummary.length) {
+                const { totalVoters, totalCastedVotes, totalPercentageFormatted } = res.data.voteSummary[0];
+                setSummary({ totalVoters, totalCastedVotes, totalPercentageFormatted });
+            }
+        } catch (error) {
+            console.error("Error fetching summary:", error);
         }
     };
 
@@ -188,11 +202,24 @@ const ElectionResult = () => {
             doc.setFont("helvetica", "bold");
             doc.setFontSize(18);
             doc.text("PCIU E-Voting - PCIU Computer Club 1st Election", pageWidth / 2, 18, { align: "center" });
+
             doc.setFontSize(16);
             doc.text("1st Executive Committee Election Results", pageWidth / 2, 26, { align: "center" });
+
             doc.setFont("helvetica", "italic");
             doc.setFontSize(9);
-            doc.text(`Generated on: ${new Date().toLocaleString()}`, pageWidth / 2, 40, { align: "center" });
+            doc.text(`Generated on: ${new Date().toLocaleString()}`, pageWidth / 2, 36, { align: "center" });
+
+            if (summary) {
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(10);
+                doc.text(
+                    `Total Voters: ${summary.totalVoters}    |    Casted Votes: ${summary.totalCastedVotes}    |    Participation: ${summary.totalPercentageFormatted}%`,
+                    pageWidth / 2,
+                    44,
+                    { align: "center" }
+                );
+            }
         };
 
         const renderFooter = (doc, pageNumber, totalPages) => {
