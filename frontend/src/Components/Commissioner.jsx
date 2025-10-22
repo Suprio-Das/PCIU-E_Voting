@@ -150,7 +150,7 @@ const Commissioner = () => {
         });
         socket.emit("join_commissioner");
         socket.on("vote_submitted", (data) => {
-            toast.success(`Student:${data.studentId} has submitted vote!`, {
+            toast.success(`Vote Casted:${data.studentId}`, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
