@@ -130,7 +130,7 @@ export const AddCandidates = async (req, res) => {
 
         const fullSymbolUrl = req.file ? req.file.path : null;
 
-        if (!name || !studentId || !position || !symbolPath) {
+        if (!name || !studentId || !position || !fullSymbolUrl) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required.",
