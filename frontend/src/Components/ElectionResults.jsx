@@ -223,14 +223,12 @@ const ElectionResult = () => {
 
             commissioners.forEach((info) => {
                 let y = footerTop;
-                const [name, line1, line2] = info;
+                const [name, line1] = info;
                 const wrappedLine1 = doc.splitTextToSize(line1, colWidth - 4);
-                const wrappedLine2 = doc.splitTextToSize(line2, colWidth - 4);
 
                 doc.text(name, x, y);
                 doc.setFontSize(8.2);
                 doc.text(wrappedLine1, x, y + 4);
-                doc.text(wrappedLine2, x, y + 8 + (wrappedLine1.length - 1) * 3);
                 x += colWidth;
                 doc.setFontSize(9);
             });
