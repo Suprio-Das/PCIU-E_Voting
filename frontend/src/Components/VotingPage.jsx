@@ -4,23 +4,18 @@ import api from "../Services/api";
 
 const positionRanking = [
     "President",
+    "Vice President",
     "General Secretary",
-    "Joint-General Secretary",
-    "Secretary of Competitive Programming",
-    "Joint-Secretary of Competitive Programming",
-    "Organising Secretary",
-    "Finance Secretary",
-    "IT Secretary",
-    "Office Secretary",
-    "Writing & Publishing Secretary",
-    "Publicity Editor",
-    "Research and Development Secretary",
-    "Sports Editor",
-    "Event Editor",
-    "Library Editor",
-    "Cultural Editor",
-    "Human Resource Secretary",
-    "Head of Disciplinary Commission",
+    "Joint Secretary",
+    "Treasurer",
+    "Organizing Secretary",
+    "Event Secretary",
+    "Publicity & Publication Secretary",
+    "Information and Research Secretary",
+    "Competitive Programming Secretary",
+    "Sports and Cultural Secretary",
+    "Women’s Affairs Secretary",
+    "Executive Members",
 ];
 
 const VotingPage = () => {
@@ -84,14 +79,13 @@ const VotingPage = () => {
         }
     };
 
-
     // Group candidates by position
     const groupedCandidates = candidates.reduce((acc, c) => {
         if (!acc[c.position]) acc[c.position] = [];
         acc[c.position].push(c);
         return acc;
     }, {});
-    console.log(candidates)
+
     return (
         <div className="min-h-screen bg-base-200 p-6">
             <div className="mx-auto">
@@ -99,48 +93,47 @@ const VotingPage = () => {
                     Cast Your Vote
                 </h1>
 
-                {Object.keys(groupedCandidates).map((position) => (
-                    <div key={position} className="mb-10">
-                        <h2 className="text-xl font-semibold mb-5 border-b pb-2">{position}</h2>
-                        <div className="grid md:grid-cols-4 gap-5">
-                            {groupedCandidates[position].map((c) => (
-                                <div
-                                    key={c._id}
-                                    className={`card bg-base-100 border border-[#2a3793] shadow-sm ${selectedVotes[position] === c._id ? "ring-2 ring-[#2a3793]" : ""
-                                        }`}
-                                >
-                                    <div className="card-body items-center text-center">
-                                        <div className="flex items-center gap-5">
-                                            {/* <img
-                                                src={c.photo}
-                                                alt={c.name}
-                                                className="w-20 h-20 object-contain border-1 rounded-xl"
-                                            /> */}
-                                            <img
-                                                src={c.symbol}
-                                                alt={c.name}
-                                                className="w-14 h-14 object-contain border-1 rounded-xl"
-                                            />
-                                            <div>
-                                                <h3 className="font-bold text-lg">{c.name}</h3>
-                                                <p className="text-sm text-gray-600">{c.studentId}</p>
+                {positionRanking
+                    .filter((position) => groupedCandidates[position])
+                    .map((position) => (
+                        <div key={position} className="mb-10">
+                            <h2 className="text-xl font-semibold mb-5 border-b pb-2">{position}</h2>
+                            <div className="grid md:grid-cols-4 gap-5">
+                                {groupedCandidates[position].map((c) => (
+                                    <div
+                                        key={c._id}
+                                        className={`card bg-base-100 border border-[#2a3793] shadow-sm ${selectedVotes[position] === c._id
+                                            ? "ring-2 ring-[#2a3793]"
+                                            : ""
+                                            }`}
+                                    >
+                                        <div className="card-body items-center text-center">
+                                            <div className="flex items-center gap-5">
+                                                <img
+                                                    src={c.symbol}
+                                                    alt={c.name}
+                                                    className="w-14 h-14 object-contain border-1 rounded-xl"
+                                                />
+                                                <div>
+                                                    <h3 className="font-bold text-lg">{c.name}</h3>
+                                                    <p className="text-sm text-gray-600">{c.studentId}</p>
+                                                </div>
                                             </div>
+                                            <button
+                                                onClick={() => handleVoteSelect(position, c._id)}
+                                                className={`btn w-full mt-3 ${selectedVotes[position] === c._id
+                                                    ? "bg-[#2a3793] text-white"
+                                                    : "btn-outline border-[#2a3793] text-[#2a3793]"
+                                                    }`}
+                                            >
+                                                {selectedVotes[position] === c._id ? "Selected" : "Vote"}
+                                            </button>
                                         </div>
-                                        <button
-                                            onClick={() => handleVoteSelect(position, c._id)}
-                                            className={`btn w-full mt-3 ${selectedVotes[position] === c._id
-                                                ? "bg-[#2a3793] text-white"
-                                                : "btn-outline border-[#2a3793] text-[#2a3793]"
-                                                }`}
-                                        >
-                                            {selectedVotes[position] === c._id ? "Selected" : "Vote"}
-                                        </button>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
 
                 <div className="text-center mt-8">
                     <button
