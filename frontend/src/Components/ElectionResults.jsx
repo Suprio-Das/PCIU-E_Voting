@@ -6,23 +6,18 @@ import autoTable from "jspdf-autotable";
 
 const positionRanking = [
     "President",
+    "Vice President",
     "General Secretary",
-    "Joint-General Secretary",
-    "Secretary of Competitive Programming",
-    "Joint-Secretary of Competitive Programming",
-    "Organising Secretary",
-    "Finance Secretary",
-    "IT Secretary",
-    "Office Secretary",
-    "Writing & Publishing Secretary",
-    "Publicity Editor",
-    "Research and Development Secretary",
-    "Sports Editor",
-    "Event Editor",
-    "Library Editor",
-    "Cultural Editor",
-    "Human Resource Secretary",
-    "Head of Disciplinary Commission",
+    "Joint Secretary",
+    "Treasurer",
+    "Organizing Secretary",
+    "Event Secretary",
+    "Publicity & Publication Secretary",
+    "Information and Research Secretary",
+    "Competitive Programming Secretary",
+    "Sports and Cultural Secretary",
+    "Women’s Affairs Secretary",
+    "Executive Members",
 ];
 
 const ElectionResult = () => {
@@ -60,11 +55,11 @@ const ElectionResult = () => {
         try {
             const res = await api.get("api/commissioner/results");
             if (res.data.success) {
-                const rankedResults = res.data.ElectionResults.sort((a, b) => {
-                    const indexA = positionRanking.indexOf(a.position);
-                    const indexB = positionRanking.indexOf(b.position);
-                    return indexA - indexB;
-                });
+                const rankedResults = res.data.ElectionResults.sort(
+                    (a, b) =>
+                        positionRanking.indexOf(a.position) -
+                        positionRanking.indexOf(b.position)
+                );
                 setResults(rankedResults);
             }
         } catch (error) {
@@ -86,108 +81,12 @@ const ElectionResult = () => {
         }
     };
 
-    // const handleDownloadPDF = () => {
-    //     if (!results.length) return alert("No results available.");
-
-    //     const filteredResults =
-    //         selectedPosition === "All"
-    //             ? results
-    //             : results.filter((res) => res.position === selectedPosition);
-
-    //     const doc = new jsPDF("p", "mm", "a4");
-    //     const pageWidth = doc.internal.pageSize.getWidth();
-    //     const marginX = 14;
-    //     let yPos = 25;
-
-    //     // === HEADER ===
-    //     doc.setFont("helvetica", "bold");
-    //     doc.setFontSize(18);
-    //     doc.text("PCIU E-Voting - Modernizing Campus Elections", pageWidth / 2, yPos, {
-    //         align: "center",
-    //     });
-    //     yPos += 8;
-    //     doc.setFontSize(16);
-    //     doc.text("3rd Executive Committee Election Results", pageWidth / 2, yPos, {
-    //         align: "center",
-    //     });
-
-    //     yPos += 10;
-    //     doc.setFontSize(12);
-    //     doc.setFont("helvetica", "normal");
-    //     doc.text(`Generated on: ${new Date().toLocaleString()}`, marginX, yPos);
-    //     yPos += 10;
-
-    //     filteredResults.forEach((res, index) => {
-    //         // Sort candidates by votes descending
-    //         const sortedCandidates = res.candidates.sort(
-    //             (a, b) => b.totalVotes - a.totalVotes
-    //         );
-
-    //         const maxVotes = Math.max(...sortedCandidates.map((c) => c.totalVotes));
-
-    //         doc.setFont("helvetica", "bold");
-    //         doc.setFontSize(14);
-    //         doc.text(`${index + 1}. ${res.position}`, marginX, yPos);
-    //         yPos += 5;
-
-    //         const tableData = sortedCandidates.map((c, i) => [
-    //             i + 1,
-    //             c.name,
-    //             c.studentId,
-    //             c.totalVotes,
-    //             c.totalVotes === maxVotes ? "🏆 Winner" : "",
-    //         ]);
-
-    //         autoTable(doc, {
-    //             startY: yPos,
-    //             head: [["#", "Candidate Name", "Student ID", "Total Votes", "Status"]],
-    //             body: tableData,
-    //             theme: "grid",
-    //             headStyles: { fillColor: [42, 55, 147], halign: "center" },
-    //             bodyStyles: {
-    //                 halign: "center",
-    //             },
-    //             didParseCell: (data) => {
-    //                 // Highlight winner row
-    //                 if (data.row.raw[4] === "🏆 Winner") {
-    //                     data.cell.styles.fillColor = [200, 230, 255];
-    //                     data.cell.styles.fontStyle = "bold";
-    //                 }
-    //             },
-    //             margin: { left: marginX, right: marginX },
-    //             didDrawPage: (data) => {
-    //                 yPos = data.cursor.y + 10;
-    //             },
-    //         });
-
-    //         yPos = doc.lastAutoTable.finalY + 10;
-    //         if (yPos > doc.internal.pageSize.height - 30) {
-    //             doc.addPage();
-    //             yPos = 25;
-    //         }
-    //     });
-
-    //     // Footer
-    //     const footerText =
-    //         "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University";
-    //     doc.setFontSize(10);
-    //     doc.setFont("helvetica", "italic");
-    //     const pageHeight = doc.internal.pageSize.getHeight();
-    //     doc.text(footerText, pageWidth / 2, pageHeight - 10, { align: "center" });
-
-    //     const filename =
-    //         selectedPosition === "All"
-    //             ? "Election_Results_All_Positions.pdf"
-    //             : `Election_Result_${selectedPosition.replace(/\s+/g, "_")}.pdf`;
-
-    //     doc.save(filename);
-    // };
     const handleDownloadPDF = () => {
         if (!results.length) return alert("No results available.");
 
         const filteredResults =
             selectedPosition === "All"
-                ? results
+                ? results.slice().sort((a, b) => positionRanking.indexOf(a.position) - positionRanking.indexOf(b.position))
                 : results.filter((res) => res.position === selectedPosition);
 
         const doc = new jsPDF("p", "mm", "a4");
@@ -198,7 +97,7 @@ const ElectionResult = () => {
         const bottomMargin = 35;
         let yPos = topMargin + 5;
 
-        const renderHeader = (doc) => {
+        const renderHeader = () => {
             doc.setFont("helvetica", "bold");
             doc.setFontSize(18);
             doc.text("PCIU E-Voting - PCIU Computer Club 1st Election", pageWidth / 2, 18, { align: "center" });
@@ -222,32 +121,14 @@ const ElectionResult = () => {
             }
         };
 
-        const renderFooter = (doc, pageNumber, totalPages) => {
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const pageHeight = doc.internal.pageSize.getHeight();
-            const marginX = 14;
+        const renderFooter = (pageNumber, totalPages) => {
             const footerTop = pageHeight - 40;
             const colWidth = (pageWidth - 2 * marginX) / 3;
 
             const commissioners = [
-                [
-                    "____________",
-                    "Sowmitra Das",
-                    "Assistant Election Commissioner,",
-                    "1st PCIU Computer Club Election",
-                ],
-                [
-                    "______________",
-                    "Manoara Begum",
-                    "Assistant Election Commissioner,",
-                    "1st PCIU Computer Club Election",
-                ],
-                [
-                    "_______________________",
-                    "Prof. Dr. Engr. Mafzal Ahmed",
-                    "Chief Election Commissioner,",
-                    "1st PCIU Computer Club Election",
-                ],
+                ["____________", "Sowmitra Das", "Assistant Election Commissioner,", "1st PCIU Computer Club Election"],
+                ["______________", "Manoara Begum", "Assistant Election Commissioner,", "1st PCIU Computer Club Election"],
+                ["_______________________", "Prof. Dr. Engr. Mafzal Ahmed", "Chief Election Commissioner,", "1st PCIU Computer Club Election"],
             ];
 
             let x = marginX;
@@ -255,44 +136,36 @@ const ElectionResult = () => {
             doc.setFontSize(9);
 
             commissioners.forEach((info) => {
-                let y = footerTop;
                 const [sign, name, line1, line2] = info;
                 const wrappedLine1 = doc.splitTextToSize(line1, colWidth - 4);
                 const wrappedLine2 = doc.splitTextToSize(line2, colWidth - 4);
 
-                // Draw signature line first
                 doc.setFontSize(9);
-                doc.text(sign, x, y);
-
-                // Then name and titles below it
+                doc.text(sign, x, footerTop);
                 doc.setFontSize(8.5);
-                doc.text(name, x, y + 5);
-                doc.text(wrappedLine1, x, y + 9);
-                doc.text(wrappedLine2, x, y + 13 + (wrappedLine1.length - 1) * 3);
+                doc.text(name, x, footerTop + 5);
+                doc.text(wrappedLine1, x, footerTop + 9);
+                doc.text(wrappedLine2, x, footerTop + 13 + (wrappedLine1.length - 1) * 3);
 
                 x += colWidth;
                 doc.setFontSize(9);
             });
 
-            // Divider
             doc.setDrawColor(180);
             doc.line(marginX, footerTop + 18, pageWidth - marginX, footerTop + 18);
 
-            const devText =
-                "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, IT Secretary, PCIU Computer Club";
+            const devText = "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, IT Secretary, PCIU Computer Club";
             doc.setFont("helvetica", "italic");
             doc.setFontSize(8.5);
             doc.text(devText, pageWidth / 2, footerTop + 24, { align: "center" });
 
-            const copyrightText =
-                "Copyright © 2025 - All right reserved to PCIU Computer Club, Port City International University";
+            const copyrightText = "Copyright © 2025 - All right reserved to PCIU Computer Club, Port City International University";
             doc.text(copyrightText, pageWidth / 2, footerTop + 30, { align: "center" });
 
             doc.setFont("helvetica", "normal");
             doc.setFontSize(9);
             doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, footerTop + 36, { align: "center" });
         };
-
 
         filteredResults.forEach((res, index) => {
             const sortedCandidates = res.candidates.sort((a, b) => b.totalVotes - a.totalVotes);
@@ -306,7 +179,6 @@ const ElectionResult = () => {
                 c.totalVotes === maxVotes ? "Winner" : "",
             ]);
 
-            // Estimate table height before drawing
             const estimatedHeight = 10 + tableData.length * 8;
             if (yPos + estimatedHeight > pageHeight - bottomMargin - 20) {
                 doc.addPage();
@@ -344,8 +216,8 @@ const ElectionResult = () => {
         const totalPages = doc.internal.getNumberOfPages();
         for (let p = 1; p <= totalPages; p++) {
             doc.setPage(p);
-            renderHeader(doc);
-            renderFooter(doc, p, totalPages);
+            renderHeader();
+            renderFooter(p, totalPages);
         }
 
         const filename =
@@ -355,7 +227,6 @@ const ElectionResult = () => {
 
         doc.save(filename);
     };
-
 
     if (loading)
         return (
@@ -370,37 +241,29 @@ const ElectionResult = () => {
         <div className="min-h-screen bg-base-200 flex flex-col items-center justify-center p-6">
             <div className="bg-white shadow-md border border-[#2a3793] rounded-lg p-8 w-full max-w-md text-center">
                 <h1 className="text-2xl font-bold text-[#2a3793] mb-6">
-                    Generate Election Reports
+                    Generate Election PDF
                 </h1>
-                {
-                    results.length === 0 ? 'No result is found!' :
-                        <div>
-                            <div className="mb-6">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Select Position
-                                </label>
-                                <select
-                                    className="select select-bordered w-full"
-                                    value={selectedPosition}
-                                    onChange={(e) => setSelectedPosition(e.target.value)}
-                                >
-                                    <option value="All">All Positions</option>
-                                    {positionRanking.map((pos, idx) => (
-                                        <option key={idx} value={pos}>
-                                            {pos}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <button
-                                onClick={handleDownloadPDF}
-                                className="btn bg-[#2a3793] text-white w-full rounded-md"
-                            >
-                                Download PDF
-                            </button>
-                        </div>
-                }
+                <div className="mb-6">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Select Position
+                    </label>
+                    <select
+                        className="select select-bordered w-full"
+                        value={selectedPosition}
+                        onChange={(e) => setSelectedPosition(e.target.value)}
+                    >
+                        <option value="All">All Positions</option>
+                        {positionRanking.map((pos, idx) => (
+                            <option key={idx} value={pos}>{pos}</option>
+                        ))}
+                    </select>
+                </div>
+                <button
+                    onClick={handleDownloadPDF}
+                    className="btn bg-[#2a3793] text-white w-full rounded-md"
+                >
+                    Download PDF
+                </button>
             </div>
         </div>
     );
