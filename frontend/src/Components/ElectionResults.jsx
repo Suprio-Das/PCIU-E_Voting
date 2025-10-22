@@ -226,10 +226,9 @@ const ElectionResult = () => {
             const pageWidth = doc.internal.pageSize.getWidth();
             const pageHeight = doc.internal.pageSize.getHeight();
             const marginX = 14;
-            const footerTop = pageHeight - 50; // Adjusted top position for footer block
-            const colWidth = (pageWidth - 2 * marginX) / 3; // 3 equal columns
+            const footerTop = pageHeight - 40; // previously -50 → moved down
+            const colWidth = (pageWidth - 2 * marginX) / 3;
 
-            // --- Row 1: Commissioners Info ---
             const commissioners = [
                 [
                     "Sowmitra Das",
@@ -257,8 +256,9 @@ const ElectionResult = () => {
                 ],
             ];
 
+            // --- Commissioners Info ---
             let x = marginX;
-            let y = footerTop;
+            let y = pageHeight - 65; // lowered further down from -50
 
             commissioners.forEach((info) => {
                 const [name, ...lines] = info;
@@ -269,37 +269,38 @@ const ElectionResult = () => {
                 doc.setFont("helvetica", "normal");
                 doc.setFontSize(8.3);
 
-                // Each commissioner block lines
                 let lineY = y + 4;
                 lines.forEach((line) => {
                     doc.text(line, x, lineY);
                     lineY += 3.5;
                 });
 
-                x += colWidth; // move to next column
+                x += colWidth;
             });
 
-            // Divider line above merged footer rows
+            // Divider line
+            const dividerY = pageHeight - 25;
             doc.setDrawColor(180);
-            doc.line(marginX, footerTop + 23, pageWidth - marginX, footerTop + 23);
+            doc.line(marginX, dividerY, pageWidth - marginX, dividerY);
 
-            // --- Row 2: Developer Info (merged 3 columns) ---
+            // Developer Info
             const devText =
                 "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University";
             doc.setFont("helvetica", "italic");
             doc.setFontSize(8.5);
-            doc.text(devText, pageWidth / 2, footerTop + 30, { align: "center" });
+            doc.text(devText, pageWidth / 2, dividerY + 7, { align: "center" });
 
-            // --- Row 3: Copyright (merged 3 columns) ---
+            // Copyright
             const copyrightText =
                 "Copyright © 2025 - All right reserved to Computer Club, Port City International University";
-            doc.text(copyrightText, pageWidth / 2, footerTop + 36, { align: "center" });
+            doc.text(copyrightText, pageWidth / 2, dividerY + 13, { align: "center" });
 
-            // --- Row 4: Page Number (merged 3 columns) ---
+            // Page number
             doc.setFont("helvetica", "normal");
             doc.setFontSize(9);
-            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, footerTop + 42, { align: "center" });
+            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, dividerY + 19, { align: "center" });
         };
+
 
 
         filteredResults.forEach((res, index) => {
