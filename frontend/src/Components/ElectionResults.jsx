@@ -205,15 +205,15 @@ const ElectionResult = () => {
             const commissioners = [
                 [
                     "Sowmitra Das",
-                    "Assistant Election Commissioner, 1st PCIU Computer Club Election",
+                    "Assistant Election Commissioner, 1st PCIU Computer Club Election"
                 ],
                 [
                     "Manoara Begum",
-                    "Assistant Election Commissioner, 1st PCIU Computer Club Election",
+                    "Assistant Election Commissioner, 1st PCIU Computer Club Election"
                 ],
                 [
                     "Prof. Dr. Engr. Mafzal Ahmed",
-                    "Chief Election Commissioner, 1st PCIU Computer Club Election",
+                    "Chief Election Commissioner, 1st PCIU Computer Club Election"
                 ],
             ];
 
