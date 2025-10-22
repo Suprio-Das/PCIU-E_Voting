@@ -252,7 +252,7 @@ const Commissioner = () => {
                             👥 Add Voters
                         </button>
                     </li>
-                    <li>
+                    {/* <li>
                         <button
                             disabled={stats === true}
                             onClick={() => setActiveSection("positions")}
@@ -261,7 +261,7 @@ const Commissioner = () => {
                         >
                             📝 Add Positions
                         </button>
-                    </li>
+                    </li> */}
                     <li>
                         <button
                             disabled={stats === true}
@@ -300,7 +300,7 @@ const Commissioner = () => {
                 {activeSection === "election" && (
                     <section className="text-center">
                         {
-                            positions?.length !== 0 && candidates?.length !== 0 && voters?.length !== 0 ?
+                            candidates?.length !== 0 && voters?.length !== 0 ?
                                 <div>
                                     <h1 className="text-3xl font-semibold mb-4">Start/Stop Election</h1>
                                     <p className="text-base-content flex justify-center items-center gap-2">
@@ -333,11 +333,11 @@ const Commissioner = () => {
                         {positions?.length !== 0 ? <AddCandidates setRefresh={setRefresh} positions={positions}></AddCandidates> : <h1 className="text-center">No position found. <span className="text-red-700 font-semibold">(You must add positions first).</span></h1>}
                     </section>
                 )}
-                {activeSection === "positions" && (
+                {/* {activeSection === "positions" && (
                     <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
                         <AddPositions setRefresh={setRefresh}></AddPositions>
                     </section>
-                )}
+                )} */}
                 {activeSection === "results" && (
                     <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl">
                         <ElectionResult></ElectionResult>

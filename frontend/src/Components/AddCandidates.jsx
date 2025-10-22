@@ -53,8 +53,8 @@ const AddCandidates = ({ setRefresh }) => {
 
     return (
         <div className="p-6 rounded-lg border border-base-300 bg-base-200">
-            <h2 className="text-xl font-semibold mb-4">📥 Upload Candidates Excel File</h2>
-            <h1>The Excel file should contain the below columns:</h1>
+            <h2 className="text-xl font-semibold mb-4 text-center">📥 Upload Candidates Excel File</h2>
+            <h1 className="text-center mb-3">The Excel file should contain the below columns:</h1>
             <div className="overflow-x-auto mb-3">
                 <table className="table table-zebra table-xs text-center">
                     <thead>
@@ -78,12 +78,14 @@ const AddCandidates = ({ setRefresh }) => {
                 </table>
             </div>
 
-            <input
-                type="file"
-                accept=".xlsx, .xls"
-                onChange={handleFileChange}
-                className="file-input file-input-bordered w-full max-w-xs"
-            />
+            <div className="flex justify-center">
+                <input
+                    type="file"
+                    accept=".xlsx, .xls"
+                    onChange={handleFileChange}
+                    className="file-input file-input-bordered w-full max-w-xs"
+                />
+            </div>
 
             {candidates.length > 0 && (
                 <div className="mt-4">
