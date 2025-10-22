@@ -4,6 +4,7 @@ import StudentModel from "../Models/Student.js";
 import VotingCountModel from "../Models/VoteCount.js";
 import VotingStatusModel from "../Models/VotingStatus.js"
 import { ObjectId } from 'mongodb';
+import { v2 as cloudinary } from "cloudinary";
 
 export const StartElection = async (req, res) => {
     try {
@@ -119,48 +120,110 @@ export const GetAllPositions = async (req, res) => {
     }
 }
 
+// export const AddCandidates = async (req, res) => {
+//     try {
+//         const { name, studentId, position } = req.body;
+
+//         // const symbolPath = req.file ? req.file.path.replace(/\\/g, "/") : null;
+//         // const fullSymbolUrl = symbolPath
+//         //     ? `${req.protocol}://${req.get("host")}/${symbolPath}`
+//         //     : null;
+
+//         const fullSymbolUrl = req.file ? req.file.path : null;
+
+//         if (!name || !studentId || !position || !fullSymbolUrl) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: "All fields are required.",
+//             });
+//         }
+
+//         const isCandidateExist = await CandidateModel.findOne({ studentId });
+//         if (isCandidateExist) {
+//             return res.status(401).json({ success: false, message: "Candidate already added." })
+//         }
+
+//         const newCandidate = await CandidateModel.create({
+//             name,
+//             studentId,
+//             position,
+//             symbol: fullSymbolUrl,
+//         });
+
+//         const newVotingCounts = await VotingCountModel.create({
+//             candidateId: newCandidate._id,
+//             position: position,
+//             totalVotes: 0
+//         })
+
+//         console.log(newVotingCounts)
+
+//         return res.status(200).json({
+//             success: true,
+//             message: "Candidate added successfully.",
+//             data: newCandidate,
+//         });
+//     } catch (error) {
+//         console.error("Error in AddCandidates:", error);
+//         return res.status(500).json({
+//             success: false,
+//             message: "Server Error",
+//             error: error.message,
+//         });
+//     }
+// };
+
 export const AddCandidates = async (req, res) => {
     try {
-        const { name, studentId, position } = req.body;
+        const candidates = req.body;
+        if (!Array.isArray(candidates) || candidates.length === 0) {
+            return res.status(400).json({ success: false, message: "No candidates found." });
+        }
 
-        // const symbolPath = req.file ? req.file.path.replace(/\\/g, "/") : null;
-        // const fullSymbolUrl = symbolPath
-        //     ? `${req.protocol}://${req.get("host")}/${symbolPath}`
-        //     : null;
+        const uploadedCandidates = [];
 
-        const fullSymbolUrl = req.file ? req.file.path : null;
+        for (const candidate of candidates) {
+            const { name, studentId, position, symbol } = candidate;
 
-        if (!name || !studentId || !position || !fullSymbolUrl) {
-            return res.status(400).json({
-                success: false,
-                message: "All fields are required.",
+            if (!name || !studentId || !position || !symbol) {
+                return res.status(400).json({
+                    success: false,
+                    message: "All fields (name, studentId, position, symbol) are required.",
+                });
+            }
+
+            // Check if already exists
+            const existing = await CandidateModel.findOne({ studentId });
+            if (existing) continue;
+
+            // Upload symbol image to Cloudinary
+            const uploaded = await cloudinary.uploader.upload(symbol, {
+                folder: "evoting-uploads",
+                resource_type: "image",
             });
+
+            // Create new candidate
+            const newCandidate = await CandidateModel.create({
+                name,
+                studentId,
+                position,
+                symbol: uploaded.secure_url,
+            });
+
+            // Initialize voting count
+            await VotingCountModel.create({
+                candidateId: newCandidate._id,
+                position,
+                totalVotes: 0,
+            });
+
+            uploadedCandidates.push(newCandidate);
         }
-
-        const isCandidateExist = await CandidateModel.findOne({ studentId });
-        if (isCandidateExist) {
-            return res.status(401).json({ success: false, message: "Candidate already added." })
-        }
-
-        const newCandidate = await CandidateModel.create({
-            name,
-            studentId,
-            position,
-            symbol: fullSymbolUrl,
-        });
-
-        const newVotingCounts = await VotingCountModel.create({
-            candidateId: newCandidate._id,
-            position: position,
-            totalVotes: 0
-        })
-
-        console.log(newVotingCounts)
 
         return res.status(200).json({
             success: true,
-            message: "Candidate added successfully.",
-            data: newCandidate,
+            message: "Candidates added successfully.",
+            data: uploadedCandidates,
         });
     } catch (error) {
         console.error("Error in AddCandidates:", error);
