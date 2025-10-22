@@ -226,7 +226,7 @@ const ElectionResult = () => {
             const pageWidth = doc.internal.pageSize.getWidth();
             const pageHeight = doc.internal.pageSize.getHeight();
             const marginX = 14;
-            const footerTop = pageHeight - 45; // top of footer block
+            const footerTop = pageHeight - 65; // top of footer block
             const colWidth = (pageWidth - 2 * marginX) / 3; // 3 equal columns
 
             // Row 1: Commissioners' Info
