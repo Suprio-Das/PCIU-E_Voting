@@ -226,7 +226,7 @@ const ElectionResult = () => {
             const pageWidth = doc.internal.pageSize.getWidth();
             const pageHeight = doc.internal.pageSize.getHeight();
             const marginX = 14;
-            const footerTop = pageHeight - 65; // top of footer block
+            const footerTop = pageHeight - 45; // top of footer block
             const colWidth = (pageWidth - 2 * marginX) / 3; // 3 equal columns
 
             // Row 1: Commissioners' Info
@@ -258,14 +258,14 @@ const ElectionResult = () => {
             ];
 
             doc.setFont("helvetica", "normal");
-            doc.setFontSize(9);
+            doc.setFontSize(7);
             let x = marginX;
             let y = footerTop;
 
             commissioners.forEach((info) => {
                 const [name, line1, line2] = info;
                 doc.text(name, x, y);
-                doc.setFontSize(8.2);
+                doc.setFontSize(8);
                 doc.text(line1, x, y + 4);
                 doc.text(line2, x, y + 8);
                 x += colWidth; // move to next column
