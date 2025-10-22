@@ -192,7 +192,7 @@ const ElectionResult = () => {
             doc.text("1st Executive Committee Election Results", pageWidth / 2, 26, { align: "center" });
             doc.setFont("helvetica", "normal");
             doc.setFontSize(10.5);
-            doc.text(`Generated on: ${new Date().toLocaleString()}`, { align: "center" });
+            doc.text(`Generated on: ${new Date().toLocaleString()}`, pageWidth / 2, 20, { align: "center" });
         };
 
         const renderFooter = (doc, pageNumber, totalPages) => {
