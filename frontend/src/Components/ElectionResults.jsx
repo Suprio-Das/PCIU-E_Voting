@@ -237,7 +237,7 @@ const ElectionResult = () => {
                     "1st PCIU Computer Club Election",
                     "and",
                     "Assitant Professor,",
-                    "Dept.of CSE, PCIU"
+                    "Dept.of CSE, PCIU",
                 ],
                 [
                     "Manoara Begum",
@@ -245,7 +245,7 @@ const ElectionResult = () => {
                     "1st PCIU Computer Club Election",
                     "and",
                     "Chairman,",
-                    "Dept.of CSE, PCIU"
+                    "Dept.of CSE, PCIU",
                 ],
                 [
                     "Prof. Dr. Engr. Mafzal Ahmed",
@@ -253,7 +253,7 @@ const ElectionResult = () => {
                     "1st PCIU Computer Club Election",
                     "and",
                     "Dean,",
-                    "Faculty of Science and Engineering, PCIU"
+                    "Faculty of Science and Engineering, PCIU",
                 ],
             ];
 
