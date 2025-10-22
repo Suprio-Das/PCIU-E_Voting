@@ -226,18 +226,18 @@ const ElectionResult = () => {
             const pageWidth = doc.internal.pageSize.getWidth();
             const pageHeight = doc.internal.pageSize.getHeight();
             const marginX = 14;
-            const footerTop = pageHeight - 45; // top of footer block
+            const footerTop = pageHeight - 50; // Adjusted top position for footer block
             const colWidth = (pageWidth - 2 * marginX) / 3; // 3 equal columns
 
-            // Row 1: Commissioners' Info
+            // --- Row 1: Commissioners Info ---
             const commissioners = [
                 [
                     "Sowmitra Das",
                     "Assistant Election Commissioner,",
                     "1st PCIU Computer Club Election",
                     "and",
-                    "Assitant Professor,",
-                    "Dept.of CSE, PCIU",
+                    "Assistant Professor,",
+                    "Dept. of CSE, PCIU",
                 ],
                 [
                     "Manoara Begum",
@@ -245,7 +245,7 @@ const ElectionResult = () => {
                     "1st PCIU Computer Club Election",
                     "and",
                     "Chairman,",
-                    "Dept.of CSE, PCIU",
+                    "Dept. of CSE, PCIU",
                 ],
                 [
                     "Prof. Dr. Engr. Mafzal Ahmed",
@@ -257,42 +257,50 @@ const ElectionResult = () => {
                 ],
             ];
 
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(7);
             let x = marginX;
             let y = footerTop;
 
             commissioners.forEach((info) => {
-                const [name, line1, line2] = info;
+                const [name, ...lines] = info;
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(9.5);
                 doc.text(name, x, y);
-                doc.setFontSize(8);
-                doc.text(line1, x, y + 4);
-                doc.text(line2, x, y + 8);
+
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(8.3);
+
+                // Each commissioner block lines
+                let lineY = y + 4;
+                lines.forEach((line) => {
+                    doc.text(line, x, lineY);
+                    lineY += 3.5;
+                });
+
                 x += colWidth; // move to next column
-                doc.setFontSize(9);
             });
 
-            // Divider line above the merged rows
+            // Divider line above merged footer rows
             doc.setDrawColor(180);
-            doc.line(marginX, footerTop + 12, pageWidth - marginX, footerTop + 12);
+            doc.line(marginX, footerTop + 23, pageWidth - marginX, footerTop + 23);
 
-            // Row 2: Developer Info (merged columns)
+            // --- Row 2: Developer Info (merged 3 columns) ---
             const devText =
                 "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University";
             doc.setFont("helvetica", "italic");
             doc.setFontSize(8.5);
-            doc.text(devText, pageWidth / 2, footerTop + 18, { align: "center" });
+            doc.text(devText, pageWidth / 2, footerTop + 30, { align: "center" });
 
-            // Row 3: Copyright (merged columns)
+            // --- Row 3: Copyright (merged 3 columns) ---
             const copyrightText =
                 "Copyright © 2025 - All right reserved to Computer Club, Port City International University";
-            doc.text(copyrightText, pageWidth / 2, footerTop + 24, { align: "center" });
+            doc.text(copyrightText, pageWidth / 2, footerTop + 36, { align: "center" });
 
-            // Row 4: Page Number (merged columns)
+            // --- Row 4: Page Number (merged 3 columns) ---
             doc.setFont("helvetica", "normal");
             doc.setFontSize(9);
-            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, footerTop + 30, { align: "center" });
+            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, footerTop + 42, { align: "center" });
         };
+
 
         filteredResults.forEach((res, index) => {
             const sortedCandidates = res.candidates.sort((a, b) => b.totalVotes - a.totalVotes);
