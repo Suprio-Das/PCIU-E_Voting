@@ -197,19 +197,92 @@ const ElectionResult = () => {
         };
 
         // footer renderer (drawn later on each page)
+        // const renderFooter = (doc, pageNumber, totalPages) => {
+        //     const footerY = pageHeight - 20;
+        //     doc.text()
+        //     doc.setFontSize(8.5);
+        //     doc.setFont("helvetica", "italic");
+        //     doc.text(
+        //         "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University",
+        //         marginX,
+        //         footerY,
+        //         { align: "left" }
+        //     );
+        //     doc.text()
+        //     doc.setFontSize(8.5);
+        //     doc.setFont("helvetica", "italic");
+        //     doc.text(
+        //         "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University",
+        //         marginX,
+        //         footerY,
+        //         { align: "left" }
+        //     );
+        //     doc.setFont("helvetica", "normal");
+        //     doc.setFontSize(9);
+        //     doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth - marginX, footerY, { align: "right" });
+        // };
+
         const renderFooter = (doc, pageNumber, totalPages) => {
-            const footerY = pageHeight - 10;
-            doc.setFontSize(8.5);
-            doc.setFont("helvetica", "italic");
-            doc.text(
-                "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University",
-                marginX,
-                footerY,
-                { align: "left" }
-            );
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const marginX = 14;
+            const footerTop = pageHeight - 45; // top of footer block
+            const colWidth = (pageWidth - 2 * marginX) / 3; // 3 equal columns
+
+            // Row 1: Commissioners' Info
+            const commissioners = [
+                [
+                    "Sowmitra Das",
+                    "Assistant Election Commissioner, 1st PCIU Computer Club Election",
+                    "and Assistant Professor, Dept. of CSE, PCIU",
+                ],
+                [
+                    "Mahbuba Begum",
+                    "Assistant Election Commissioner, 1st PCIU Computer Club Election",
+                    "and Chairman, Dept. of CSE, PCIU",
+                ],
+                [
+                    "Prof. Dr. Engr. Mafzal Ahmed",
+                    "Chief Election Commissioner, 1st PCIU Computer Club Election",
+                    "and Dean, Faculty of Science and Engineering, PCIU",
+                ],
+            ];
+
             doc.setFont("helvetica", "normal");
             doc.setFontSize(9);
-            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth - marginX, footerY, { align: "right" });
+            let x = marginX;
+            let y = footerTop;
+
+            commissioners.forEach((info) => {
+                const [name, line1, line2] = info;
+                doc.text(name, x, y);
+                doc.setFontSize(8.2);
+                doc.text(line1, x, y + 4);
+                doc.text(line2, x, y + 8);
+                x += colWidth; // move to next column
+                doc.setFontSize(9);
+            });
+
+            // Divider line above the merged rows
+            doc.setDrawColor(180);
+            doc.line(marginX, footerTop + 12, pageWidth - marginX, footerTop + 12);
+
+            // Row 2: Developer Info (merged columns)
+            const devText =
+                "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University";
+            doc.setFont("helvetica", "italic");
+            doc.setFontSize(8.5);
+            doc.text(devText, pageWidth / 2, footerTop + 18, { align: "center" });
+
+            // Row 3: Copyright (merged columns)
+            const copyrightText =
+                "Copyright © 2025 - All right reserved to Computer Club, Port City International University";
+            doc.text(copyrightText, pageWidth / 2, footerTop + 24, { align: "center" });
+
+            // Row 4: Page Number (merged columns)
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(9);
+            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, footerTop + 30, { align: "center" });
         };
 
         filteredResults.forEach((res, index) => {
