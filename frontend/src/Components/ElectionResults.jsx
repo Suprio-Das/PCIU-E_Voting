@@ -189,10 +189,10 @@ const ElectionResult = () => {
             doc.setFontSize(18);
             doc.text("PCIU E-Voting - PCIU Computer Club 1st Election", pageWidth / 2, 18, { align: "center" });
             doc.setFontSize(16);
-            doc.text("3rd Executive Committee Election Results", pageWidth / 2, 26, { align: "center" });
+            doc.text("1st Executive Committee Election Results", pageWidth / 2, 26, { align: "center" });
             doc.setFont("helvetica", "normal");
             doc.setFontSize(10.5);
-            doc.text(`Generated on: ${new Date().toLocaleString()}`, marginX, 34);
+            doc.text(`Generated on: ${new Date().toLocaleString()}`, { align: "center" });
         };
 
         const renderFooter = (doc, pageNumber, totalPages) => {
