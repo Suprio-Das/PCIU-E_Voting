@@ -180,11 +180,10 @@ const ElectionResult = () => {
         const pageWidth = doc.internal.pageSize.getWidth();
         const pageHeight = doc.internal.pageSize.getHeight();
         const marginX = 14;
-        const topMargin = 50; // reserved space for header
-        const bottomMargin = 20; // reserved space for footer
+        const topMargin = 50;
+        const bottomMargin = 35;
         let yPos = topMargin + 5;
 
-        // header renderer (drawn later on each page)
         const renderHeader = (doc) => {
             doc.setFont("helvetica", "bold");
             doc.setFontSize(18);
@@ -196,15 +195,13 @@ const ElectionResult = () => {
             doc.text(`Generated on: ${new Date().toLocaleString()}`, marginX, 34);
         };
 
-        // footer renderer (drawn later on each page)
         const renderFooter = (doc, pageNumber, totalPages) => {
             const pageWidth = doc.internal.pageSize.getWidth();
             const pageHeight = doc.internal.pageSize.getHeight();
             const marginX = 14;
-            const footerTop = pageHeight - 45; // top of footer block
-            const colWidth = (pageWidth - 2 * marginX) / 3; // 3 equal columns
+            const footerTop = pageHeight - 40;
+            const colWidth = (pageWidth - 2 * marginX) / 3;
 
-            // Row 1: Commissioners' Info
             const commissioners = [
                 [
                     "Sowmitra Das",
@@ -223,43 +220,42 @@ const ElectionResult = () => {
                 ],
             ];
 
+            let x = marginX;
             doc.setFont("helvetica", "normal");
             doc.setFontSize(9);
-            let x = marginX;
-            let y = footerTop;
 
             commissioners.forEach((info) => {
+                let y = footerTop;
                 const [name, line1, line2] = info;
+                const wrappedLine1 = doc.splitTextToSize(line1, colWidth - 4);
+                const wrappedLine2 = doc.splitTextToSize(line2, colWidth - 4);
+
                 doc.text(name, x, y);
                 doc.setFontSize(8.2);
-                doc.text(line1, x, y + 4);
-                doc.text(line2, x, y + 8);
-                x += colWidth; // move to next column
+                doc.text(wrappedLine1, x, y + 4);
+                doc.text(wrappedLine2, x, y + 8 + (wrappedLine1.length - 1) * 3);
+                x += colWidth;
                 doc.setFontSize(9);
             });
 
-            // Divider line above the merged rows
+            // Divider
             doc.setDrawColor(180);
-            doc.line(marginX, footerTop + 12, pageWidth - marginX, footerTop + 12);
+            doc.line(marginX, footerTop + 14, pageWidth - marginX, footerTop + 14);
 
-            // Row 2: Developer Info (merged columns)
             const devText =
                 "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University";
             doc.setFont("helvetica", "italic");
             doc.setFontSize(8.5);
-            doc.text(devText, pageWidth / 2, footerTop + 18, { align: "center" });
+            doc.text(devText, pageWidth / 2, footerTop + 20, { align: "center" });
 
-            // Row 3: Copyright (merged columns)
             const copyrightText =
                 "Copyright © 2025 - All right reserved to Computer Club, Port City International University";
-            doc.text(copyrightText, pageWidth / 2, footerTop + 24, { align: "center" });
+            doc.text(copyrightText, pageWidth / 2, footerTop + 26, { align: "center" });
 
-            // Row 4: Page Number (merged columns)
             doc.setFont("helvetica", "normal");
             doc.setFontSize(9);
-            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, footerTop + 30, { align: "center" });
+            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, footerTop + 32, { align: "center" });
         };
-
 
         filteredResults.forEach((res, index) => {
             const sortedCandidates = res.candidates.sort((a, b) => b.totalVotes - a.totalVotes);
@@ -273,7 +269,13 @@ const ElectionResult = () => {
                 c.totalVotes === maxVotes ? "Winner" : "",
             ]);
 
-            // Add a title before the table (start below reserved header area)
+            // Estimate table height before drawing
+            const estimatedHeight = 10 + tableData.length * 8;
+            if (yPos + estimatedHeight > pageHeight - bottomMargin - 20) {
+                doc.addPage();
+                yPos = topMargin + 5;
+            }
+
             doc.setFont("helvetica", "bold");
             doc.setFontSize(13.5);
             doc.text(`${index + 1}. ${res.position}`, marginX, yPos);
@@ -285,15 +287,11 @@ const ElectionResult = () => {
                 body: tableData,
                 theme: "grid",
                 headStyles: { fillColor: [42, 55, 147], halign: "center", textColor: 255 },
-                bodyStyles: {
-                    halign: "center",
-                    font: "helvetica",
-                    fontSize: 10.5,
-                },
+                bodyStyles: { halign: "center", font: "helvetica", fontSize: 10.5 },
                 margin: { top: topMargin + 5, bottom: bottomMargin, left: marginX, right: marginX },
                 didParseCell: (data) => {
                     if (data.row.raw[4] === "Winner") {
-                        data.cell.styles.fillColor = [180, 255, 180]; // light green highlight
+                        data.cell.styles.fillColor = [180, 255, 180];
                         data.cell.styles.textColor = [0, 64, 0];
                         data.cell.styles.fontStyle = "bold";
                     }
@@ -320,6 +318,7 @@ const ElectionResult = () => {
 
         doc.save(filename);
     };
+
 
     if (loading)
         return (
