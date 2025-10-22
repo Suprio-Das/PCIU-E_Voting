@@ -181,7 +181,7 @@ const ElectionResult = () => {
         const pageHeight = doc.internal.pageSize.getHeight();
         const marginX = 14;
         const topMargin = 50; // reserved space for header
-        const bottomMargin = 20; // reserved space for footer
+        const bottomMargin = 40; // Increased to reserve more space for footer
         let yPos = topMargin + 5;
 
         // header renderer (drawn later on each page)
@@ -197,36 +197,8 @@ const ElectionResult = () => {
         };
 
         // footer renderer (drawn later on each page)
-        // const renderFooter = (doc, pageNumber, totalPages) => {
-        //     const footerY = pageHeight - 20;
-        //     doc.text()
-        //     doc.setFontSize(8.5);
-        //     doc.setFont("helvetica", "italic");
-        //     doc.text(
-        //         "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University",
-        //         marginX,
-        //         footerY,
-        //         { align: "left" }
-        //     );
-        //     doc.text()
-        //     doc.setFontSize(8.5);
-        //     doc.setFont("helvetica", "italic");
-        //     doc.text(
-        //         "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University",
-        //         marginX,
-        //         footerY,
-        //         { align: "left" }
-        //     );
-        //     doc.setFont("helvetica", "normal");
-        //     doc.setFontSize(9);
-        //     doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth - marginX, footerY, { align: "right" });
-        // };
-
         const renderFooter = (doc, pageNumber, totalPages) => {
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const pageHeight = doc.internal.pageSize.getHeight();
-            const marginX = 14;
-            const footerTop = pageHeight - 40; // previously -50 → moved down
+            const footerTop = pageHeight - 60; // Lowered further to avoid overlap
             const colWidth = (pageWidth - 2 * marginX) / 3;
 
             const commissioners = [
@@ -256,9 +228,9 @@ const ElectionResult = () => {
                 ],
             ];
 
-            // --- Commissioners Info ---
+            // Commissioners Info
             let x = marginX;
-            let y = pageHeight - 65; // lowered further down from -50
+            let y = footerTop;
 
             commissioners.forEach((info) => {
                 const [name, ...lines] = info;
@@ -279,7 +251,7 @@ const ElectionResult = () => {
             });
 
             // Divider line
-            const dividerY = pageHeight - 25;
+            const dividerY = footerTop - 5;
             doc.setDrawColor(180);
             doc.line(marginX, dividerY, pageWidth - marginX, dividerY);
 
@@ -288,20 +260,18 @@ const ElectionResult = () => {
                 "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University";
             doc.setFont("helvetica", "italic");
             doc.setFontSize(8.5);
-            doc.text(devText, pageWidth / 2, dividerY + 7, { align: "center" });
+            doc.text(devText, pageWidth / 2, dividerY - 7, { align: "center" });
 
             // Copyright
             const copyrightText =
                 "Copyright © 2025 - All right reserved to Computer Club, Port City International University";
-            doc.text(copyrightText, pageWidth / 2, dividerY + 13, { align: "center" });
+            doc.text(copyrightText, pageWidth / 2, dividerY - 1, { align: "center" });
 
             // Page number
             doc.setFont("helvetica", "normal");
             doc.setFontSize(9);
-            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, dividerY + 19, { align: "center" });
+            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, dividerY + 5, { align: "center" });
         };
-
-
 
         filteredResults.forEach((res, index) => {
             const sortedCandidates = res.candidates.sort((a, b) => b.totalVotes - a.totalVotes);
@@ -315,7 +285,7 @@ const ElectionResult = () => {
                 c.totalVotes === maxVotes ? "Winner" : "",
             ]);
 
-            // Add a title before the table (start below reserved header area)
+            // Add a title before the table
             doc.setFont("helvetica", "bold");
             doc.setFontSize(13.5);
             doc.text(`${index + 1}. ${res.position}`, marginX, yPos);
@@ -340,8 +310,12 @@ const ElectionResult = () => {
                         data.cell.styles.fontStyle = "bold";
                     }
                 },
-                didDrawPage: () => {
-                    yPos = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : topMargin + 10;
+                didDrawPage: (data) => {
+                    yPos = data.cursor.y + 10; // Update yPos after table rendering
+                    if (yPos > pageHeight - bottomMargin - 60) { // Check if content is too close to footer
+                        doc.addPage();
+                        yPos = topMargin + 5; // Reset yPos for new page
+                    }
                 },
             });
 
