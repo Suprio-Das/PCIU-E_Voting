@@ -233,34 +233,39 @@ const ElectionResult = () => {
                 const wrappedLine1 = doc.splitTextToSize(line1, colWidth - 4);
                 const wrappedLine2 = doc.splitTextToSize(line2, colWidth - 4);
 
+                // Draw signature line first
+                doc.setFontSize(9);
                 doc.text(sign, x, y);
-                doc.setFontSize(8.2);
-                doc.text(name, x, y);
-                doc.setFontSize(8.2);
-                doc.text(wrappedLine1, x, y + 4);
-                doc.text(wrappedLine2, x, y + 8 + (wrappedLine1.length - 1) * 3);
+
+                // Then name and titles below it
+                doc.setFontSize(8.5);
+                doc.text(name, x, y + 5);
+                doc.text(wrappedLine1, x, y + 9);
+                doc.text(wrappedLine2, x, y + 13 + (wrappedLine1.length - 1) * 3);
+
                 x += colWidth;
                 doc.setFontSize(9);
             });
 
             // Divider
             doc.setDrawColor(180);
-            doc.line(marginX, footerTop + 14, pageWidth - marginX, footerTop + 14);
+            doc.line(marginX, footerTop + 18, pageWidth - marginX, footerTop + 18);
 
             const devText =
                 "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, IT Secretary, PCIU Computer Club";
             doc.setFont("helvetica", "italic");
             doc.setFontSize(8.5);
-            doc.text(devText, pageWidth / 2, footerTop + 20, { align: "center" });
+            doc.text(devText, pageWidth / 2, footerTop + 24, { align: "center" });
 
             const copyrightText =
                 "Copyright © 2025 - All right reserved to PCIU Computer Club, Port City International University";
-            doc.text(copyrightText, pageWidth / 2, footerTop + 26, { align: "center" });
+            doc.text(copyrightText, pageWidth / 2, footerTop + 30, { align: "center" });
 
             doc.setFont("helvetica", "normal");
             doc.setFontSize(9);
-            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, footerTop + 32, { align: "center" });
+            doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, footerTop + 36, { align: "center" });
         };
+
 
         filteredResults.forEach((res, index) => {
             const sortedCandidates = res.candidates.sort((a, b) => b.totalVotes - a.totalVotes);
