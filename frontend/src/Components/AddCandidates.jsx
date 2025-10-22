@@ -1,122 +1,102 @@
+import { useState } from "react";
+import * as XLSX from "xlsx";
 import api from "../Services/api";
 
-const AddCandidates = ({ positions, setRefresh }) => {
+const AddCandidates = ({ setRefresh }) => {
+    const [file, setFile] = useState(null);
+    const [candidates, setCandidates] = useState([]);
+    const [uploading, setUploading] = useState(false);
 
-    const handleAddCandidate = async (e) => {
-        e.preventDefault();
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        if (!selectedFile) return;
 
-        const form = e.target;
-        const name = form.name.value;
-        const studentId = form.studentId.value;
-        const position = form.position.value;
+        setFile(selectedFile);
 
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("studentId", studentId);
-        formData.append("position", position);
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+            const bstr = evt.target.result;
+            const workbook = XLSX.read(bstr, { type: "binary" });
 
-        // Append files
-        // if (form.photo.files[0]) {
-        //     formData.append("photo", form.photo.files[0]);
-        // }
-        if (form.symbol.files[0]) {
-            formData.append("symbol", form.symbol.files[0]);
+            const sheetName = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[sheetName];
+
+            // Convert to JSON
+            const jsonData = XLSX.utils.sheet_to_json(sheet);
+            setCandidates(jsonData);
+            console.log("Parsed Candidates JSON:", jsonData);
+        };
+        reader.readAsBinaryString(selectedFile);
+    };
+
+    const handleUpload = async () => {
+        if (!candidates || candidates.length === 0) {
+            alert("Please upload a valid Excel file first.");
+            return;
         }
 
+        setUploading(true);
         try {
-            const res = await api.post(
-                "api/commissioner/addcandidates",
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
-            );
-            if (res) {
-                alert('Candidate Added.')
-                setRefresh((prev) => !prev)
-                form.reset();
-            }
+            const res = await api.post("/api/commissioner/addcandidates", candidates);
+            alert(res.data.message || "Candidates added successfully!");
+            console.log("Server Response:", res.data);
+            setFile(null);
+            setCandidates([]);
+            setRefresh(prev => !prev);
         } catch (error) {
-            console.error("Error adding candidate:", error);
+            console.error("Error uploading candidates:", error);
+            alert("Error uploading candidates!");
+        } finally {
+            setUploading(false);
         }
     };
 
     return (
-        <div>
-            <h1 className="text-3xl font-semibold text-center my-3">
-                Add Candidates
-            </h1>
-            <div className="flex justify-center">
-                <form
-                    onSubmit={handleAddCandidate}
-                    className="w-[90%] p-2 grid lg:grid-cols-2 grid-cols-1 gap-5"
-                >
-                    {/* Candidate Name */}
-                    <fieldset className="fieldset">
-                        <legend className="fieldset-legend">Enter Candidate Name: </legend>
-                        <input
-                            type="text"
-                            className="input w-full outline-0 border-1 border-[#2a3793] focus-visible:outline-0 focus-visible:border-2"
-                            placeholder="Type here"
-                            name="name"
-                        />
-                    </fieldset>
-
-                    {/* Candidate Student ID */}
-                    <fieldset className="fieldset">
-                        <legend className="fieldset-legend">
-                            Enter Candidate Student ID:
-                        </legend>
-                        <input
-                            type="text"
-                            className="input w-full outline-0 border-1 border-[#2a3793] focus-visible:outline-0 focus-visible:border-2"
-                            placeholder="Type here"
-                            name="studentId"
-                        />
-                    </fieldset>
-
-                    {/* Candidate Position */}
-                    <fieldset className="fieldset">
-                        <legend className="fieldset-legend">Select Candidate Position</legend>
-                        <select
-                            defaultValue="Select a position"
-                            className="select w-full border-1 border-[#2a3793] rounded-md focus:outline-none focus:border-blue-500"
-                            name="position"
-                        >
-                            <option disabled={true}>Select a position</option>
-                            {
-                                positions?.map((position) => <option key={position._id}>{position.name}</option>)
-                            }
-                        </select>
-                    </fieldset>
-
-                    {/* Candidate Photo */}
-                    {/* <fieldset className="fieldset">
-                        <legend className="fieldset-legend">Upload Candidate Profile</legend>
-                        <input
-                            type="file"
-                            className="file-input w-full border-1 border-[#2a3793] rounded-md"
-                            name="photo"
-                        />
-                    </fieldset> */}
-
-                    {/* Candidate Symbol */}
-                    <fieldset className="fieldset">
-                        <legend className="fieldset-legend">Upload Candidate Symbol</legend>
-                        <input
-                            type="file"
-                            className="file-input w-full border-1 border-[#2a3793] rounded-md"
-                            name="symbol"
-                        />
-                    </fieldset>
-
-                    <button className="btn w-full col-span-2 bg-[#2a3793] text-white rounded-md">
-                        Add Candidate
-                    </button>
-                </form>
+        <div className="p-6 rounded-lg border border-base-300 bg-base-200">
+            <h2 className="text-xl font-semibold mb-4">📥 Upload Candidates Excel File</h2>
+            <h1>The Excel file should contain the below columns:</h1>
+            <div className="overflow-x-auto mb-3">
+                <table className="table table-zebra table-xs text-center">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>name</th>
+                            <th>studentId</th>
+                            <th>position</th>
+                            <th>symbol</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>1</th>
+                            <td>Suprio Das</td>
+                            <td>CSE 02807546</td>
+                            <td>President</td>
+                            <td>symbol.png</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+
+            <input
+                type="file"
+                accept=".xlsx, .xls"
+                onChange={handleFileChange}
+                className="file-input file-input-bordered w-full max-w-xs"
+            />
+
+            {candidates.length > 0 && (
+                <div className="mt-4">
+                    <p className="font-medium text-sm mb-2">✅ {candidates.length} candidates ready to upload.</p>
+                    <button
+                        onClick={handleUpload}
+                        disabled={uploading}
+                        className="btn bg-[#2a3793] text-white"
+                    >
+                        {uploading ? "Uploading..." : "Upload to Database"}
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
