@@ -259,6 +259,35 @@ export const GetElectionResult = async (req, res) => {
     }
 };
 
+export const GetVoteSummary = async (req, res) => {
+    try {
+        // Total Voters
+        const students = await StudentModel.find({});
+        const totalVoters = students.length;
+
+        // Total Casted Votes
+        // const votedStudents = await StudentModel.find({ voted: 'true' })
+        let totalCastedVotes = 0;
+        for (const student of students) {
+            if (student.voted === true) {
+                totalCastedVotes++
+            }
+        }
+
+        // Total Participants Percentage
+        const percentageInDecimal = totalCastedVotes / totalVoters;
+        const totalPercentage = percentageInDecimal * 100;
+        const totalPercentageFormatted = totalPercentage.toFixed(2);
+
+        const voteSummary = [totalVoters, totalCastedVotes, totalPercentageFormatted];
+
+        // Return the values
+        res.status(200).json({ success: true, voteSummary })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const ResetElectionInfo = async (req, res) => {
     try {
         const Candidates = await CandidateModel.deleteMany({})
