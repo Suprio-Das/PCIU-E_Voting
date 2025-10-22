@@ -214,7 +214,7 @@ const ElectionResult = () => {
                 doc.setFont("helvetica", "normal");
                 doc.setFontSize(10);
                 doc.text(
-                    `Total Voters: ${summary.totalVoters}    |    Casted Votes: ${summary.totalCastedVotes}    |    Participation: ${summary.totalPercentageFormatted}%`,
+                    `Total Voters: ${summary.totalVoters}    |    Total Casted Votes: ${summary.totalCastedVotes}    |    Total Participation: ${summary.totalPercentageFormatted}%`,
                     pageWidth / 2,
                     44,
                     { align: "center" }
