@@ -330,7 +330,7 @@ const Commissioner = () => {
                 )}
                 {activeSection === "candidates" && (
                     <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
-                        {positions?.length !== 0 ? <AddCandidates setRefresh={setRefresh} positions={positions}></AddCandidates> : <h1 className="text-center">No position found. <span className="text-red-700 font-semibold">(You must add positions first).</span></h1>}
+                        <AddCandidates setRefresh={setRefresh}></AddCandidates>
                     </section>
                 )}
                 {/* {activeSection === "positions" && (
