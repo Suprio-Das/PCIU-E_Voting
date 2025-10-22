@@ -204,16 +204,19 @@ const ElectionResult = () => {
 
             const commissioners = [
                 [
+                    "________________",
                     "Sowmitra Das",
                     "Assistant Election Commissioner,",
                     "1st PCIU Computer Club Election",
                 ],
                 [
+                    "________________",
                     "Manoara Begum",
                     "Assistant Election Commissioner,",
                     "1st PCIU Computer Club Election",
                 ],
                 [
+                    "_______________________________",
                     "Prof. Dr. Engr. Mafzal Ahmed",
                     "Chief Election Commissioner,",
                     "1st PCIU Computer Club Election",
@@ -226,10 +229,12 @@ const ElectionResult = () => {
 
             commissioners.forEach((info) => {
                 let y = footerTop;
-                const [name, line1, line2] = info;
+                const [sign, name, line1, line2] = info;
                 const wrappedLine1 = doc.splitTextToSize(line1, colWidth - 4);
                 const wrappedLine2 = doc.splitTextToSize(line2, colWidth - 4);
 
+                doc.text(sign, x, y);
+                doc.setFontSize(8.2);
                 doc.text(name, x, y);
                 doc.setFontSize(8.2);
                 doc.text(wrappedLine1, x, y + 4);
@@ -243,13 +248,13 @@ const ElectionResult = () => {
             doc.line(marginX, footerTop + 14, pageWidth - marginX, footerTop + 14);
 
             const devText =
-                "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, Port City International University";
+                "Software Generated Report. Designed & Developed by: Suprio Das, CSE 28A Day, IT Secretary, PCIU Computer Club";
             doc.setFont("helvetica", "italic");
             doc.setFontSize(8.5);
             doc.text(devText, pageWidth / 2, footerTop + 20, { align: "center" });
 
             const copyrightText =
-                "Copyright © 2025 - All right reserved to Computer Club, Port City International University";
+                "Copyright © 2025 - All right reserved to PCIU Computer Club, Port City International University";
             doc.text(copyrightText, pageWidth / 2, footerTop + 26, { align: "center" });
 
             doc.setFont("helvetica", "normal");
