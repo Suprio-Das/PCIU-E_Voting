@@ -206,17 +206,14 @@ const ElectionResult = () => {
                 [
                     "Sowmitra Das",
                     "Assistant Election Commissioner, 1st PCIU Computer Club Election",
-                    "and Assistant Professor, Dept. of CSE, PCIU",
                 ],
                 [
-                    "Mahbuba Begum",
+                    "Manoara Begum",
                     "Assistant Election Commissioner, 1st PCIU Computer Club Election",
-                    "and Chairman, Dept. of CSE, PCIU",
                 ],
                 [
                     "Prof. Dr. Engr. Mafzal Ahmed",
                     "Chief Election Commissioner, 1st PCIU Computer Club Election",
-                    "and Dean, Faculty of Science and Engineering, PCIU",
                 ],
             ];
 
