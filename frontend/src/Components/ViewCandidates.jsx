@@ -17,16 +17,14 @@ const ViewCandidates = () => {
             setLoading(true);
             try {
                 const res = await api.get("api/vote/getcandidatewithposition");
-                if (res.data.success) {
-                    const sorted = res.data.data.sort(
-                        (a, b) => positionRanking.indexOf(a.position) - positionRanking.indexOf(b.position)
-                    );
-                    setCandidates(sorted);
-                }
+                const sorted = res.data.data.sort(
+                    (a, b) =>
+                        positionRanking.indexOf(a.position) - positionRanking.indexOf(b.position)
+                );
+                setCandidates(sorted);
+                setLoading(false);
             } catch (error) {
                 console.error("Error fetching candidates:", error);
-            } finally {
-                setLoading(false);
             }
         };
         fetchCandidates();
