@@ -36,56 +36,101 @@ export const VerifyVoter = async (req, res) => {
     }
 }
 
+// export const SubmitVote = async (req, res) => {
+//     try {
+//         const { studentId, candidates } = req.body;
+//         const query = { studentId: studentId };
+//         const student = await StudentModel.findOne(query);
+
+//         // Update student voting status to voted
+//         const updatedVoteStatus = {
+//             $set: {
+//                 voted: true
+//             }
+//         }
+//         const updateQuery = { _id: new ObjectId(student._id) }
+//         const updatedStudent = await StudentModel.findByIdAndUpdate(updateQuery, updatedVoteStatus)
+//         if (!updatedStudent) {
+//             return res.status(501).json({ success: false, message: "Issues while submitting vote." })
+//         }
+
+//         // Adding votes to the candidates
+//         for (const candidate of candidates) {
+//             const filter = { candidateId: new ObjectId(candidate) }
+//             // Finding the candidate position
+//             const currentCandidatePosition = await CandidateModel.findById(candidate);
+//             const currentVoteCount = await VotingCountModel.findOne(filter);
+//             let update;
+//             if (!currentVoteCount) {
+//                 update = {
+//                     $set: {
+//                         candidateId: candidate,
+//                         position: currentCandidatePosition.position,
+//                         totalVotes: 1
+//                     }
+//                 }
+//             } else {
+//                 update = {
+//                     $set: {
+//                         totalVotes: currentVoteCount.totalVotes + 1
+//                     }
+//                 }
+//             }
+
+//             const options = { upsert: true, new: true };
+//             await VotingCountModel.findOneAndUpdate(filter, update, options);
+//         }
+//         io.emit('vote_submitted', { studentId });
+//         return res.status(200).json({ success: true, message: "Voted successfully." })
+//     } catch (error) {
+//         res.send(error);
+//     }
+// }
+
 export const SubmitVote = async (req, res) => {
     try {
         const { studentId, candidates } = req.body;
-        const query = { studentId: studentId };
-        const student = await StudentModel.findOne(query);
 
-        // Update student voting status to voted
-        const updatedVoteStatus = {
-            $set: {
-                voted: true
-            }
-        }
-        const updateQuery = { _id: new ObjectId(student._id) }
-        const updatedStudent = await StudentModel.findByIdAndUpdate(updateQuery, updatedVoteStatus)
-        if (!updatedStudent) {
-            return res.status(501).json({ success: false, message: "Issues while submitting vote." })
+        const student = await StudentModel.findOneAndUpdate(
+            { studentId },
+            { $set: { voted: true } },
+            { new: true }
+        );
+
+        if (!student) {
+            return res.status(404).json({ success: false, message: "Student not found." });
         }
 
-        // Adding votes to the candidates
-        for (const candidate of candidates) {
-            const filter = { candidateId: new ObjectId(candidate) }
-            // Finding the candidate position
-            const currentCandidatePosition = await CandidateModel.findById(candidate);
-            const currentVoteCount = await VotingCountModel.findOne(filter);
-            let update;
-            if (!currentVoteCount) {
-                update = {
+        const votePromises = candidates.map(async candidateId => {
+            const candidate = await CandidateModel.findById(candidateId);
+            if (!candidate) return;
+
+            const filter = { candidateId: new ObjectId(candidateId) };
+            const currentVote = await VotingCountModel.findOne(filter);
+
+            const update = currentVote
+                ? { $inc: { totalVotes: 1 } }
+                : {
                     $set: {
-                        candidateId: candidate,
-                        position: currentCandidatePosition.position,
+                        candidateId,
+                        position: candidate.position,
                         totalVotes: 1
                     }
-                }
-            } else {
-                update = {
-                    $set: {
-                        totalVotes: currentVoteCount.totalVotes + 1
-                    }
-                }
-            }
+                };
 
             const options = { upsert: true, new: true };
-            await VotingCountModel.findOneAndUpdate(filter, update, options);
-        }
+            return VotingCountModel.findOneAndUpdate(filter, update, options);
+        });
+
+        await Promise.all(votePromises);
+
         io.emit('vote_submitted', { studentId });
-        return res.status(200).json({ success: true, message: "Voted successfully." })
+        return res.status(200).json({ success: true, message: "Voted successfully." });
     } catch (error) {
-        res.send(error);
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error.", error });
     }
-}
+};
 
 export const GetVoters = async (req, res) => {
     try {
