@@ -43,7 +43,7 @@ const ViewCandidates = () => {
             </h1>
 
             <div className="overflow-x-auto shadow-lg border border-[#2a3793] rounded-lg p-4 bg-white">
-                {candidates.map((res, index) => (
+                {candidates?.map((res, index) => (
                     <div key={index} className="mb-8">
                         <h2 className="text-lg font-semibold mb-3 text-[#2a3793] border-b border-gray-300 pb-1">
                             {index + 1}. {res.position}
