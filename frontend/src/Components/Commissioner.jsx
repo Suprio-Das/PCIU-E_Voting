@@ -11,6 +11,7 @@ import { io } from "socket.io-client";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from 'sweetalert2';
+import ViewCandidates from "./ViewCandidates";
 
 const Commissioner = () => {
     const [activeSection, setActiveSection] = useState("election");
@@ -275,6 +276,16 @@ const Commissioner = () => {
                     <li>
                         <button
                             disabled={stats === true}
+                            onClick={() => setActiveSection("viewcandidates")}
+                            className={`hover:bg-base-300 rounded-lg  ${activeSection === "viewcandidates" ? "bg-base-300 font-semibold" : ""
+                                } ${candidates?.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                            👨‍💼 View Candidates
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            disabled={stats === true}
                             onClick={() => setActiveSection("results")}
                             className={`hover:bg-base-300 rounded-lg  ${activeSection === "results" ? "bg-base-300 font-semibold" : ""
                                 } ${stats === true ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -331,6 +342,11 @@ const Commissioner = () => {
                 {activeSection === "candidates" && (
                     <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
                         <AddCandidates setRefresh={setRefresh}></AddCandidates>
+                    </section>
+                )}
+                {activeSection === "viewcandidates" && (
+                    <section className="w-4/5 shadow-lg border-1 border-[#2a3793] rounded-xl py-4">
+                        <ViewCandidates candidates={candidates}></ViewCandidates>
                     </section>
                 )}
                 {/* {activeSection === "positions" && (
