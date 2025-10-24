@@ -59,6 +59,12 @@ app.get('/', (req, res) => {
     res.send('PCIU E-voting server is runnning.')
 })
 
+// Render Awake Route
+app.get('/awake', (req, res) => {
+    console.log("Server ping at: ", new Date());
+    res.status(200).json({ success: true, message: "Server is awake." })
+})
+
 // ======================APP Routes========================\\
 app.use('/api/auth', AuthRoutes);
 app.use('/api/commissioner', CommissionerRoutes);
